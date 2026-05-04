@@ -1,0 +1,39 @@
+ESCALA WEB V19 → V20 CIRUGÍA DE RUTAS / BRIEF / LOGO
+
+Cambios aplicados:
+
+1) Navegación unificada
+- index.html ya no tiene un set distinto de rutas.
+- sistema.html, servicios.html, proceso.html, portfolio.html, blog.html, blog-posts, pack-prompts, guía, contacto y páginas comerciales usan la misma lógica:
+  Inicio / Sistema / Servicios / Proceso / Portfolio / Biblioteca / Dashboard + CTA Diagnóstico.
+- En index/artículos/infoproductos con navlinks se normalizó a:
+  Inicio / Sistema / Servicios / Proceso / Portfolio / Biblioteca / Diagnóstico / Dashboard.
+
+2) Diagnóstico corregido
+- Los CTAs que decían Diagnóstico / Solicitar diagnóstico / Aplicar a mi negocio ya no apuntan a contacto.html.
+- Ahora apuntan a brief.html, que es el diagnóstico real.
+- contacto.html queda como página de contacto/email/redes, no como diagnóstico principal.
+
+3) Rutas especiales
+- sistema-ia.html e infoproducto-sistema-ia.html ahora tienen accesos claros a Biblioteca, Infoproductos y Diagnóstico.
+- checkout-sistema-ia.html ahora permite volver a Sistema IA, Biblioteca y Diagnóstico.
+- dashboard.html añade accesos a Inicio, Biblioteca y Nuevo diagnóstico.
+- brief.html añade accesos discretos a Inicio, Biblioteca y Contacto sin romper su navegación interna.
+- blog/*.html recibe una mini navegación legacy: ESCALA / Biblioteca / Infoproductos / Diagnóstico.
+
+4) Logo optimizado
+- Eliminados símbolos duplicados en marcas donde aparecía logo oficial + icono SVG/E sintético a la vez.
+- Corregido brief.html: tenía logo directo + logo-stage simultáneos dentro de .brand.
+- Se conserva el logo oficial assets/img/logo-escala-original.png.
+
+5) Brief reparado
+- Eliminado el logo duplicado visible en lateral.
+- Botonera inferior reforzada para no tapar contenido y funcionar mejor en móvil.
+- Añadidos enlaces globales discretos sin contaminar el formulario.
+- Validado: no hay JavaScript visible como texto en el body.
+- Validado: scripts pasan node --check.
+
+6) Validaciones
+- Enlaces internos rotos: 0.
+- Errores de sintaxis JavaScript: 0.
+- Duplicados logo oficial + símbolo sintético en .brand: 0.

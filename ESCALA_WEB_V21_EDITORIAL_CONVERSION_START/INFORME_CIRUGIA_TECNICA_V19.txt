@@ -1,0 +1,305 @@
+INFORME CIRUGÍA TÉCNICA — ESCALA WEB V19
+Base utilizada: ESCALA_WEB_FINAL_V19_INDEX_LOGO_MOBILE_FIX.zip
+Tipo de intervención: reparación quirúrgica de enlaces, logo y assets. Sin rediseño.
+
+CAMBIOS REALIZADOS
+- Enlaces internos normalizados para navegación local en misma pestaña: 390 modificaciones de atributos/rutas.
+- Logos inline/base64 sustituidos por asset local real: 15 ajustes.
+- Logo principal procesado para fondo transparente: assets/img/logo-escala-original.png
+- Favicon generado desde el logo: assets/img/favicon.png
+- Archivos internos excluidos del ZIP final para evitar confusión: 14
+  · AUDITORIA_FINAL_V3.txt
+  · AUDITORIA_FINAL_V6_CONTENIDO_COMPLETO.txt
+  · AUDITORIA_FINAL_V7_RAPIDA_CURSOR_OK.txt
+  · AUDITORIA_FINAL_V8_ESTABLE.txt
+  · AUDITORIA_FINAL_V9_NAVEGACION_TABS.txt
+  · AUDITORIA_V13_CORRECCION_COMPLETA.txt
+  · AUDITORIA_V14_FIX_REAL.txt
+  · AUDITORIA_V15_DASHBOARD_CONTROL_CENTER.txt
+  · AUDITORIA_V19_REPARACION_INDEX_LOGO_MOBILE.txt
+  · README.txt
+  · README_ABRIR_PRIMERO.txt
+  · README_ABRIR_WEB.txt
+  · README_V11_PREMIUM.txt
+  · README_V12_DASHBOARD_INDEX_FIX.txt
+
+CONTROL FINAL
+- HTML incluidos: 34
+- Enlaces internos rotos detectados: 0
+- Imágenes locales faltantes detectadas: 0
+- index.html en raíz: True
+
+DETALLE ENLACES MODIFICADOS
+- blog-post-automatizar-leads-ia.html: index.html -> index.html
+- blog-post-automatizar-leads-ia.html: sistema.html -> sistema.html
+- blog-post-automatizar-leads-ia.html: servicios.html -> servicios.html
+- blog-post-automatizar-leads-ia.html: proceso.html -> proceso.html
+- blog-post-automatizar-leads-ia.html: portfolio.html -> portfolio.html
+- blog-post-automatizar-leads-ia.html: blog.html -> blog.html
+- blog-post-automatizar-leads-ia.html: contacto.html -> contacto.html
+- blog-post-automatizar-leads-ia.html: contacto.html -> contacto.html
+- blog-post-automatizar-leads-ia.html: blog.html -> blog.html
+- blog-post-automatizar-leads-ia.html: index.html -> index.html
+- blog-post-automatizar-leads-ia.html: sistema.html -> sistema.html
+- blog-post-automatizar-leads-ia.html: servicios.html -> servicios.html
+- blog-post-automatizar-leads-ia.html: proceso.html -> proceso.html
+- blog-post-automatizar-leads-ia.html: portfolio.html -> portfolio.html
+- blog-post-automatizar-leads-ia.html: blog.html -> blog.html
+- blog-post-automatizar-leads-ia.html: dashboard.html -> dashboard.html
+- blog-post-automatizar-leads-ia.html: contacto.html -> contacto.html
+- blog-post-automatizar-leads-ia.html: sistema-ia.html -> sistema-ia.html
+- blog-post-automatizar-leads-ia.html: pack-prompts-ia.html -> pack-prompts-ia.html
+- blog-post-automatizar-leads-ia.html: guia-diagnostico-digital.html -> guia-diagnostico-digital.html
+- blog-post-automatizar-leads-ia.html: checkout-sistema-ia.html -> checkout-sistema-ia.html
+- blog-post-automatizar-leads-ia.html: blog-post-landing-ia.html -> blog-post-landing-ia.html
+- blog-post-automatizar-leads-ia.html: blog-post-encontrar-clientes-ia.html -> blog-post-encontrar-clientes-ia.html
+- blog-post-automatizar-leads-ia.html: sistema.html -> sistema.html
+- blog-post-automatizar-leads-ia.html: proceso.html -> proceso.html
+- blog-post-automatizar-leads-ia.html: dashboard.html -> dashboard.html
+- blog-post-automatizar-leads-ia.html: portfolio.html -> portfolio.html
+- blog-post-automatizar-leads-ia.html: blog.html -> blog.html
+- blog-post-automatizar-leads-ia.html: contacto.html -> contacto.html
+- blog-post-encontrar-clientes-ia.html: index.html -> index.html
+- blog-post-encontrar-clientes-ia.html: sistema.html -> sistema.html
+- blog-post-encontrar-clientes-ia.html: servicios.html -> servicios.html
+- blog-post-encontrar-clientes-ia.html: proceso.html -> proceso.html
+- blog-post-encontrar-clientes-ia.html: portfolio.html -> portfolio.html
+- blog-post-encontrar-clientes-ia.html: blog.html -> blog.html
+- blog-post-encontrar-clientes-ia.html: contacto.html -> contacto.html
+- blog-post-encontrar-clientes-ia.html: contacto.html -> contacto.html
+- blog-post-encontrar-clientes-ia.html: blog.html -> blog.html
+- blog-post-encontrar-clientes-ia.html: index.html -> index.html
+- blog-post-encontrar-clientes-ia.html: sistema.html -> sistema.html
+- blog-post-encontrar-clientes-ia.html: servicios.html -> servicios.html
+- blog-post-encontrar-clientes-ia.html: proceso.html -> proceso.html
+- blog-post-encontrar-clientes-ia.html: portfolio.html -> portfolio.html
+- blog-post-encontrar-clientes-ia.html: blog.html -> blog.html
+- blog-post-encontrar-clientes-ia.html: dashboard.html -> dashboard.html
+- blog-post-encontrar-clientes-ia.html: contacto.html -> contacto.html
+- blog-post-encontrar-clientes-ia.html: sistema-ia.html -> sistema-ia.html
+- blog-post-encontrar-clientes-ia.html: pack-prompts-ia.html -> pack-prompts-ia.html
+- blog-post-encontrar-clientes-ia.html: guia-diagnostico-digital.html -> guia-diagnostico-digital.html
+- blog-post-encontrar-clientes-ia.html: checkout-sistema-ia.html -> checkout-sistema-ia.html
+- blog-post-encontrar-clientes-ia.html: blog-post-landing-ia.html -> blog-post-landing-ia.html
+- blog-post-encontrar-clientes-ia.html: blog-post-automatizar-leads-ia.html -> blog-post-automatizar-leads-ia.html
+- blog-post-encontrar-clientes-ia.html: sistema.html -> sistema.html
+- blog-post-encontrar-clientes-ia.html: proceso.html -> proceso.html
+- blog-post-encontrar-clientes-ia.html: dashboard.html -> dashboard.html
+- blog-post-encontrar-clientes-ia.html: portfolio.html -> portfolio.html
+- blog-post-encontrar-clientes-ia.html: blog.html -> blog.html
+- blog-post-encontrar-clientes-ia.html: contacto.html -> contacto.html
+- blog-post-landing-ia.html: index.html -> index.html
+- blog-post-landing-ia.html: sistema.html -> sistema.html
+- blog-post-landing-ia.html: servicios.html -> servicios.html
+- blog-post-landing-ia.html: proceso.html -> proceso.html
+- blog-post-landing-ia.html: portfolio.html -> portfolio.html
+- blog-post-landing-ia.html: blog.html -> blog.html
+- blog-post-landing-ia.html: contacto.html -> contacto.html
+- blog-post-landing-ia.html: contacto.html -> contacto.html
+- blog-post-landing-ia.html: blog.html -> blog.html
+- blog-post-landing-ia.html: index.html -> index.html
+- blog-post-landing-ia.html: sistema.html -> sistema.html
+- blog-post-landing-ia.html: servicios.html -> servicios.html
+- blog-post-landing-ia.html: proceso.html -> proceso.html
+- blog-post-landing-ia.html: portfolio.html -> portfolio.html
+- blog-post-landing-ia.html: blog.html -> blog.html
+- blog-post-landing-ia.html: dashboard.html -> dashboard.html
+- blog-post-landing-ia.html: contacto.html -> contacto.html
+- blog-post-landing-ia.html: sistema-ia.html -> sistema-ia.html
+- blog-post-landing-ia.html: pack-prompts-ia.html -> pack-prompts-ia.html
+- blog-post-landing-ia.html: guia-diagnostico-digital.html -> guia-diagnostico-digital.html
+- blog-post-landing-ia.html: checkout-sistema-ia.html -> checkout-sistema-ia.html
+- blog-post-landing-ia.html: blog-post-encontrar-clientes-ia.html -> blog-post-encontrar-clientes-ia.html
+- blog-post-landing-ia.html: blog-post-automatizar-leads-ia.html -> blog-post-automatizar-leads-ia.html
+- blog-post-landing-ia.html: sistema.html -> sistema.html
+- blog-post-landing-ia.html: proceso.html -> proceso.html
+- blog-post-landing-ia.html: dashboard.html -> dashboard.html
+- blog-post-landing-ia.html: portfolio.html -> portfolio.html
+- blog-post-landing-ia.html: blog.html -> blog.html
+- blog-post-landing-ia.html: contacto.html -> contacto.html
+- blog.html: index.html -> index.html
+- blog.html: sistema.html -> sistema.html
+- blog.html: servicios.html -> servicios.html
+- blog.html: proceso.html -> proceso.html
+- blog.html: portfolio.html -> portfolio.html
+- blog.html: blog.html -> blog.html
+- blog.html: contacto.html -> contacto.html
+- blog.html: contacto.html -> contacto.html
+- blog.html: pack-prompts-ia.html -> pack-prompts-ia.html
+- blog.html: guia-diagnostico-digital.html -> guia-diagnostico-digital.html
+- blog.html: sistema-ia.html -> sistema-ia.html
+- blog.html: contacto.html -> contacto.html
+- blog.html: servicios.html -> servicios.html
+- blog.html: checkout-sistema-ia.html -> checkout-sistema-ia.html
+- blog.html: index.html -> index.html
+- blog.html: sistema.html -> sistema.html
+- blog.html: servicios.html -> servicios.html
+- blog.html: proceso.html -> proceso.html
+- blog.html: portfolio.html -> portfolio.html
+- blog.html: dashboard.html -> dashboard.html
+- blog.html: contacto.html -> contacto.html
+- blog.html: sistema-ia.html -> sistema-ia.html
+- blog.html: pack-prompts-ia.html -> pack-prompts-ia.html
+- blog.html: guia-diagnostico-digital.html -> guia-diagnostico-digital.html
+- blog.html: checkout-sistema-ia.html -> checkout-sistema-ia.html
+- blog.html: blog-post-landing-ia.html -> blog-post-landing-ia.html
+- blog.html: blog-post-encontrar-clientes-ia.html -> blog-post-encontrar-clientes-ia.html
+- blog.html: blog-post-automatizar-leads-ia.html -> blog-post-automatizar-leads-ia.html
+- blog.html: sistema.html -> sistema.html
+- blog.html: proceso.html -> proceso.html
+- blog.html: dashboard.html -> dashboard.html
+- blog.html: portfolio.html -> portfolio.html
+- blog.html: blog.html -> blog.html
+- blog.html: contacto.html -> contacto.html
+- checkout-sistema-ia.html: index.html -> index.html
+- checkout-sistema-ia.html: sistema-ia.html -> sistema-ia.html
+- checkout-sistema-ia.html: checkout-sistema-ia.html -> checkout-sistema-ia.html
+- checkout-sistema-ia.html: index.html -> index.html
+- checkout-sistema-ia.html: sistema.html -> sistema.html
+- checkout-sistema-ia.html: servicios.html -> servicios.html
+- checkout-sistema-ia.html: proceso.html -> proceso.html
+- checkout-sistema-ia.html: portfolio.html -> portfolio.html
+- checkout-sistema-ia.html: blog.html -> blog.html
+- checkout-sistema-ia.html: dashboard.html -> dashboard.html
+- checkout-sistema-ia.html: contacto.html -> contacto.html
+- checkout-sistema-ia.html: sistema-ia.html -> sistema-ia.html
+- checkout-sistema-ia.html: pack-prompts-ia.html -> pack-prompts-ia.html
+- checkout-sistema-ia.html: guia-diagnostico-digital.html -> guia-diagnostico-digital.html
+- checkout-sistema-ia.html: blog-post-landing-ia.html -> blog-post-landing-ia.html
+- checkout-sistema-ia.html: blog-post-encontrar-clientes-ia.html -> blog-post-encontrar-clientes-ia.html
+- checkout-sistema-ia.html: blog-post-automatizar-leads-ia.html -> blog-post-automatizar-leads-ia.html
+- contacto.html: index.html -> index.html
+- contacto.html: sistema.html -> sistema.html
+- contacto.html: servicios.html -> servicios.html
+- contacto.html: proceso.html -> proceso.html
+- contacto.html: portfolio.html -> portfolio.html
+- contacto.html: blog.html -> blog.html
+- contacto.html: contacto.html -> contacto.html
+- contacto.html: index.html -> index.html
+- contacto.html: sistema.html -> sistema.html
+- contacto.html: servicios.html -> servicios.html
+- contacto.html: proceso.html -> proceso.html
+- contacto.html: portfolio.html -> portfolio.html
+- contacto.html: blog.html -> blog.html
+- contacto.html: dashboard.html -> dashboard.html
+- contacto.html: sistema-ia.html -> sistema-ia.html
+- contacto.html: pack-prompts-ia.html -> pack-prompts-ia.html
+- contacto.html: guia-diagnostico-digital.html -> guia-diagnostico-digital.html
+- contacto.html: checkout-sistema-ia.html -> checkout-sistema-ia.html
+- contacto.html: blog-post-landing-ia.html -> blog-post-landing-ia.html
+- contacto.html: blog-post-encontrar-clientes-ia.html -> blog-post-encontrar-clientes-ia.html
+- contacto.html: blog-post-automatizar-leads-ia.html -> blog-post-automatizar-leads-ia.html
+- contacto.html: sistema.html -> sistema.html
+- contacto.html: proceso.html -> proceso.html
+- contacto.html: dashboard.html -> dashboard.html
+- contacto.html: portfolio.html -> portfolio.html
+- contacto.html: blog.html -> blog.html
+- contacto.html: contacto.html -> contacto.html
+- guia-diagnostico-digital.html: index.html -> index.html
+- guia-diagnostico-digital.html: sistema.html -> sistema.html
+- guia-diagnostico-digital.html: servicios.html -> servicios.html
+- guia-diagnostico-digital.html: proceso.html -> proceso.html
+- guia-diagnostico-digital.html: portfolio.html -> portfolio.html
+- guia-diagnostico-digital.html: blog.html -> blog.html
+- guia-diagnostico-digital.html: contacto.html -> contacto.html
+- guia-diagnostico-digital.html: contacto.html -> contacto.html
+- guia-diagnostico-digital.html: contacto.html -> contacto.html
+- guia-diagnostico-digital.html: index.html -> index.html
+- guia-diagnostico-digital.html: sistema.html -> sistema.html
+- guia-diagnostico-digital.html: servicios.html -> servicios.html
+- guia-diagnostico-digital.html: proceso.html -> proceso.html
+- guia-diagnostico-digital.html: portfolio.html -> portfolio.html
+- guia-diagnostico-digital.html: blog.html -> blog.html
+- guia-diagnostico-digital.html: dashboard.html -> dashboard.html
+- guia-diagnostico-digital.html: contacto.html -> contacto.html
+- guia-diagnostico-digital.html: sistema-ia.html -> sistema-ia.html
+- guia-diagnostico-digital.html: pack-prompts-ia.html -> pack-prompts-ia.html
+- guia-diagnostico-digital.html: checkout-sistema-ia.html -> checkout-sistema-ia.html
+- guia-diagnostico-digital.html: blog-post-landing-ia.html -> blog-post-landing-ia.html
+- guia-diagnostico-digital.html: blog-post-encontrar-clientes-ia.html -> blog-post-encontrar-clientes-ia.html
+- guia-diagnostico-digital.html: blog-post-automatizar-leads-ia.html -> blog-post-automatizar-leads-ia.html
+- guia-diagnostico-digital.html: sistema.html -> sistema.html
+- guia-diagnostico-digital.html: proceso.html -> proceso.html
+- guia-diagnostico-digital.html: dashboard.html -> dashboard.html
+- guia-diagnostico-digital.html: portfolio.html -> portfolio.html
+- guia-diagnostico-digital.html: blog.html -> blog.html
+- guia-diagnostico-digital.html: contacto.html -> contacto.html
+- guia-diagnostico-digital.html: checkout-sistema-ia.html -> checkout-sistema-ia.html
+- launcher.html: index.html -> index.html
+- launcher.html: sistema.html -> sistema.html
+- launcher.html: servicios.html -> servicios.html
+- launcher.html: proceso.html -> proceso.html
+- launcher.html: portfolio.html -> portfolio.html
+- launcher.html: blog.html -> blog.html
+- launcher.html: dashboard.html -> dashboard.html
+- launcher.html: contacto.html -> contacto.html
+- launcher.html: sistema-ia.html -> sistema-ia.html
+- launcher.html: pack-prompts-ia.html -> pack-prompts-ia.html
+- launcher.html: guia-diagnostico-digital.html -> guia-diagnostico-digital.html
+- launcher.html: checkout-sistema-ia.html -> checkout-sistema-ia.html
+- launcher.html: blog-post-landing-ia.html -> blog-post-landing-ia.html
+- launcher.html: blog-post-encontrar-clientes-ia.html -> blog-post-encontrar-clientes-ia.html
+- launcher.html: blog-post-automatizar-leads-ia.html -> blog-post-automatizar-leads-ia.html
+- pack-prompts-ia.html: index.html -> index.html
+- pack-prompts-ia.html: sistema.html -> sistema.html
+- pack-prompts-ia.html: servicios.html -> servicios.html
+- pack-prompts-ia.html: proceso.html -> proceso.html
+- pack-prompts-ia.html: portfolio.html -> portfolio.html
+- pack-prompts-ia.html: blog.html -> blog.html
+- pack-prompts-ia.html: contacto.html -> contacto.html
+- pack-prompts-ia.html: contacto.html -> contacto.html
+- pack-prompts-ia.html: index.html -> index.html
+- pack-prompts-ia.html: sistema.html -> sistema.html
+- pack-prompts-ia.html: servicios.html -> servicios.html
+- pack-prompts-ia.html: proceso.html -> proceso.html
+- pack-prompts-ia.html: portfolio.html -> portfolio.html
+- pack-prompts-ia.html: blog.html -> blog.html
+- pack-prompts-ia.html: dashboard.html -> dashboard.html
+- pack-prompts-ia.html: contacto.html -> contacto.html
+- pack-prompts-ia.html: sistema-ia.html -> sistema-ia.html
+- pack-prompts-ia.html: guia-diagnostico-digital.html -> guia-diagnostico-digital.html
+- pack-prompts-ia.html: checkout-sistema-ia.html -> checkout-sistema-ia.html
+- pack-prompts-ia.html: blog-post-landing-ia.html -> blog-post-landing-ia.html
+- pack-prompts-ia.html: blog-post-encontrar-clientes-ia.html -> blog-post-encontrar-clientes-ia.html
+- pack-prompts-ia.html: blog-post-automatizar-leads-ia.html -> blog-post-automatizar-leads-ia.html
+- pack-prompts-ia.html: sistema.html -> sistema.html
+- pack-prompts-ia.html: proceso.html -> proceso.html
+- pack-prompts-ia.html: dashboard.html -> dashboard.html
+- pack-prompts-ia.html: portfolio.html -> portfolio.html
+- pack-prompts-ia.html: blog.html -> blog.html
+- pack-prompts-ia.html: contacto.html -> contacto.html
+- pack-prompts-ia.html: checkout-sistema-ia.html -> checkout-sistema-ia.html
+- portfolio.html: index.html -> index.html
+- portfolio.html: sistema.html -> sistema.html
+- portfolio.html: servicios.html -> servicios.html
+- portfolio.html: proceso.html -> proceso.html
+- portfolio.html: portfolio.html -> portfolio.html
+- portfolio.html: blog.html -> blog.html
+- portfolio.html: contacto.html -> contacto.html
+- portfolio.html: contacto.html -> contacto.html
+- portfolio.html: proceso.html -> proceso.html
+- portfolio.html: contacto.html -> contacto.html
+- portfolio.html: contacto.html -> contacto.html
+... 140 más
+
+DETALLE LOGOS/ASSETS MODIFICADOS
+- articulo-captacion-barberias.html: data:image... -> assets/img/logo-escala-original.png
+- articulo-citas-automatizadas-barberias.html: data:image... -> assets/img/logo-escala-original.png
+- articulo-cliente-en-72h.html: data:image... -> assets/img/logo-escala-original.png
+- articulo-ia-aplicada-negocios.html: data:image... -> assets/img/logo-escala-original.png
+- articulo-sistema-ia.html: data:image... -> assets/img/logo-escala-original.png
+- articulo-sistema-ia.html: data:image... -> assets/img/logo-escala-original.png
+- brief.html: data:image... -> assets/img/logo-escala-original.png
+- brief.html: data:image... -> assets/img/logo-escala-original.png
+- brief.html: data:image... -> assets/img/logo-escala-original.png
+- dashboard.html: data:image... -> assets/img/logo-escala-original.png
+- infoproducto-captacion-barberias.html: data:image... -> assets/img/logo-escala-original.png
+- infoproducto-citas-barberias.html: data:image... -> assets/img/logo-escala-original.png
+- infoproducto-ia-aplicada.html: data:image... -> assets/img/logo-escala-original.png
+- infoproductos.html: data:image... -> assets/img/logo-escala-original.png
+- infoproductos.html: data:image... -> assets/img/logo-escala-original.png
+
+INSTRUCCIONES
+1. Descomprimir el ZIP completo.
+2. Abrir index.html desde la carpeta extraída, no desde el visor interno del ZIP.
+3. Probar navegación desde Chrome.

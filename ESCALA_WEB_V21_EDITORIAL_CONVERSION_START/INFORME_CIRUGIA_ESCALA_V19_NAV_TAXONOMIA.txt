@@ -1,0 +1,43 @@
+ESCALA_WEB_V19 — CIRUGÍA NAV / TAXONOMÍA / BRIEF
+
+Cambios aplicados sin reconstruir ni rediseñar:
+
+1. launcher.html
+- Todos los enlaces del launcher abren en pestaña nueva con target="_blank" rel="noopener".
+- Se mantiene estética, copy y cards existentes.
+
+2. brief.html
+- Reparado el bug crítico que hacía visible código JavaScript al final de la página.
+- Sustituido el bloque script roto por un bloque JS válido.
+- Corregida la exportación de HTML interno para que no incruste scripts rotos.
+- Añadido ajuste quirúrgico de botonera inferior:
+  - más padding inferior del contenido;
+  - scroll horizontal controlado en móvil;
+  - menor riesgo de tapar campos, títulos o botones.
+
+3. blog.html
+- Añadida taxonomía visual no invasiva: Artículo, Guía, Infoproducto, Sistema, Herramienta, Caso sectorial, Checkout.
+- Añadida sección “Lecturas rápidas por categoría” para integrar las páginas antiguas de /blog y evitar páginas huérfanas.
+- Añadido etiquetado automático de cards según destino.
+
+4. infoproductos.html
+- Añadida taxonomía visual no invasiva.
+- Añadido etiquetado automático de cards según destino.
+- Se conserva el contenido y la estética premium existente.
+
+5. blog/*.html
+- Corregido placeholder peligroso de WhatsApp: https://wa.me/34600000000.
+- Sustituido por ../brief.html como ruta de diagnóstico.
+- Añadida pequeña etiqueta “Artículo · Lectura rápida” para aclarar el tipo de recurso.
+
+6. infoproducto-sistema-ia.html
+- Añadida nota canónica suave indicando que sistema-ia.html es la ruta comercial principal y checkout-sistema-ia.html la ruta de compra/acceso.
+- No se elimina contenido ni se fuerza redirección.
+
+Validación posterior:
+- HTML internos rotos detectados: 0.
+- brief.html: 1 script abierto / 1 script cerrado.
+- script principal del brief validado con node --check.
+- launcher: 0 enlaces internos sin target blank.
+- Páginas /blog antiguas ya tienen entrada desde blog.html.
+- Única página sin entrada interna: launcher.html, aceptable si se usa como acceso técnico/privado.

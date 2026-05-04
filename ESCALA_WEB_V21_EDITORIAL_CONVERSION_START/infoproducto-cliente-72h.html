@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+
+<html lang="es">
+<head>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&amp;family=Cormorant+Garamond:wght@500;600;700&amp;family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;family=Cormorant+Garamond:wght@400;500;600&amp;family=Bebas+Neue&amp;display=swap" rel="stylesheet"/>
+<style>
+:root {
+  --font-ui: 'Inter', sans-serif;
+  --font-display: 'Bebas Neue', sans-serif;
+  --font-premium: 'Cormorant Garamond', serif;
+}
+body { font-family: var(--font-ui); }
+h1, h2.hero, .display { font-family: var(--font-display); letter-spacing: 1px; }
+.premium, blockquote { font-family: var(--font-premium); font-size: 1.1em; }
+</style>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Cliente en 72h — Flagship ESCALA</title>
+<meta content="Sistema premium para conseguir tu primer cliente usando IA, oferta, diagnóstico y ejecución en 72 horas." name="description"/>
+<style>
+:root{
+  --black:#000;
+  --bg:#050505;
+  --panel:#0b0b0b;
+  --panel2:#111;
+  --gold:#D4AF37;
+  --gold2:#F4D77A;
+  --gold3:#7A5A13;
+  --white:#F7F3EA;
+  --text:#D8D2C4;
+  --muted:#9B9486;
+  --line:rgba(212,175,55,.28);
+  --line2:rgba(255,255,255,.10);
+  --danger:#FF7676;
+  --ok:#8CE7AA;
+  --radius:28px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:auto}
+body{
+  margin:0;
+  background:var(--black);
+  color:var(--white);
+  font-family:Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+  line-height:1.55;
+  overflow-x:hidden;
+}
+body::before{
+  content:"";
+  position:absolute;
+  inset:0 0 auto 0;
+  min-height:1200px;
+  z-index:-3;
+  background:
+    radial-gradient(circle at 12% 0%, rgba(212,175,55,.28), transparent 26%),
+    radial-gradient(circle at 88% 16%, rgba(244,215,122,.14), transparent 28%),
+    radial-gradient(circle at 50% 58%, rgba(212,175,55,.06), transparent 42%),
+    linear-gradient(180deg,#000 0%,#070707 48%,#000 100%);
+}
+body::after{
+  content:"";
+  position:absolute;
+  inset:0 0 auto 0;
+  min-height:100%;
+  z-index:-2;
+  pointer-events:none;
+  opacity:.22;
+  background-image:linear-gradient(rgba(255,255,255,.055) 1px, transparent 1px),linear-gradient(90deg,rgba(255,255,255,.055) 1px, transparent 1px);
+  background-size:72px 72px;
+}
+a{color:inherit}.wrap{width:min(1180px,calc(100% - 38px));margin:auto}.gold{color:var(--gold2)}.muted{color:var(--muted)}
+.topbar{position:relative;z-index:5;background:rgba(0,0,0,.92);border-bottom:1px solid var(--line2)}
+.nav{height:72px;display:flex;align-items:center;justify-content:space-between;gap:18px}.brand{display:flex;align-items:center;gap:12px;font-size:12px;letter-spacing:.18em;text-transform:uppercase;font-weight:900}.mark{width:42px;height:42px;border-radius:15px;border:1px solid var(--line);display:grid;place-items:center;color:var(--gold2);background:linear-gradient(145deg,rgba(212,175,55,.18),rgba(255,255,255,.04));box-shadow:0 0 60px rgba(212,175,55,.20)}
+.navlinks{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}.navlinks a{text-decoration:none;color:var(--muted);font-size:12px;font-weight:800;padding:8px 10px;border-radius:999px;border:1px solid transparent;transition:.22s}.navlinks a:hover{color:#fff;border-color:var(--line);background:rgba(212,175,55,.08)}
+.hero{min-height:calc(100vh - 72px);display:grid;grid-template-columns:1.03fr .97fr;gap:48px;align-items:center;padding:78px 0 92px;position:relative}.hero::before{content:"";position:absolute;left:0;right:0;top:44px;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);opacity:.42}.eyebrow{display:inline-flex;align-items:center;gap:10px;padding:9px 14px;border:1px solid var(--line);border-radius:999px;color:var(--gold2);background:rgba(212,175,55,.08);font-size:12px;letter-spacing:.18em;text-transform:uppercase;font-weight:900}.dot{width:8px;height:8px;border-radius:50%;background:var(--gold);box-shadow:0 0 24px var(--gold)}
+h1{font-size:clamp(58px,9vw,124px);line-height:.82;margin:28px 0 22px;letter-spacing:-.09em}.statement{font-size:clamp(23px,3vw,37px);line-height:1.03;letter-spacing:-.055em;max-width:760px;margin:0 0 18px}.lead{font-size:clamp(17px,2vw,22px);color:var(--text);max-width:720px;margin:0}.actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:32px}.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;text-decoration:none;border-radius:17px;padding:16px 21px;border:1px solid var(--line);font-weight:900;transition:.25s;position:relative;overflow:hidden}.btn::before{content:"";position:absolute;inset:0;background:linear-gradient(120deg,transparent,rgba(255,255,255,.26),transparent);transform:translateX(-140%);transition:.6s}.btn:hover::before{transform:translateX(140%)}.btn:hover{}.btn.primary{background:linear-gradient(135deg,var(--gold),var(--gold2));color:#060606;box-shadow:0 24px 80px rgba(212,175,55,.25)}.btn.secondary{background:rgba(255,255,255,.045);color:var(--white)}
+.hero-meta{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:34px}.meta{border:1px solid var(--line2);background:rgba(255,255,255,.035);border-radius:20px;padding:16px}.meta b{display:block;color:var(--gold2);font-size:28px;line-height:1}.meta span{font-size:11px;color:var(--muted);font-weight:800;text-transform:uppercase;letter-spacing:.12em}
+.device{position:relative;border:1px solid var(--line);border-radius:42px;padding:20px;background:linear-gradient(180deg,rgba(18,18,18,.96),rgba(2,2,2,.98));box-shadow:0 28px 80px rgba(0,0,0,.70),0 0 46px rgba(212,175,55,.12);overflow:hidden}.device::before{content:"";position:absolute;inset:-1px;background:radial-gradient(circle at 82% -8%,rgba(212,175,55,.32),transparent 34%),radial-gradient(circle at 0% 92%,rgba(255,255,255,.06),transparent 34%);pointer-events:none}.screen{position:relative;border:1px solid var(--line2);border-radius:32px;background:#050505;padding:22px;overflow:hidden}.screen-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px}.traffic{display:flex;gap:7px}.traffic span{width:9px;height:9px;border-radius:50%;background:rgba(255,255,255,.16)}.tag{font-size:11px;color:var(--gold);letter-spacing:.16em;font-weight:900;text-transform:uppercase}.big-number{font-size:84px;line-height:.85;letter-spacing:-.08em;color:var(--gold2);text-shadow:0 0 45px rgba(212,175,55,.28);margin:22px 0 8px}.panel-title{font-size:31px;line-height:1.02;letter-spacing:-.045em;margin:0 0 12px}.mission{border:1px solid var(--line);border-radius:24px;padding:20px;background:linear-gradient(135deg,rgba(212,175,55,.12),rgba(255,255,255,.025));margin:18px 0}.dash-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.dash{border:1px solid var(--line2);border-radius:19px;padding:15px;background:rgba(255,255,255,.035)}.dash strong{display:block;color:var(--gold2);font-size:24px}.progress{height:9px;border-radius:999px;background:rgba(255,255,255,.08);overflow:hidden;margin-top:9px}.progress i{display:block;height:100%;width:76%;background:linear-gradient(90deg,var(--gold3),var(--gold2));box-shadow:0 0 28px rgba(212,175,55,.35)}
+.section{padding:104px 0;border-top:1px solid var(--line2);position:relative}.section-head{display:grid;grid-template-columns:.82fr 1fr;gap:36px;align-items:end;margin-bottom:38px}.kicker{color:var(--gold);font-size:12px;letter-spacing:.2em;text-transform:uppercase;font-weight:900}.section h2{font-size:clamp(40px,5.4vw,76px);line-height:.9;margin:10px 0 0;letter-spacing:-.075em}.section-head p{font-size:18px;color:#c9c2b5;margin:0}.grid{display:grid;gap:18px}.two{grid-template-columns:repeat(2,1fr)}.three{grid-template-columns:repeat(3,1fr)}.four{grid-template-columns:repeat(4,1fr)}.card{position:relative;border:1px solid var(--line2);background:linear-gradient(180deg,rgba(255,255,255,.052),rgba(255,255,255,.014));border-radius:var(--radius);padding:27px;overflow:hidden;box-shadow:0 18px 70px rgba(0,0,0,.30);transition:.25s}.card::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at var(--x,50%) var(--y,0%),rgba(212,175,55,.16),transparent 34%);opacity:0;transition:.25s}.card:hover::before{opacity:1}.card:hover{border-color:var(--line);box-shadow:0 25px 70px rgba(0,0,0,.48),0 0 32px rgba(212,175,55,.06)}.card>*{position:relative}.card h3{font-size:24px;line-height:1.05;margin:0 0 12px;letter-spacing:-.04em}.card p{color:var(--text);margin:0}.card.strong{background:linear-gradient(135deg,rgba(212,175,55,.14),rgba(255,255,255,.02));border-color:var(--line)}.card.dark{background:linear-gradient(180deg,#080808,#020202);border-color:rgba(255,255,255,.13)}.card.shock{background:linear-gradient(135deg,rgba(255,118,118,.11),rgba(255,255,255,.015));border-color:rgba(255,118,118,.28)}
+.label{display:inline-flex;padding:6px 10px;border-radius:999px;border:1px solid var(--line);font-size:11px;font-weight:900;text-transform:uppercase;letter-spacing:.14em;color:var(--gold);background:rgba(212,175,55,.055);margin-bottom:14px}.label.danger{color:#ff9696;border-color:rgba(255,118,118,.34);background:rgba(255,118,118,.06)}.label.key{color:#fff0b8}.label.pro{color:#d8f7e2;border-color:rgba(140,231,170,.28);background:rgba(140,231,170,.055)}
+.truth{font-size:clamp(28px,4vw,52px);line-height:.98;letter-spacing:-.055em;margin:0}.split{display:grid;grid-template-columns:1fr 1fr;gap:18px}.compare{border:1px solid var(--line2);border-radius:26px;overflow:hidden;background:rgba(255,255,255,.03)}.compare-head{padding:16px 20px;font-weight:900;letter-spacing:.12em;text-transform:uppercase;font-size:12px;border-bottom:1px solid var(--line2)}.bad .compare-head{color:var(--danger);background:rgba(255,118,118,.06)}.good .compare-head{color:var(--gold2);background:rgba(212,175,55,.08)}.compare ul{list-style:none;padding:20px;margin:0}.compare li{padding:10px 0;border-bottom:1px solid rgba(255,255,255,.06);color:var(--text)}.compare li:last-child{border-bottom:0}.formula{font-size:clamp(24px,3vw,42px);line-height:1.05;letter-spacing:-.05em}.divider{height:1px;background:linear-gradient(90deg,transparent,var(--line),transparent);margin:36px 0}.script{white-space:pre-wrap;border:1px solid var(--line);background:rgba(0,0,0,.42);border-radius:22px;padding:20px;color:#eee;font-size:15px;line-height:1.5}.tool{border:1px solid var(--line);border-radius:34px;padding:30px;background:linear-gradient(135deg,rgba(212,175,55,.11),rgba(255,255,255,.025));box-shadow:0 28px 90px rgba(0,0,0,.42)}.tool-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}.field{border:1px solid var(--line2);border-radius:20px;padding:16px;background:rgba(0,0,0,.28)}.field small{display:block;color:var(--gold);font-weight:900;text-transform:uppercase;letter-spacing:.14em;margin-bottom:8px}.timeline{position:relative}.timeline::before{content:"";position:absolute;left:110px;top:0;bottom:0;width:1px;background:linear-gradient(var(--gold),rgba(212,175,55,.05))}.step{display:grid;grid-template-columns:140px 1fr;gap:24px;margin-bottom:22px}.time{color:var(--gold2);font-size:30px;font-weight:950;letter-spacing:-.05em}.step-body{border:1px solid var(--line2);border-radius:28px;padding:26px;background:linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,.016))}.checklist{display:grid;gap:10px;margin-top:16px}.check{display:flex;gap:11px;align-items:flex-start;color:var(--text)}.tick{display:inline-grid;place-items:center;flex:0 0 22px;width:22px;height:22px;border-radius:50%;background:rgba(212,175,55,.13);color:var(--gold2);font-weight:900}.pill-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:15px}.pill{border:1px solid var(--line2);background:rgba(255,255,255,.035);border-radius:999px;padding:7px 10px;font-size:12px;color:var(--text);font-weight:800}.stack{display:grid;gap:14px}.result{border:1px solid var(--line2);border-radius:26px;padding:24px;background:linear-gradient(90deg,rgba(212,175,55,.08),rgba(255,255,255,.02));position:relative;overflow:hidden}.result::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--gold)}.result h3{margin:0 0 7px;font-size:26px}.result p{margin:0;color:var(--text)}.cta{position:relative;border:1px solid var(--line);border-radius:44px;padding:46px;background:radial-gradient(circle at 85% 0%,rgba(212,175,55,.22),transparent 38%),linear-gradient(135deg,rgba(212,175,55,.13),rgba(255,255,255,.025));box-shadow:0 30px 90px rgba(0,0,0,.62),0 0 54px rgba(212,175,55,.12);overflow:hidden}.cta h2{font-size:clamp(44px,6vw,84px);line-height:.88;margin:12px 0 18px;letter-spacing:-.08em}.footer{padding:34px 0 56px;color:var(--muted);font-size:14px}.reveal{opacity:1;transform:none}.reveal.on{opacity:1;transform:none}
+@media(max-width:920px){.hero,.section-head,.two,.three,.four,.split{grid-template-columns:1fr}.hero{padding-top:54px}.nav{height:auto;padding:14px 0;align-items:flex-start}.navlinks{display:none}.device{border-radius:30px}.hero-meta,.dash-grid,.tool-grid{grid-template-columns:1fr}.timeline::before{display:none}.step{grid-template-columns:1fr;gap:8px}.section{padding:76px 0}h1{font-size:clamp(54px,16vw,82px)}}
+@media(max-width:520px){.wrap{width:min(100% - 26px,1180px)}.hero{min-height:auto}.actions .btn{width:100%}.card,.tool,.cta{padding:22px;border-radius:24px}.screen{padding:17px}.big-number{font-size:64px}.statement{font-size:24px}.section h2{font-size:42px}.hero-meta{gap:8px}.meta{padding:13px}.meta b{font-size:23px}}
+@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important;animation:none!important}.reveal{opacity:1!important;transform:none!important}}
+
+/* === MODO ESTABLE PDF / MÓVIL === */
+@media (max-width: 760px){
+  body::before, body::after{position:absolute;min-height:900px;}
+  .section{padding:64px 0;}
+  .navlinks{display:none;}
+}
+@media print{
+  html,body{background:#000!important;scroll-behavior:auto!important;}
+  body::before,body::after{display:none!important;}
+  .topbar{position:relative!important;}
+  .reveal{opacity:1!important;transform:none!important;}
+  .card,.device,.cta,.tool{break-inside:avoid;box-shadow:none!important;}
+  .section{break-inside:auto;}
+  *{animation:none!important;transition:none!important;filter:none!important;backdrop-filter:none!important;}
+}
+
+
+/* === ESCALA V14 DEFINITIVA: imágenes embebidas + móvil real === */
+html,body{max-width:100%;overflow-x:hidden!important;}
+img{max-width:100%;height:auto;display:block;}
+.brand img,.brand-logo,.escala-logo-img{width:48px!important;height:48px!important;object-fit:contain!important;flex:0 0 auto!important;}
+.media,.premium-image,.visual-image,.hero-visual,.escala-visual-lift__media{overflow:hidden!important;background:#050505!important;border:1px solid rgba(212,175,55,.28)!important;box-shadow:0 24px 80px rgba(0,0,0,.56),0 0 42px rgba(212,175,55,.12)!important;}
+.media img,.premium-image img,.visual-image img,.hero-visual img,.escala-visual-lift__media img{width:100%!important;height:auto!important;object-fit:cover!important;object-position:center!important;opacity:1!important;}
+@media(max-width:980px){
+  .wrap,.container{width:min(100% - 28px,1180px)!important;}
+  .navin,.nav-inner,.nav{height:auto!important;min-height:68px!important;padding-top:10px!important;padding-bottom:10px!important;}
+  .navlinks,.links,.nav-right nav{display:none!important;}
+  .brand{gap:12px!important;letter-spacing:.18em!important;font-size:13px!important;min-width:0!important;}
+  .hero,.hero-grid,.cover,.cover-grid,.grid,.grid-2,.grid-3,.grid-4,.two,.three,.four,.system-row,.content-grid,.diagnostic,.footer-grid{grid-template-columns:1fr!important;}
+  .hero,.cover{min-height:auto!important;padding-top:48px!important;padding-bottom:58px!important;gap:28px!important;}
+  h1{font-size:clamp(40px,12vw,68px)!important;line-height:.92!important;letter-spacing:-.065em!important;}
+  h2{font-size:clamp(31px,9vw,52px)!important;line-height:.96!important;}
+  .lead,.statement{font-size:clamp(17px,5vw,21px)!important;line-height:1.45!important;}
+  .media img,.premium-image img,.visual-image img,.hero-visual img{min-height:0!important;max-height:none!important;object-fit:contain!important;}
+  .media{margin:10px 0 0!important;border-radius:24px!important;}
+  .section,section{padding-top:58px!important;padding-bottom:58px!important;}
+  .card,.module,.project,.post,.hero-card,.device,.cta,.tool,.screen,.price-box,.callout{height:auto!important;min-height:0!important;border-radius:22px!important;}
+}
+@media(max-width:620px){
+  .wrap,.container{width:min(100% - 24px,1180px)!important;}
+  .brand img,.brand-logo,.escala-logo-img{width:44px!important;height:44px!important;}
+  .brand span,.brand-word{font-size:13px!important;letter-spacing:.22em!important;}
+  .hero,.cover{padding-top:36px!important;padding-bottom:46px!important;}
+  h1{font-size:clamp(38px,12.5vw,56px)!important;}
+  .kicker,.eyebrow{font-size:10px!important;letter-spacing:.14em!important;line-height:1.3!important;max-width:100%;white-space:normal!important;}
+  .btn,button{width:auto;max-width:100%;white-space:normal!important;text-align:center!important;min-height:44px!important;}
+  .media,.premium-image,.visual-image,.hero-visual{border-radius:20px!important;}
+  .card,.module,.project,.post,.hero-card,.device,.cta,.tool,.screen,.section,.callout{padding:18px!important;border-radius:20px!important;}
+  .article p{font-size:17px!important;}
+  .callout{font-size:21px!important;line-height:1.18!important;}
+}
+
+</style>
+<!-- ESCALA V13 AUDITORÍA: fixes globales de estabilidad, móvil e imágenes -->
+<style id="escala-v13-audit-fixes">
+  html,body{max-width:100%;overflow-x:hidden!important;}
+  body{scroll-behavior:auto!important;}
+  img{max-width:100%;height:auto;display:block;}
+  a,button{touch-action:manipulation;}
+  *,*::before,*::after{box-sizing:border-box;}
+  p,li,h1,h2,h3,h4,h5,h6,.lead,.statement,.card,.script,.code{overflow-wrap:anywhere;word-break:normal;}
+  .escala-brand-intro,#intro-logo,.pro-cursor,.pro-cursor-dot,.pro-orb,.pro-beam,.escala-v3-cursor,.product-live-stage,.product-live-badge{display:none!important;opacity:0!important;visibility:hidden!important;pointer-events:none!important;animation:none!important;}
+  .noise{pointer-events:none!important;}
+  .premium-image,.visual-image,.escala-visual-lift__media{overflow:hidden;border-radius:28px;border:1px solid rgba(212,175,55,.28);background:#050505;box-shadow:0 24px 80px rgba(0,0,0,.56),0 0 42px rgba(212,175,55,.12);}
+  .premium-image img,.visual-image img,.escala-visual-lift__media img{width:100%;height:auto;min-height:0!important;object-fit:contain!important;object-position:center!important;background:#050505;}
+  .escala-visual-lift{width:min(1180px,calc(100% - 38px));margin:42px auto;padding:34px;border:1px solid rgba(212,175,55,.24);border-radius:34px;background:radial-gradient(circle at 80% 0%,rgba(212,175,55,.14),transparent 36%),linear-gradient(180deg,rgba(255,255,255,.045),rgba(255,255,255,.012));box-shadow:0 26px 90px rgba(0,0,0,.45);}
+  .escala-visual-lift__grid{display:grid;grid-template-columns:.92fr 1.08fr;gap:28px;align-items:center;}
+  .escala-visual-lift__kicker{color:#F4D77A;font-size:12px;text-transform:uppercase;letter-spacing:.18em;font-weight:900;margin-bottom:12px;}
+  .escala-visual-lift h2{font-size:clamp(34px,4.6vw,62px);line-height:.92;letter-spacing:-.06em;margin:0 0 16px;color:#F7F3EA;}
+  .escala-visual-lift p{color:#D8D2C4;font-size:17px;line-height:1.65;margin:0;}
+  .escala-visual-lift__pills{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px;}
+  .escala-visual-lift__pills span{border:1px solid rgba(212,175,55,.25);border-radius:999px;padding:7px 10px;color:#D8D2C4;font-size:12px;background:rgba(255,255,255,.035);font-weight:800;}
+  @media(max-width:980px){
+    .hero,.hero-grid,.cover,.cover-grid,.section-head,.grid,.grid-2,.grid-3,.grid-4,.two,.three,.four,.cards,.modules,.content-grid,.diagnostic,.footer-grid,.escala-visual-lift__grid{grid-template-columns:1fr!important;}
+    section,.section{padding-left:0!important;padding-right:0!important;}
+    .wrap,.container{width:min(100% - 28px,1180px)!important;}
+    .escala-visual-lift{width:min(100% - 28px,1180px);padding:22px;border-radius:26px;}
+    .nav,.nav-inner,header .wrap{min-height:auto!important;height:auto!important;flex-wrap:wrap!important;padding-top:12px!important;padding-bottom:12px!important;}
+    .links,.navlinks,.nav-right nav{display:none!important;}
+    h1{font-size:clamp(42px,13vw,72px)!important;line-height:.9!important;}
+    h2{font-size:clamp(32px,10vw,54px)!important;line-height:.94!important;}
+    .card,.module,.project,.post,.hero-card,.device,.cta,.price-box{height:auto!important;min-height:0!important;}
+    .actions,.cta-row{display:flex!important;flex-wrap:wrap!important;width:100%!important;gap:10px!important;}
+    .actions .btn,.cta-row .btn,.btn{white-space:normal!important;text-align:center;}
+  }
+  @media(max-width:620px){
+    .wrap,.container{width:min(100% - 24px,1180px)!important;}
+    .hero,.cover{padding-top:44px!important;padding-bottom:54px!important;min-height:auto!important;}
+    .card,.module,.project,.post,.hero-card,.device,.cta,.tool,.screen,.section,.escala-visual-lift{border-radius:22px!important;padding:18px!important;}
+    .premium-image,.visual-image,.escala-visual-lift__media{border-radius:20px!important;}
+    .premium-image img,.visual-image img,.escala-visual-lift__media img{max-height:none!important;}
+    .btn,button{min-height:44px;}
+    .sidebar,.toc,.info-panel{position:relative!important;top:auto!important;height:auto!important;}
+    .app,.layout{display:block!important;}
+    .main{padding-left:16px!important;padding-right:16px!important;}
+  }
+  @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important;}}
+</style>
+<style>
+/* === ESCALA V19 GLOBAL REPAIR === */
+:root{
+  --font-ui:'Inter',system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
+  --font-display:'Bebas Neue',sans-serif;
+  --font-premium:'Cormorant Garamond',serif;
+  --gold:#D4AF37; --gold2:#F4D77A; --white:#F7F3EA; --text:#D8D2C4; --muted:#9B9486;
+}
+body{font-family:var(--font-ui)!important;overflow-x:hidden!important}
+h1,.hero h1,.cover h1{font-family:var(--font-display)!important;letter-spacing:.01em!important;text-transform:uppercase}
+.statement,.premium,blockquote{font-family:var(--font-premium)!important}
+img{max-width:100%;height:auto}
+a.brand img,.brand-logo,.escala-logo-img,.footer-logo,.logo-stage img{object-fit:contain!important}
+@media(max-width:720px){
+  body{overflow-x:hidden!important}
+  h1,.hero h1,.cover h1{font-size:clamp(46px,15vw,76px)!important;line-height:.88!important}
+  h2,.section h2{font-size:clamp(34px,11vw,56px)!important}
+  .wrap,.container{width:min(100% - 26px,1180px)!important}
+  .grid,.grid-2,.grid-3,.hero,.hero-grid,.cover,.layout,.section-head{grid-template-columns:1fr!important}
+  .navlinks,.links,.nav-right{display:none!important}
+  .nav,.nav-inner{min-height:68px!important;height:auto!important;padding:10px 0!important}
+  .brand img,.brand-logo,.escala-logo-img{width:42px!important;height:42px!important}
+  .hero,.cover{min-height:auto!important;padding-top:48px!important;padding-bottom:56px!important}
+  .card,.hero-card,.device,.cta,.visual,.premium-image{border-radius:22px!important}
+}
+</style>
+<link href="assets/img/favicon.png" rel="icon"/></head>
+<body>
+<header class="topbar">
+<nav class="wrap nav">
+<div class="brand"><img alt="ESCALA logo" class="escala-logo-img" src="assets/img/logo-escala-original.png"/><div class="mark"></div><span>ESCALA · Sistema</span></div>
+<div class="navlinks"><a href="index.html">Inicio</a><a href="sistema.html">Sistema</a><a href="servicios.html">Servicios</a><a href="proceso.html">Proceso</a><a href="portfolio.html">Portfolio</a><a href="blog.html">Biblioteca</a><a href="brief.html">Diagnóstico</a><a href="dashboard.html">Dashboard</a></div>
+</nav>
+</header>
+<main>
+<section class="wrap hero">
+<div>
+<div class="eyebrow"><span class="dot"></span> Producto flagship · Cliente en 72h</div>
+<h1>Deja de aprender IA. <span class="gold">Véndela.</span></h1>
+<p class="statement">El mercado no paga por prompts. Paga por claridad, velocidad y resultados que entiende.</p>
+<p class="lead">Un sistema compacto para convertir IA en una oferta real, abrir conversaciones y conseguir tu primer cliente sin audiencia, sin marca perfecta y sin complicarte.</p>
+<div class="actions"><a class="btn primary" href="#implementacion">Empezar el sprint →</a><a class="btn secondary" href="#sistema">Ver el sistema</a></div>
+<div class="hero-meta"><div class="meta"><b>72h</b><span>Ventana de acción</span></div><div class="meta"><b>20</b><span>Mensajes útiles</span></div><div class="meta"><b>1</b><span>Cliente real</span></div></div>
+</div>
+<aside class="device reveal on">
+<div class="screen">
+<div class="screen-top"><div class="traffic"><span></span><span></span><span></span></div><div class="tag">ESCALA_OS / sprint</div></div>
+<div class="big-number">72h</div>
+<h2 class="panel-title">Sistema de validación comercial con IA</h2>
+<p class="muted">No construyes una marca. Construyes una prueba de mercado.</p>
+<div class="mission"><b>Manifiesto:</b> si una oferta no se entiende en 10 segundos, no se compra. Si no resuelve una fuga real, no importa lo bonita que sea.</div>
+<div class="dash-grid"><div class="dash"><strong>Oferta</strong><span class="muted">1 frase clara</span><div class="progress"><i></i></div></div><div class="dash"><strong>Prueba</strong><span class="muted">mini auditoría</span><div class="progress"><i style="width:64%"></i></div></div><div class="dash"><strong>DM</strong><span class="muted">personalizado</span><div class="progress"><i style="width:88%"></i></div></div><div class="dash"><strong>Cierre</strong><span class="muted">sprint simple</span><div class="progress"><i style="width:52%"></i></div></div></div>
+</div>
+</aside>
+</section>
+<section class="wrap section reveal" id="problema">
+<div class="section-head"><div><div class="kicker">01 · Problema real</div><h2>No te falta IA. Te falta una oferta que alguien quiera pagar.</h2></div><p>La mayoría intenta monetizar IA desde el lugar equivocado: herramientas, prompts, logos, webs y teoría. El cliente compra otra cosa: una mejora concreta en su negocio.</p></div>
+<div class="grid three">
+<div class="card shock"><span class="label danger">Verdad incómoda</span><h3>El cliente no compra tu entusiasmo.</h3><p>Que tú veas potencial en la IA no significa que el negocio entienda por qué debería pagarte.</p></div>
+<div class="card strong"><span class="label key">Lo que nadie te dice</span><h3>Primero se vende una fuga.</h3><p>Reservas perdidas. Mensajes sin responder. Web que no convierte. Contenido sin dirección. Ahí hay dinero.</p></div>
+<div class="card"><span class="label">Cambio mental</span><h3>No vendas IA. Vende alivio.</h3><p>La IA es el motor. La promesa debe ser negocio: tiempo, clientes, claridad, seguimiento o conversión.</p></div>
+</div>
+</section>
+<section class="wrap section reveal" id="diagnostico">
+<div class="section-head"><div><div class="kicker">02 · Diagnóstico</div><h2>Por qué estás fallando aunque estés trabajando.</h2></div><p>El problema no suele ser falta de esfuerzo. Es esfuerzo aplicado sobre piezas que todavía no generan dinero.</p></div>
+<div class="split">
+<div class="compare bad"><div class="compare-head">❌ Ruta débil</div><ul><li>Crear marca antes de vender.</li><li>Ofrecer “automatizaciones con IA”.</li><li>Enviar mensajes genéricos.</li><li>Hablar de herramientas.</li><li>No cerrar un siguiente paso concreto.</li></ul></div>
+<div class="compare good"><div class="compare-head">✅ Ruta ESCALA</div><ul><li>Detectar una fuga visible.</li><li>Empaquetar un sprint simple.</li><li>Mostrar una mini auditoría.</li><li>Hablar de resultado de negocio.</li><li>Vender una implementación acotada.</li></ul></div>
+</div>
+<div class="divider"></div>
+<div class="card strong"><span class="label key">Diagnóstico central</span><p class="truth">No necesitas parecer experto en todo. Necesitas encontrar un problema caro y presentar una solución fácil de entender.</p></div>
+</section>
+<section class="wrap section reveal">
+<div class="section-head"><div><div class="kicker">03 · Errores comunes</div><h2>Los 6 errores que matan tu primera venta.</h2></div><p>Evítalos y ya estarás por encima del 80% de personas intentando vender servicios con IA.</p></div>
+<div class="grid three">
+<div class="card"><span class="label danger">Error 01</span><h3>Oferta abstracta</h3><p>“Te ayudo con IA” no significa nada para un negocio ocupado.</p></div>
+<div class="card"><span class="label danger">Error 02</span><h3>Sin nicho</h3><p>Si hablas a todo el mundo, nadie siente que has entendido su problema.</p></div>
+<div class="card"><span class="label danger">Error 03</span><h3>Demasiado técnico</h3><p>Make, n8n, prompts y APIs no son argumentos de compra. Son cocina interna.</p></div>
+<div class="card"><span class="label danger">Error 04</span><h3>Mensaje spam</h3><p>Sin observación concreta, tu DM parece plantilla copiada.</p></div>
+<div class="card"><span class="label danger">Error 05</span><h3>Precio sin contexto</h3><p>El precio se sostiene cuando el cliente entiende la fuga y el valor de arreglarla.</p></div>
+<div class="card"><span class="label danger">Error 06</span><h3>No pedir acción</h3><p>Dar ideas sin proponer implementación te convierte en contenido gratis.</p></div>
+</div>
+</section>
+<section class="wrap section reveal" id="sistema">
+<div class="section-head"><div><div class="kicker">04 · Sistema</div><h2>Framework OPA: Oferta · Prueba · Acción.</h2></div><p>Un método simple para dejar de improvisar y convertir cada contacto en una oportunidad con estructura.</p></div>
+<div class="grid three">
+<div class="card strong"><span class="label key">O · Oferta</span><h3>Una mejora comprensible</h3><p>Empaqueta una solución que se entienda en una frase y apunte a una fuga real.</p><div class="script">Ayudo a [tipo de negocio] a conseguir [resultado concreto] sin [dolor actual] mediante [mecanismo simple].
+
+Ejemplo:
+Ayudo a barberías a reducir ausencias y recuperar reservas perdidas con mensajes automáticos de confirmación.</div></div>
+<div class="card strong"><span class="label key">P · Prueba</span><h3>Una mini auditoría visual</h3><p>Antes de pedir atención, entrega claridad: 3 fallos, 3 oportunidades y 1 acción rápida.</p><div class="script">Mini auditoría:
+1. Fuga visible
+2. Impacto en dinero/tiempo
+3. Mejora propuesta
+4. Resultado esperado
+5. Siguiente paso</div></div>
+<div class="card strong"><span class="label key">A · Acción</span><h3>Un mensaje que abre puerta</h3><p>No vendas en el primer mensaje. Abre conversación con una observación concreta.</p><div class="script">He visto [detalle real] en vuestro perfil/web.
+Creo que estáis perdiendo [oportunidad concreta].
+Te he preparado 3 mejoras rápidas para [resultado].
+¿Te las paso?</div></div>
+</div>
+<div class="divider"></div>
+<div class="tool"><span class="label pro">Herramienta interna</span><h3>Constructor Sprint 7D</h3><p class="muted">Rellena estos campos y tendrás una oferta inicial que no suena genérica.</p><div class="tool-grid"><div class="field"><small>Nicho</small><div>Barberías / tatuajes / psicólogos / clínicas / academias</div></div><div class="field"><small>Fuga</small><div>Reservas perdidas, mensajes sin responder, web que no convierte, contenido sin dirección</div></div><div class="field"><small>Activo</small><div>Landing, sistema de recordatorios, auditoría, pack de contenido, CRM simple</div></div><div class="field"><small>Promesa</small><div>En 7 días te dejo [activo] para conseguir [resultado] sin [dolor]</div></div></div></div>
+<div class="grid two" style="margin-top:18px"><div class="card"><span class="label pro">Oferta mínima</span><h3>Fórmula Sprint 7D</h3><div class="formula">En 7 días te entrego <span class="gold">[activo concreto]</span> para conseguir <span class="gold">[resultado]</span>, sin que tengas que <span class="gold">[tarea que odias]</span>.</div></div><div class="card"><span class="label">Precio inicial</span><h3>Cobra por aprendizaje de mercado, no por ego.</h3><p>Primer caso: <b class="gold">49€–197€</b>. Si hay implementación técnica real: <b class="gold">197€–397€</b>. El objetivo es cerrar, entregar, obtener prueba y abrir continuidad.</p><div class="pill-row"><span class="pill">Bajo riesgo</span><span class="pill">Entrega rápida</span><span class="pill">Caso real</span><span class="pill">Upsell mensual</span></div></div></div>
+</section>
+<section class="wrap section reveal" id="implementacion">
+<div class="section-head"><div><div class="kicker">05 · Implementación</div><h2>Plan exacto de 72 horas.</h2></div><p>Durante tres días solo haces lo que valida mercado. Nada de rediseñar marca. Nada de montar un imperio. Solo ejecutar con criterio.</p></div>
+<div class="timeline">
+<div class="step"><div class="time">0–4h</div><div class="step-body"><h3>Selecciona nicho y fuga</h3><p class="muted">Elige un sector con dolor visible y una mejora que puedas explicar rápido.</p><div class="checklist"><div class="check"><span class="tick">✓</span><span>Define una fuga: reservas, contenido, seguimiento, web, reputación.</span></div><div class="check"><span class="tick">✓</span><span>Escribe una oferta Sprint 7D.</span></div><div class="check"><span class="tick">✓</span><span>Prepara plantilla de mini auditoría.</span></div></div></div></div>
+<div class="step"><div class="time">4–24h</div><div class="step-body"><h3>Audita 30 negocios</h3><p class="muted">Busca potencial + fuga visible. No negocios perfectos.</p><div class="checklist"><div class="check"><span class="tick">✓</span><span>10 negocios con Instagram activo pero mala conversión.</span></div><div class="check"><span class="tick">✓</span><span>10 negocios sin web/landing clara.</span></div><div class="check"><span class="tick">✓</span><span>10 negocios con seguimiento mejorable.</span></div></div></div></div>
+<div class="step"><div class="time">24–48h</div><div class="step-body"><h3>Envía 20 mensajes personalizados</h3><p class="muted">Cada mensaje debe incluir una observación real. Eso separa consultoría de spam.</p><div class="script">Hola [nombre], he visto [detalle específico].
+Creo que ahí tenéis una oportunidad para [resultado].
+Te he preparado 3 ideas rápidas para mejorar [área concreta] sin complicaros.
+¿Te las paso?</div></div></div>
+<div class="step"><div class="time">48–72h</div><div class="step-body"><h3>Cierra el siguiente paso</h3><p class="muted">Da valor, resume oportunidad y ofrece implementación cerrada.</p><div class="script">Te resumo:
+1. Ahora mismo está pasando [problema].
+2. Esto puede estar afectando a [dinero/tiempo/clientes].
+3. Yo haría [solución concreta].
+
+Si quieres, puedo dejarte esto montado en formato sprint esta semana.</div></div></div>
+</div>
+</section>
+<section class="wrap section reveal">
+<div class="section-head"><div><div class="kicker">Kit operativo</div><h2>Prompts y scripts de ejecución.</h2></div><p>Úsalos como sistema base. La personalización no es opcional: es lo que hace que el cliente sienta que estás hablando de su negocio.</p></div>
+<div class="grid two">
+<div class="card dark"><span class="label pro">Prompt diagnóstico</span><div class="script">Actúa como consultor de crecimiento para negocios locales.
+Analiza este negocio: [pegar web/Instagram/descripción].
+Detecta:
+1. Fugas de captación
+2. Problemas de conversión
+3. Oportunidades rápidas con IA
+4. Oferta compacta que podría venderle
+5. Mensaje de DM personalizado
+Sé directo, práctico y orientado a dinero.</div></div>
+<div class="card dark"><span class="label pro">Prompt oferta</span><div class="script">Convierte este problema en una oferta Sprint 7D:
+Problema: [problema]
+Nicho: [nicho]
+Resultado deseado: [resultado]
+Restricciones: bajo coste, rápida ejecución, fácil de entender.
+Devuelve:
+- nombre de la oferta
+- promesa
+- entregables
+- precio inicial
+- mensaje de venta corto</div></div>
+<div class="card dark"><span class="label pro">Respuesta cuando dice “pásamelo”</span><div class="script">Perfecto. Lo he visto así:
+
+1. [observación concreta]
+2. [fuga / oportunidad]
+3. [mejora rápida]
+
+La idea sería montar [solución] para que puedas [resultado] sin [dolor].
+Si te encaja, te digo cómo lo dejaría implementado.</div></div>
+<div class="card dark"><span class="label pro">Cierre suave</span><div class="script">Tiene sentido empezar pequeño.
+Podría prepararte un sprint cerrado con:
+- [entregable 1]
+- [entregable 2]
+- [entregable 3]
+
+Lo dejamos funcionando y luego decides si merece la pena escalarlo.
+Precio de primer sprint: [precio].</div></div>
+</div>
+</section>
+<section class="wrap section reveal" id="resultado">
+<div class="section-head"><div><div class="kicker">06 · Resultado</div><h2>Qué debería pasar si ejecutas bien.</h2></div><p>No prometemos magia. Prometemos una secuencia con más probabilidad de generar respuestas, aprendizaje real y primer caso que seguir consumiendo contenido.</p></div>
+<div class="stack"><div class="result"><h3>Claridad comercial</h3><p>Dejas de vender “IA” y empiezas a vender mejoras que un negocio entiende.</p></div><div class="result"><h3>Conversaciones reales</h3><p>Tu objetivo mínimo es provocar respuestas de calidad y aprender qué duele.</p></div><div class="result"><h3>Primer caso práctico</h3><p>Un cliente real cambia tu confianza, tu criterio y tu capacidad de vender el siguiente.</p></div><div class="result"><h3>Base para sistema mensual</h3><p>El sprint inicial puede convertirse en contenido, web, automatización, analítica o mantenimiento.</p></div></div>
+</section>
+<section class="wrap section reveal" id="cta">
+<div class="cta"><span class="label key">07 · Siguiente paso lógico</span><h2>Cuando el DIY se queda corto, entra ESCALA.</h2><p class="lead">Este sistema te da validación. Pero si quieres convertirlo en negocio serio necesitas una arquitectura: oferta, marca, web, contenido, automatización, CRM, entregables y seguimiento.</p><p>Ahí ESCALA deja de ser una idea y se convierte en sistema operativo de negocio.</p><div class="grid three" style="margin-top:26px"><div class="card"><h3>ESCALA estrategia</h3><p>Claridad de oferta, posicionamiento y plan de acción.</p></div><div class="card"><h3>ESCALA activos</h3><p>Landing, infoproductos, contenido y entregables premium.</p></div><div class="card"><h3>ESCALA automatización</h3><p>CRM, seguimiento, captación y procesos con IA.</p></div></div><div class="actions"><a class="btn primary" href="mailto:agency.escala@gmail.com?subject=Quiero%20activar%20ESCALA">Quiero activar ESCALA →</a><a class="btn secondary" href="#problema">Revisar desde el inicio</a></div></div>
+</section>
+</main>
+<footer class="wrap footer"><div class="divider"></div><p><b>Cliente en 72h</b> · Producto flagship de ESCALA. Diseñado para validar mercado, generar conversaciones y transformar IA en oportunidades comerciales reales.</p></footer>
+<script>
+// Versión estable: sin observers ni efectos por ratón para evitar bloqueos al hacer scroll/exportar a PDF.
+</script>
+<script id="escala-v13-runtime-fixes">
+(function(){
+  function kill(){
+    document.querySelectorAll('.escala-brand-intro,#intro-logo,.pro-cursor,.pro-cursor-dot,.pro-orb,.pro-beam,.escala-v3-cursor,.product-live-stage,.product-live-badge').forEach(function(el){el.remove();});
+  }
+  kill(); setTimeout(kill,300); setTimeout(kill,1200);
+  document.querySelectorAll('img').forEach(function(img){
+    img.loading = img.loading || 'lazy';
+    img.decoding = 'async';
+    img.addEventListener('error', function(){
+      this.style.display='none';
+      var box=document.createElement('div');
+      box.className='escala-image-fallback';
+      box.style.cssText='border:1px solid rgba(212,175,55,.25);border-radius:22px;padding:22px;color:#F4D77A;background:#050505;text-align:center;font-weight:900;letter-spacing:.12em;text-transform:uppercase;';
+      box.textContent='ESCALA · Visual no disponible';
+      this.parentNode && this.parentNode.appendChild(box);
+    });
+  });
+})();
+</script>
+</body>
+</html>

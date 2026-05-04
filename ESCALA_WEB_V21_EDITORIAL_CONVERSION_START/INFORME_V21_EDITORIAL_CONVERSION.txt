@@ -1,0 +1,14 @@
+ESCALA V21 — INICIO DE CIRUGÍA EDITORIAL Y CONVERSIÓN
+
+Cambios aplicados:
+1. Infoproductos añadido como ruta visible en menús principales donde faltaba.
+2. blog.html deja de mostrar la sección Lecturas rápidas por categoría.
+3. blog.html ahora diferencia Artículos / Guías y herramientas / Infoproductos.
+4. infoproductos.html incluye mapa comercial: qué se regala, qué se vende y qué se implementa.
+5. sistema-ia.html se convierte en producto real: incluye, formato, ruta y CTAs de acceso/implementación.
+6. brief.html mejora UX: explicación inicial, mapa de outputs y botonera no fija invasiva.
+
+Pendiente recomendado para siguiente fase:
+- Convertir infoproductos principales a PDF entregable.
+- Rehacer en profundidad el brief si se quiere nivel SaaS completo, pero sin tocar la lógica de exportación.
+- Revisar visualmente cada página en móvil.

@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+
+<html lang="es">
+<head>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&amp;family=Cormorant+Garamond:wght@500;600;700&amp;family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;family=Cormorant+Garamond:wght@400;500;600&amp;family=Bebas+Neue&amp;display=swap" rel="stylesheet"/>
+<style>
+:root {
+  --font-ui: 'Inter', sans-serif;
+  --font-display: 'Bebas Neue', sans-serif;
+  --font-premium: 'Cormorant Garamond', serif;
+}
+body { font-family: var(--font-ui); }
+h1, h2.hero, .display { font-family: var(--font-display); letter-spacing: 1px; }
+.premium, blockquote { font-family: var(--font-premium); font-size: 1.1em; }
+</style>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>ESCALA — blog-post-landing-ia</title>
+<meta content="Guía premium de ESCALA para crear landing pages con IA usando Claude o ChatGPT: estructura, prompt, wireframe, HTML y conversión." name="description"/>
+<style>
+:root {
+  --bg:#000;
+  --panel:#070707;
+  --panel2:#101010;
+  --gold:#D4AF37;
+  --gold2:#F1D77A;
+  --muted:rgba(255,255,255,.70);
+  --soft:rgba(255,255,255,.10);
+  --line:rgba(212,175,55,.25);
+  --green:#22C55E;
+  --red:#EF4444;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
+  background:#000;color:#fff;overflow-x:hidden;
+}
+body:before{
+  content:"";position:fixed;inset:0;z-index:-5;
+  background:
+  radial-gradient(circle at 15% 5%,rgba(212,175,55,.26),transparent 30%),
+  radial-gradient(circle at 85% 15%,rgba(212,175,55,.12),transparent 32%),
+  radial-gradient(circle at 50% 100%,rgba(212,175,55,.08),transparent 38%),
+  #000;
+}
+body:after{
+  content:"";position:fixed;inset:0;z-index:-4;
+  background-image:linear-gradient(rgba(212,175,55,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(212,175,55,.04) 1px,transparent 1px);
+  background-size:86px 86px;
+  mask-image:linear-gradient(to bottom,rgba(0,0,0,.85),transparent 78%);
+}
+.noise{
+  position:fixed;inset:0;z-index:-3;pointer-events:none;opacity:.11;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.74' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='256' height='256' filter='url(%23n)' opacity='.55'/%3E%3C/svg%3E")
+}
+.light{position:fixed;inset:-20% auto auto 54%;width:520px;height:150vh;z-index:-2;transform:rotate(24deg);background:linear-gradient(90deg,transparent,rgba(212,175,55,.10),transparent);filter:blur(28px);animation:beam 9s ease-in-out infinite alternate;pointer-events:none}
+@keyframes beam{from{opacity:.25;transform:rotate(18deg) translateX(-80px)}to{opacity:.65;transform:rotate(28deg) translateX(70px)}}
+a{color:inherit;text-decoration:none}
+.container{width:min(1180px,calc(100% - 44px));margin:auto}
+.nav{position:sticky;top:0;z-index:50;background:rgba(0,0,0,.72);backdrop-filter:blur(22px);border-bottom:1px solid rgba(212,175,55,.14)}
+.nav-inner{height:78px;display:flex;align-items:center;justify-content:space-between;gap:24px}
+.brand{display:flex;align-items:center;gap:14px;font-weight:950;letter-spacing:.34em;font-size:14px}
+.brand img{width:44px;height:44px;object-fit:contain}
+.links{display:flex;gap:24px;color:var(--muted);font-size:13px;font-weight:760}
+.links a:hover{color:var(--gold2)}
+.btn{display:inline-flex;align-items:center;justify-content:center;padding:14px 22px;border-radius:999px;background:linear-gradient(135deg,var(--gold2),var(--gold));color:#050505;font-weight:950;border:1px solid rgba(212,175,55,.55);box-shadow:0 0 38px rgba(212,175,55,.25);transition:.25s ease}
+.btn:hover{transform:translateY(-2px);box-shadow:0 0 55px rgba(212,175,55,.38)}
+.btn.secondary{background:rgba(255,255,255,.045);color:#fff;border-color:rgba(255,255,255,.16);box-shadow:none}
+.kicker{display:inline-flex;align-items:center;gap:10px;padding:9px 15px;border-radius:999px;border:1px solid rgba(212,175,55,.30);background:rgba(212,175,55,.075);color:var(--gold2);font-size:12px;font-weight:950;text-transform:uppercase;letter-spacing:.13em;margin-bottom:24px}
+.pulse{width:8px;height:8px;border-radius:50%;background:var(--green);box-shadow:0 0 18px rgba(34,197,94,.9)}
+.gold{color:var(--gold)}
+
+/* HERO */
+.hero{min-height:82vh;display:grid;grid-template-columns:.96fr 1.04fr;gap:60px;align-items:center;padding:90px 0 70px}
+h1{font-size:clamp(52px,7vw,104px);line-height:.88;letter-spacing:-.07em;text-transform:uppercase;margin-bottom:26px}
+.hero p{max-width:710px;color:var(--muted);font-size:20px;line-height:1.72;margin-bottom:34px}
+.actions{display:flex;gap:14px;flex-wrap:wrap}
+.hero-panel{position:relative;min-height:620px;border-radius:44px;background:radial-gradient(circle at 50% 0%,rgba(212,175,55,.22),transparent 42%),linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,.018));border:1px solid rgba(212,175,55,.24);box-shadow:0 50px 160px rgba(0,0,0,.75);overflow:hidden;padding:26px}
+.hero-panel:before{content:"";position:absolute;inset:0;background:linear-gradient(120deg,transparent,rgba(255,255,255,.08),transparent);transform:translateX(-120%);animation:shine 6s ease-in-out infinite}
+@keyframes shine{40%,100%{transform:translateX(120%)}}
+.window{position:relative;z-index:2;border-radius:30px;background:#050505;border:1px solid rgba(255,255,255,.11);overflow:hidden}
+.win-top{height:56px;display:flex;align-items:center;justify-content:space-between;padding:0 18px;border-bottom:1px solid rgba(255,255,255,.08)}
+.dots span{display:inline-block;width:10px;height:10px;border-radius:50%;background:var(--gold);margin-right:7px}
+.title{color:var(--gold2);font-size:12px;font-weight:950;letter-spacing:.12em;text-transform:uppercase}
+.win-body{padding:22px;display:grid;gap:16px}
+.prompt-box,.landing-preview{border-radius:24px;background:rgba(255,255,255,.035);border:1px solid rgba(212,175,55,.16);padding:20px}
+.prompt-box small,.landing-preview small{display:block;color:var(--gold2);font-size:11px;text-transform:uppercase;font-weight:950;letter-spacing:.13em;margin-bottom:12px}
+.code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;color:rgba(255,255,255,.82);font-size:13px;line-height:1.65}
+.arrow{display:grid;place-items:center;color:var(--gold2);font-size:26px}
+.lp-card{border-radius:22px;background:#0b0b0b;border:1px solid rgba(255,255,255,.10);overflow:hidden}
+.lp-hero{padding:22px;background:radial-gradient(circle at 80% 0%,rgba(212,175,55,.18),transparent 45%),rgba(255,255,255,.025)}
+.lp-hero h3{font-size:24px;letter-spacing:-.04em;margin-bottom:8px}
+.lp-hero p{font-size:13px;line-height:1.5;margin:0;color:var(--muted)}
+.lp-sections{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:10px}
+.lp-section{padding:12px;border-radius:14px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);font-size:12px;color:var(--muted)}
+.lp-cta{margin:10px;padding:12px;border-radius:999px;background:var(--gold);color:#050505;text-align:center;font-weight:950;font-size:12px}
+
+/* Layout article */
+main.article{display:grid;grid-template-columns:260px 1fr;gap:50px;align-items:start}
+.toc{position:sticky;top:104px;border-radius:26px;padding:22px;background:rgba(255,255,255,.035);border:1px solid rgba(255,255,255,.10)}
+.toc b{display:block;color:var(--gold2);margin-bottom:14px;text-transform:uppercase;font-size:12px;letter-spacing:.12em}
+.toc a{display:block;color:var(--muted);padding:9px 0;border-bottom:1px solid rgba(255,255,255,.06);font-size:14px}
+.toc a:hover{color:#fff}
+.content{min-width:0}
+section{padding:70px 0;border-bottom:1px solid rgba(255,255,255,.07)}
+h2{font-size:clamp(34px,4vw,58px);line-height:.96;letter-spacing:-.055em;text-transform:uppercase;margin-bottom:20px}
+h3{font-size:25px;letter-spacing:-.03em;margin-bottom:10px}
+p,li{color:var(--muted);line-height:1.78;font-size:17px}
+ul{padding-left:20px;display:grid;gap:10px;margin:18px 0}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:24px}
+.card{position:relative;padding:26px;border-radius:28px;background:linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,.018));border:1px solid rgba(255,255,255,.10);overflow:hidden}
+.card:after{content:"";position:absolute;right:-70px;bottom:-92px;width:220px;height:220px;background:radial-gradient(circle,rgba(212,175,55,.16),transparent 70%)}
+.card *{position:relative;z-index:2}
+.label{display:inline-flex;color:var(--gold2);font-size:11px;font-weight:950;text-transform:uppercase;letter-spacing:.13em;border:1px solid rgba(212,175,55,.24);padding:8px 11px;border-radius:999px;background:rgba(212,175,55,.07);margin-bottom:16px}
+.bad{border-color:rgba(239,68,68,.24)}
+.good{border-color:rgba(212,175,55,.30)}
+.prompt-large{margin-top:24px;border-radius:30px;background:#050505;border:1px solid rgba(212,175,55,.24);overflow:hidden}
+.prompt-large .code{padding:26px;font-size:14px}
+.copy-btn{cursor:pointer;margin-left:auto;border:1px solid rgba(212,175,55,.25);background:rgba(212,175,55,.08);color:var(--gold2);border-radius:999px;padding:8px 12px;font-weight:900}
+.copy-btn:hover{background:rgba(212,175,55,.15)}
+.framework{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:24px}
+.step{min-height:180px}
+.step strong{display:block;color:rgba(212,175,55,.24);font-size:56px;line-height:.8;margin-bottom:12px}
+.wireframe{margin-top:24px;border-radius:34px;padding:24px;background:radial-gradient(circle at 80% 0%,rgba(212,175,55,.18),transparent 44%),linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,.018));border:1px solid rgba(212,175,55,.24)}
+.wf-block{padding:18px;border-radius:22px;background:rgba(0,0,0,.42);border:1px solid rgba(255,255,255,.10);margin-bottom:12px}
+.wf-block b{display:block;color:#fff;margin-bottom:6px}
+.wf-block span{color:var(--muted);line-height:1.55}
+.wf-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.cta-box{text-align:center;margin-top:40px;padding:70px 28px;border-radius:42px;background:radial-gradient(circle at 50% 0%,rgba(212,175,55,.28),transparent 45%),linear-gradient(180deg,rgba(255,255,255,.055),rgba(255,255,255,.018));border:1px solid rgba(212,175,55,.30);box-shadow:0 40px 120px rgba(0,0,0,.55)}
+.cta-box h2{margin:0 auto 20px}
+.cta-box p{max-width:700px;margin:0 auto 28px}
+.quiz{margin-top:24px;border-radius:30px;background:rgba(255,255,255,.035);border:1px solid rgba(212,175,55,.22);padding:26px}
+.quiz button{display:block;width:100%;text-align:left;margin-top:10px;border:1px solid rgba(255,255,255,.12);background:rgba(0,0,0,.45);color:#fff;padding:15px;border-radius:16px;font-weight:800;cursor:pointer}
+.quiz button:hover{border-color:rgba(212,175,55,.35)}
+.quiz-result{display:none;margin-top:16px;color:var(--gold2);font-weight:900}
+footer{border-top:1px solid rgba(255,255,255,.08);padding:46px 0;color:var(--muted)}
+.footer-grid{display:grid;grid-template-columns:1.4fr repeat(3,1fr);gap:28px}
+footer h4{color:#fff;margin-bottom:14px}
+footer a,footer p{display:block;color:var(--muted);font-size:14px;margin-bottom:9px}
+
+@media(max-width:980px){
+.links{display:none}.hero,main.article,.grid-2,.framework,.wf-grid,.footer-grid{grid-template-columns:1fr}
+.toc{position:relative;top:auto}
+.hero-panel{min-height:auto}
+.lp-sections{grid-template-columns:1fr}
+}
+
+
+/* === ESCALA PRO LAUNCH MOTION LAYER === */
+:root{--ease-pro:cubic-bezier(.16,1,.3,1)}
+body{cursor:auto}
+.pro-cursor,.pro-cursor-dot{position:fixed;left:0;top:0;pointer-events:none;z-index:9999;border-radius:999px;transform:translate(-50%,-50%);mix-blend-mode:difference}
+.pro-cursor{width:38px;height:38px;border:1px solid rgba(212,175,55,.78);box-shadow:0 0 26px rgba(212,175,55,.24);transition:width .22s var(--ease-pro),height .22s var(--ease-pro),border-color .22s var(--ease-pro),opacity .22s var(--ease-pro)}
+.pro-cursor-dot{width:7px;height:7px;background:#D4AF37;box-shadow:0 0 18px rgba(212,175,55,.9)}
+.pro-cursor.is-hover{width:66px;height:66px;border-color:rgba(255,255,255,.9);background:rgba(212,175,55,.08)}
+.pro-orb{position:fixed;inset:auto auto 8% -120px;width:360px;height:360px;border-radius:50%;z-index:-1;pointer-events:none;background:radial-gradient(circle,rgba(212,175,55,.18),rgba(212,175,55,.045) 44%,transparent 70%);filter:blur(2px);animation:orbFloat 12s ease-in-out infinite alternate}
+.pro-beam{position:fixed;left:52%;top:-45%;width:2px;height:190vh;z-index:-1;pointer-events:none;background:linear-gradient(transparent,rgba(212,175,55,.42),transparent);filter:blur(.6px);opacity:.38;transform:rotate(24deg);animation:beamDrift 8s ease-in-out infinite alternate}
+@keyframes orbFloat{from{transform:translate3d(0,0,0) scale(.92);opacity:.45}to{transform:translate3d(80px,-60px,0) scale(1.08);opacity:.86}}
+@keyframes beamDrift{from{transform:rotate(18deg) translateX(-80px);opacity:.18}to{transform:rotate(28deg) translateX(80px);opacity:.52}}
+section,.card,.hero,.cover,.content-engine,.os-visual,.process-visual,.portfolio-visual,.cta,.chapter,.book-card,.engine-card,.module,.step,.post,.project{transform-style:preserve-3d}
+.reveal-pro{opacity:0;transform:translateY(34px) scale(.985);filter:blur(8px);transition:opacity .9s var(--ease-pro),transform .9s var(--ease-pro),filter .9s var(--ease-pro)}
+.reveal-pro.in-view{opacity:1;transform:translateY(0) scale(1);filter:blur(0)}
+.card,.module,.step,.post,.project,.meta-card,.check,.tool,.engine-card{position:relative;overflow:hidden;transition:transform .32s var(--ease-pro),border-color .32s var(--ease-pro),box-shadow .32s var(--ease-pro),background .32s var(--ease-pro)}
+.card:after,.module:after,.step:after,.post:after,.project:after,.engine-card:after{content:"";position:absolute;inset:-1px;pointer-events:none;background:radial-gradient(420px circle at var(--mx,50%) var(--my,50%),rgba(212,175,55,.20),transparent 42%);opacity:0;transition:opacity .3s var(--ease-pro)}
+.card:hover:after,.module:hover:after,.step:hover:after,.post:hover:after,.project:hover:after,.engine-card:hover:after{opacity:1}
+.card:hover,.module:hover,.step:hover,.post:hover,.project:hover,.engine-card:hover{transform:translateY(-7px) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg));border-color:rgba(212,175,55,.42)!important;box-shadow:0 28px 90px rgba(0,0,0,.62),0 0 44px rgba(212,175,55,.12)}
+.btn{position:relative;overflow:hidden}.btn:before{content:"";position:absolute;inset:0;transform:translateX(-120%) skewX(-18deg);background:linear-gradient(90deg,transparent,rgba(255,255,255,.42),transparent);transition:transform .72s var(--ease-pro)}.btn:hover:before{transform:translateX(120%) skewX(-18deg)}
+.nav{transition:background .35s var(--ease-pro),box-shadow .35s var(--ease-pro)}.nav.is-scrolled{background:rgba(0,0,0,.86)!important;box-shadow:0 18px 60px rgba(0,0,0,.42)}
+.magnetic{will-change:transform;transition:transform .18s var(--ease-pro)}
+.social-strip{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}.social-pill{display:inline-flex;align-items:center;gap:8px;padding:10px 14px;border:1px solid rgba(212,175,55,.23);border-radius:999px;background:rgba(255,255,255,.035);color:rgba(255,255,255,.78);font-size:13px;font-weight:800}.social-pill:hover{color:#fff;border-color:rgba(212,175,55,.5);box-shadow:0 0 28px rgba(212,175,55,.12)}
+@media (max-width:780px){body{cursor:auto}.pro-cursor,.pro-cursor-dot{display:none}.links{display:none!important}.container{width:min(100% - 28px,1240px)!important}.hero,.cover{grid-template-columns:1fr!important;min-height:auto!important;padding-top:58px!important}h1{font-size:clamp(42px,14vw,72px)!important}.actions,.nav-right{width:100%}.actions .btn,.nav-right .btn{flex:1 1 100%}.card:hover,.module:hover,.step:hover,.post:hover,.project:hover,.engine-card:hover{transform:translateY(-3px)}}
+@media (prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important;scroll-behavior:auto!important}.reveal-pro{opacity:1!important;transform:none!important;filter:none!important}}
+
+
+
+/* ================= ESCALA LAUNCH MOTION UPGRADE ================= */
+@media (prefers-reduced-motion: reduce){
+  .escala-brand-intro, .escala-brand-intro * , .infoproduct-signal, .infoproduct-signal * { animation: none !important; transition: none !important; }
+}
+.escala-brand-intro{
+  position:fixed; inset:0; z-index:99999; display:grid; place-items:center; overflow:hidden;
+  background:radial-gradient(circle at 50% 45%, rgba(212,175,55,.16), transparent 26%), #000;
+  animation: escalaIntroExit 2.45s cubic-bezier(.16,1,.3,1) forwards;
+  pointer-events:none;
+}
+.escala-brand-intro::before{
+  content:""; position:absolute; width:34vmax; height:34vmax; border:1px solid rgba(212,175,55,.18); border-radius:50%;
+  box-shadow:0 0 80px rgba(212,175,55,.12), inset 0 0 80px rgba(212,175,55,.08);
+  animation: escalaRingExpand 2.1s cubic-bezier(.16,1,.3,1) forwards;
+}
+.escala-brand-mark{
+  display:flex; align-items:center; gap:18px; transform:scale(.72); opacity:0; filter:blur(10px);
+  animation: escalaLogoBloom 2.05s cubic-bezier(.16,1,.3,1) forwards;
+}
+.escala-brand-mark img{ width:82px; height:82px; object-fit:contain; filter:drop-shadow(0 0 26px rgba(212,175,55,.28)); }
+.escala-brand-mark span{ font-size:clamp(34px,7vw,104px); letter-spacing:.16em; font-weight:900; color:#fff; text-shadow:0 0 36px rgba(212,175,55,.28); }
+.escala-brand-mark span::after{ content:""; display:block; height:1px; width:100%; margin-top:12px; background:linear-gradient(90deg,transparent,var(--gold,#D4AF37),transparent); transform:scaleX(0); animation: escalaLineDraw 1.15s .45s ease forwards; }
+@keyframes escalaLogoBloom{
+  0%{opacity:0; transform:scale(.72) translateY(18px); filter:blur(12px)}
+  38%{opacity:1; transform:scale(1) translateY(0); filter:blur(0)}
+  72%{opacity:1; transform:scale(1.18); filter:blur(0)}
+  100%{opacity:0; transform:scale(2.65); filter:blur(18px)}
+}
+@keyframes escalaRingExpand{ 0%{transform:scale(.45);opacity:0} 35%{opacity:1} 100%{transform:scale(4.2);opacity:0} }
+@keyframes escalaIntroExit{ 0%,74%{opacity:1;visibility:visible} 100%{opacity:0;visibility:hidden} }
+@keyframes escalaLineDraw{ to{transform:scaleX(1)} }
+
+.infoproduct-signal{
+  position:relative !important; overflow:hidden !important; isolation:isolate; transform-style:preserve-3d;
+  border-color:rgba(212,175,55,.38) !important;
+  box-shadow:0 0 0 1px rgba(212,175,55,.10), 0 22px 70px rgba(212,175,55,.08) !important;
+}
+.infoproduct-signal::before{
+  content:""; position:absolute; inset:-2px; z-index:-1; border-radius:inherit;
+  background:conic-gradient(from var(--inf-angle,0deg), transparent 0 24%, rgba(212,175,55,.55), transparent 45% 100%);
+  opacity:.42; filter:blur(10px); animation: infoproductOrbit 5.8s linear infinite;
+}
+.infoproduct-signal::after{
+  content:""; position:absolute; inset:0; pointer-events:none; opacity:.0;
+  background:radial-gradient(circle at var(--mx,50%) var(--my,50%), rgba(231,201,99,.26), transparent 28%);
+  transition:opacity .28s ease;
+}
+.infoproduct-signal:hover::after{opacity:1}
+.infoproduct-signal:hover{ transform:translateY(-8px) rotateX(1.2deg) rotateY(-1.2deg) scale(1.015) !important; }
+.infoproduct-signal a, a.infoproduct-signal{
+  position:relative;
+}
+.infoproduct-signal .label, .infoproduct-signal small, .infoproduct-signal h2, .infoproduct-signal h3{
+  text-shadow:0 0 24px rgba(212,175,55,.18);
+}
+.infoproduct-signal .label::after, .infoproduct-signal small::after{
+  content:""; display:inline-block; width:7px; height:7px; margin-left:9px; border-radius:50%; background:var(--gold,#D4AF37);
+  box-shadow:0 0 14px rgba(212,175,55,.75); animation: infoproductPulse 1.7s ease-in-out infinite;
+}
+@keyframes infoproductOrbit{ to{ --inf-angle:360deg; } }
+@keyframes infoproductPulse{ 0%,100%{transform:scale(.72);opacity:.58} 50%{transform:scale(1.22);opacity:1} }
+@property --inf-angle{ syntax:'<angle>'; initial-value:0deg; inherits:false; }
+
+
+
+/* ================= ESCALA VIVO LAUNCH EFFECTS v2 ================= */
+:root{--escala-gold:#D4AF37;--escala-ease:cubic-bezier(.16,1,.3,1)}
+.escala-brand-intro{position:fixed;inset:0;z-index:999999;display:grid;place-items:center;overflow:hidden;background:radial-gradient(circle at 50% 45%,rgba(212,175,55,.22),transparent 28%),radial-gradient(circle at 50% 80%,rgba(255,255,255,.06),transparent 32%),#000;pointer-events:none;animation:escalaIntroFade 2.65s var(--escala-ease) forwards}.escala-brand-intro:before{content:"";position:absolute;width:30vmax;height:30vmax;border-radius:50%;border:1px solid rgba(212,175,55,.22);box-shadow:0 0 90px rgba(212,175,55,.22),inset 0 0 70px rgba(212,175,55,.09);animation:escalaRingBoom 2.25s var(--escala-ease) forwards}.escala-brand-intro:after{content:"";position:absolute;inset:-40%;background:conic-gradient(from 0deg,transparent,rgba(212,175,55,.18),transparent,rgba(255,255,255,.09),transparent);filter:blur(30px);opacity:.55;animation:escalaIntroSpin 2.7s linear forwards}.escala-brand-mark{position:relative;z-index:2;display:flex;align-items:center;gap:18px;opacity:0;transform:translateY(20px) scale(.68);filter:blur(14px);animation:escalaLogoExpansion 2.25s var(--escala-ease) forwards}.escala-brand-mark img{width:clamp(70px,12vw,118px);height:clamp(70px,12vw,118px);object-fit:contain;filter:drop-shadow(0 0 30px rgba(212,175,55,.42))}.escala-brand-mark span{font-size:clamp(38px,8vw,116px);letter-spacing:.16em;font-weight:900;color:#fff;text-shadow:0 0 42px rgba(212,175,55,.34)}.escala-brand-mark span:after{content:"";display:block;height:1px;width:100%;margin-top:12px;background:linear-gradient(90deg,transparent,var(--escala-gold),transparent);transform:scaleX(0);animation:escalaLineIn 1.1s .4s ease forwards}@keyframes escalaLogoExpansion{0%{opacity:0;transform:translateY(20px) scale(.68);filter:blur(14px)}34%{opacity:1;transform:translateY(0) scale(1);filter:blur(0)}68%{opacity:1;transform:scale(1.18);filter:blur(0)}100%{opacity:0;transform:scale(3.15);filter:blur(18px)}}@keyframes escalaRingBoom{0%{transform:scale(.4);opacity:0}34%{opacity:1}100%{transform:scale(4.8);opacity:0}}@keyframes escalaIntroFade{0%,76%{opacity:1;visibility:visible}100%{opacity:0;visibility:hidden}}@keyframes escalaIntroSpin{to{transform:rotate(165deg)}}@keyframes escalaLineIn{to{transform:scaleX(1)}}
+.infoproduct-signal,.product-live,.pricing-card,.offer-card{position:relative!important;isolation:isolate;overflow:hidden!important;transform-style:preserve-3d}.infoproduct-signal{border-color:rgba(212,175,55,.48)!important;box-shadow:0 0 0 1px rgba(212,175,55,.14),0 30px 90px rgba(212,175,55,.10)!important}.infoproduct-signal:before{content:"";position:absolute;inset:-2px;z-index:-2;border-radius:inherit;background:conic-gradient(from var(--vivo-angle,0deg),transparent 0 17%,rgba(212,175,55,.68),rgba(255,255,255,.22),transparent 43% 100%);filter:blur(12px);opacity:.55;animation:vivoOrbit 4.8s linear infinite}.infoproduct-signal:after{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;background:radial-gradient(420px circle at var(--mx,50%) var(--my,50%),rgba(255,220,120,.27),transparent 37%),linear-gradient(135deg,rgba(255,255,255,.055),transparent 42%);opacity:.5;transition:opacity .28s var(--escala-ease)}.infoproduct-signal:hover{transform:translateY(-10px) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg)) scale(1.018)!important;box-shadow:0 38px 110px rgba(0,0,0,.70),0 0 80px rgba(212,175,55,.18)!important}.vivo-particle{position:absolute;width:5px;height:5px;border-radius:50%;background:var(--escala-gold);box-shadow:0 0 16px rgba(212,175,55,.9);pointer-events:none;opacity:.0;animation:vivoSpark 3.2s ease-in-out infinite}.vivo-particle:nth-child(1){left:14%;top:24%;animation-delay:.1s}.vivo-particle:nth-child(2){left:82%;top:18%;animation-delay:.9s}.vivo-particle:nth-child(3){left:72%;top:78%;animation-delay:1.55s}.vivo-particle:nth-child(4){left:22%;top:82%;animation-delay:2.1s}.product-live-stage{position:fixed;inset:0;z-index:-1;pointer-events:none;overflow:hidden}.product-live-stage:before{content:"";position:absolute;right:-12vw;top:12vh;width:42vw;height:42vw;border-radius:50%;background:radial-gradient(circle,rgba(212,175,55,.20),rgba(212,175,55,.055) 42%,transparent 70%);filter:blur(6px);animation:productOrbFloat 9s ease-in-out infinite alternate}.product-live-stage:after{content:"";position:absolute;left:52%;top:-45%;width:1px;height:190vh;background:linear-gradient(transparent,rgba(212,175,55,.55),transparent);filter:blur(.7px);opacity:.42;transform:rotate(24deg);animation:productBeam 7s ease-in-out infinite alternate}.product-live-badge{position:absolute;right:7vw;top:18vh;width:118px;height:118px;border-radius:999px;border:1px solid rgba(212,175,55,.28);background:radial-gradient(circle,rgba(212,175,55,.13),rgba(0,0,0,.08));box-shadow:0 0 50px rgba(212,175,55,.16),inset 0 0 32px rgba(212,175,55,.08);animation:productBadgePulse 3.6s ease-in-out infinite}.product-live-badge:before,.product-live-badge:after{content:"";position:absolute;inset:16px;border-radius:inherit;border:1px solid rgba(212,175,55,.18);animation:productBadgeSpin 8s linear infinite}.product-live-badge:after{inset:32px;animation-direction:reverse;opacity:.75}@keyframes vivoOrbit{to{--vivo-angle:360deg}}@keyframes vivoSpark{0%,100%{opacity:0;transform:translate3d(0,10px,0) scale(.5)}45%{opacity:.95;transform:translate3d(0,-8px,22px) scale(1.25)}70%{opacity:.22}}@keyframes productOrbFloat{from{transform:translate3d(0,0,0) scale(.92);opacity:.55}to{transform:translate3d(-80px,40px,0) scale(1.08);opacity:.95}}@keyframes productBeam{from{transform:rotate(18deg) translateX(-70px);opacity:.2}to{transform:rotate(30deg) translateX(90px);opacity:.55}}@keyframes productBadgePulse{0%,100%{transform:scale(.94);opacity:.48}50%{transform:scale(1.05);opacity:.95}}@keyframes productBadgeSpin{to{transform:rotate(360deg)}}@property --vivo-angle{syntax:'<angle>';initial-value:0deg;inherits:false}@media(max-width:780px){.escala-brand-mark{flex-direction:column;gap:12px}.escala-brand-mark span{letter-spacing:.12em}.product-live-badge{display:none}.product-live-stage:before{width:80vw;height:80vw;right:-38vw;top:18vh}.infoproduct-signal:hover{transform:translateY(-4px) scale(1.006)!important}}@media(prefers-reduced-motion:reduce){.escala-brand-intro,.escala-brand-intro *,.infoproduct-signal,.infoproduct-signal *,.product-live-stage,.product-live-stage *{animation:none!important;transition:none!important}}
+
+
+
+/* === ESCALA V7: cursor visible + rendimiento lanzamiento === */
+body{cursor:auto!important;}
+.pro-cursor,.pro-cursor-dot{
+  mix-blend-mode:normal!important;
+  opacity:1!important;
+  will-change:transform!important;
+}
+.pro-cursor{
+  width:34px!important;height:34px!important;
+  border:2px solid rgba(212,175,55,.95)!important;
+  background:rgba(212,175,55,.035)!important;
+  box-shadow:0 0 18px rgba(212,175,55,.38)!important;
+}
+.pro-cursor-dot{
+  width:6px!important;height:6px!important;
+  background:#f6d978!important;
+  box-shadow:0 0 14px rgba(246,217,120,.9)!important;
+}
+.escala-v3-cursor{display:none!important;}
+.brand-symbol{
+  width:34px;height:34px;border:1px solid rgba(212,175,55,.55);border-radius:10px;
+  display:inline-flex;align-items:center;justify-content:center;
+  color:#D4AF37;font-weight:900;letter-spacing:-.03em;
+  background:linear-gradient(135deg,rgba(212,175,55,.16),rgba(255,255,255,.04));
+  box-shadow:0 0 24px rgba(212,175,55,.16);
+  margin-right:10px;flex:0 0 auto;
+}
+.intro-mark{
+  width:min(220px,52vw);height:min(220px,52vw);border:1px solid rgba(212,175,55,.42);border-radius:42px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:clamp(28px,9vw,62px);font-weight:900;letter-spacing:.08em;color:#fff;
+  background:radial-gradient(circle at 50% 45%,rgba(212,175,55,.24),rgba(0,0,0,.88) 68%);
+  box-shadow:0 0 80px rgba(212,175,55,.28), inset 0 0 40px rgba(212,175,55,.08);
+}
+img{max-width:100%;height:auto;}
+@media (max-width:780px){.pro-cursor,.pro-cursor-dot{display:none!important}.pro-orb,.pro-beam{opacity:.45!important;filter:blur(10px)!important}.noise{opacity:.14!important}}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}.pro-cursor,.pro-cursor-dot{display:none!important}}
+
+
+.brand-svg{width:22px;height:22px;display:block;color:#fff}.brand-svg .gold{color:#D4AF37}.intro-logo-img{width:150px!important;max-width:36vw!important;height:auto!important;object-fit:contain;display:block}
+#intro-logo .intro-mark{display:none!important}
+.local-open-warning{position:fixed;left:18px;right:18px;bottom:18px;z-index:9998;background:rgba(8,8,8,.92);border:1px solid rgba(212,175,55,.35);color:#f7f1dc;padding:13px 16px;border-radius:18px;font:600 13px/1.35 Inter,Arial,sans-serif;box-shadow:0 18px 60px rgba(0,0,0,.35);backdrop-filter:blur(14px)}.local-open-warning button{float:right;margin-left:12px;background:#D4AF37;color:#000;border:0;border-radius:999px;padding:4px 10px;font-weight:800;cursor:pointer}
+
+
+/* === ESCALA V14 DEFINITIVA: imágenes embebidas + móvil real === */
+html,body{max-width:100%;overflow-x:hidden!important;}
+img{max-width:100%;height:auto;display:block;}
+.brand img,.brand-logo,.escala-logo-img{width:48px!important;height:48px!important;object-fit:contain!important;flex:0 0 auto!important;}
+.media,.premium-image,.visual-image,.hero-visual,.escala-visual-lift__media{overflow:hidden!important;background:#050505!important;border:1px solid rgba(212,175,55,.28)!important;box-shadow:0 24px 80px rgba(0,0,0,.56),0 0 42px rgba(212,175,55,.12)!important;}
+.media img,.premium-image img,.visual-image img,.hero-visual img,.escala-visual-lift__media img{width:100%!important;height:auto!important;object-fit:cover!important;object-position:center!important;opacity:1!important;}
+@media(max-width:980px){
+  .wrap,.container{width:min(100% - 28px,1180px)!important;}
+  .navin,.nav-inner,.nav{height:auto!important;min-height:68px!important;padding-top:10px!important;padding-bottom:10px!important;}
+  .navlinks,.links,.nav-right nav{display:none!important;}
+  .brand{gap:12px!important;letter-spacing:.18em!important;font-size:13px!important;min-width:0!important;}
+  .hero,.hero-grid,.cover,.cover-grid,.grid,.grid-2,.grid-3,.grid-4,.two,.three,.four,.system-row,.content-grid,.diagnostic,.footer-grid{grid-template-columns:1fr!important;}
+  .hero,.cover{min-height:auto!important;padding-top:48px!important;padding-bottom:58px!important;gap:28px!important;}
+  h1{font-size:clamp(40px,12vw,68px)!important;line-height:.92!important;letter-spacing:-.065em!important;}
+  h2{font-size:clamp(31px,9vw,52px)!important;line-height:.96!important;}
+  .lead,.statement{font-size:clamp(17px,5vw,21px)!important;line-height:1.45!important;}
+  .media img,.premium-image img,.visual-image img,.hero-visual img{min-height:0!important;max-height:none!important;object-fit:contain!important;}
+  .media{margin:10px 0 0!important;border-radius:24px!important;}
+  .section,section{padding-top:58px!important;padding-bottom:58px!important;}
+  .card,.module,.project,.post,.hero-card,.device,.cta,.tool,.screen,.price-box,.callout{height:auto!important;min-height:0!important;border-radius:22px!important;}
+}
+@media(max-width:620px){
+  .wrap,.container{width:min(100% - 24px,1180px)!important;}
+  .brand img,.brand-logo,.escala-logo-img{width:44px!important;height:44px!important;}
+  .brand span,.brand-word{font-size:13px!important;letter-spacing:.22em!important;}
+  .hero,.cover{padding-top:36px!important;padding-bottom:46px!important;}
+  h1{font-size:clamp(38px,12.5vw,56px)!important;}
+  .kicker,.eyebrow{font-size:10px!important;letter-spacing:.14em!important;line-height:1.3!important;max-width:100%;white-space:normal!important;}
+  .btn,button{width:auto;max-width:100%;white-space:normal!important;text-align:center!important;min-height:44px!important;}
+  .media,.premium-image,.visual-image,.hero-visual{border-radius:20px!important;}
+  .card,.module,.project,.post,.hero-card,.device,.cta,.tool,.screen,.section,.callout{padding:18px!important;border-radius:20px!important;}
+  .article p{font-size:17px!important;}
+  .callout{font-size:21px!important;line-height:1.18!important;}
+}
+
+</style>
+<!-- ESCALA V3 FINAL LAUNCH SYSTEM -->
+<style id="escala-v3-final-css">
+:root{--escala-gold:#D4AF37;--escala-gold-2:#F6D978;--escala-bg:#000;--escala-card:rgba(255,255,255,.045);--escala-line:rgba(212,175,55,.22)}
+html{scroll-behavior:smooth} body{overflow-x:hidden}.escala-v3-reveal{opacity:0;transform:translateY(34px) scale(.985);filter:blur(10px);transition:opacity .85s cubic-bezier(.2,.8,.2,1),transform .85s cubic-bezier(.2,.8,.2,1),filter .85s ease}.escala-v3-reveal.is-visible{opacity:1;transform:translateY(0) scale(1);filter:blur(0)}
+.escala-v3-cursor{position:fixed;left:0;top:0;width:18px;height:18px;border:1px solid rgba(212,175,55,.85);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);mix-blend-mode:difference;transition:width .18s ease,height .18s ease,background .18s ease,border-color .18s ease;display:none}.escala-v3-cursor.is-hover{width:48px;height:48px;background:rgba(212,175,55,.12);border-color:rgba(246,217,120,.95)}@media (pointer:fine){.escala-v3-cursor{display:block}}
+#intro-logo{position:fixed;inset:0;background:radial-gradient(circle at 50% 45%,rgba(212,175,55,.10),#000 38%,#000 100%);display:flex;align-items:center;justify-content:center;z-index:10000;transition:opacity .65s ease;overflow:hidden}#intro-logo:before{content:"";position:absolute;width:38vw;height:38vw;min-width:280px;min-height:280px;border:1px solid rgba(212,175,55,.18);border-radius:50%;box-shadow:0 0 80px rgba(212,175,55,.14);animation:introRing 1.75s cubic-bezier(.2,.8,.2,1) forwards}#intro-logo img{width:86px;max-width:22vw;opacity:0;filter:drop-shadow(0 0 28px rgba(212,175,55,.55));animation:introLogoExpand 1.75s cubic-bezier(.16,1,.3,1) forwards}@keyframes introLogoExpand{0%{opacity:0;transform:scale(.58) rotate(-8deg)}32%{opacity:1;transform:scale(1)}75%{opacity:1;transform:scale(1.18)}100%{opacity:0;transform:scale(4.2);filter:drop-shadow(0 0 90px rgba(212,175,55,.72));}}@keyframes introRing{0%{opacity:0;transform:scale(.55)}55%{opacity:1}100%{opacity:0;transform:scale(2.4)}}
+.escala-v3-section{position:relative;padding:92px 0}.escala-v3-title{font-size:clamp(32px,5vw,64px);line-height:.96;letter-spacing:-.055em;margin:0 0 18px}.escala-v3-sub{max-width:760px;color:rgba(255,255,255,.68);font-size:clamp(16px,2vw,20px);line-height:1.55}.escala-v3-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:34px}.escala-v3-card{position:relative;overflow:hidden;border:1px solid var(--escala-line);background:linear-gradient(145deg,rgba(255,255,255,.075),rgba(255,255,255,.025));border-radius:26px;padding:26px;min-height:210px;transform-style:preserve-3d;transition:transform .28s ease,border-color .28s ease,box-shadow .28s ease}.escala-v3-card:before{content:"";position:absolute;inset:-1px;background:radial-gradient(380px circle at var(--mx,50%) var(--my,30%),rgba(212,175,55,.22),transparent 45%);opacity:0;transition:opacity .25s ease}.escala-v3-card:hover{border-color:rgba(246,217,120,.55);box-shadow:0 24px 70px rgba(0,0,0,.55),0 0 60px rgba(212,175,55,.10);transform:translateY(-8px) perspective(900px) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg))}.escala-v3-card:hover:before{opacity:1}.escala-v3-card>*{position:relative;z-index:1}.escala-v3-num{font-size:13px;color:var(--escala-gold);letter-spacing:.18em;text-transform:uppercase}.escala-v3-card h3{font-size:22px;margin:32px 0 10px;letter-spacing:-.03em}.escala-v3-card p{color:rgba(255,255,255,.68);line-height:1.55;margin:0}.escala-v3-cta-band{margin-top:34px;border:1px solid rgba(212,175,55,.28);border-radius:28px;padding:28px;background:linear-gradient(90deg,rgba(212,175,55,.13),rgba(255,255,255,.035));display:flex;align-items:center;justify-content:space-between;gap:20px;box-shadow:0 0 70px rgba(212,175,55,.08)}.escala-v3-cta-band p{margin:0;color:rgba(255,255,255,.72)}
+.live-product-zone,.product-main,.infoproduct-card,.escala-product-live{position:relative;overflow:hidden;border-color:rgba(212,175,55,.34)!important}.live-product-zone:before,.product-main:before,.infoproduct-card:before,.escala-product-live:before{content:"";position:absolute;inset:-60%;background:conic-gradient(from 0deg,transparent,rgba(212,175,55,.18),transparent 22%,rgba(246,217,120,.10),transparent 44%);animation:escalaProductAura 7s linear infinite;pointer-events:none}.live-product-zone:after,.product-main:after,.infoproduct-card:after,.escala-product-live:after{content:"";position:absolute;inset:0;background:radial-gradient(580px circle at 25% 10%,rgba(212,175,55,.18),transparent 42%),radial-gradient(320px circle at 80% 0%,rgba(255,255,255,.09),transparent 44%);pointer-events:none}.escala-product-live{border:1px solid rgba(212,175,55,.34);border-radius:32px;background:linear-gradient(145deg,rgba(255,255,255,.08),rgba(255,255,255,.025));box-shadow:0 30px 120px rgba(0,0,0,.62),0 0 90px rgba(212,175,55,.12);padding:34px}.escala-product-live .mockup{position:relative;z-index:1;aspect-ratio:4/5;border:1px solid rgba(212,175,55,.42);border-radius:24px;background:linear-gradient(160deg,#0d0d0d,#000 58%,rgba(212,175,55,.16));display:flex;flex-direction:column;justify-content:space-between;padding:28px;transform:perspective(1000px) rotateY(-10deg) rotateX(6deg);box-shadow:34px 30px 90px rgba(0,0,0,.55)}.escala-product-live .mockup b{font-size:clamp(26px,4vw,46px);letter-spacing:-.05em}.escala-product-live .mockup span{color:var(--escala-gold);letter-spacing:.18em;text-transform:uppercase;font-size:12px}.escala-product-live .mockup small{color:rgba(255,255,255,.62);line-height:1.55}.escala-product-live .orbit{position:absolute;right:24px;top:24px;width:94px;height:94px;border:1px solid rgba(212,175,55,.33);border-radius:50%;animation:escalaOrbit 8s linear infinite;z-index:2}.escala-product-live .orbit:after{content:"";position:absolute;right:8px;top:10px;width:10px;height:10px;border-radius:50%;background:var(--escala-gold);box-shadow:0 0 22px var(--escala-gold)}@keyframes escalaProductAura{to{transform:rotate(360deg)}}@keyframes escalaOrbit{to{transform:rotate(360deg)}}
+.escala-case-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;margin-top:34px}.escala-case{border:1px solid rgba(212,175,55,.23);border-radius:26px;padding:26px;background:rgba(255,255,255,.045)}.escala-case strong{color:var(--escala-gold);font-size:14px;letter-spacing:.16em;text-transform:uppercase}.escala-case h3{font-size:28px;margin:16px 0 12px}.escala-case ul{margin:0;padding-left:18px;color:rgba(255,255,255,.72);line-height:1.7}.escala-v3-sticky-cta{position:fixed;left:50%;bottom:18px;transform:translateX(-50%) translateY(120px);z-index:9997;border:1px solid rgba(212,175,55,.36);border-radius:999px;background:rgba(8,8,8,.72);backdrop-filter:blur(18px);padding:10px 12px 10px 18px;display:flex;align-items:center;gap:14px;box-shadow:0 18px 60px rgba(0,0,0,.45);transition:transform .4s ease}.escala-v3-sticky-cta.is-visible{transform:translateX(-50%) translateY(0)}.escala-v3-sticky-cta span{font-size:14px;color:rgba(255,255,255,.78);white-space:nowrap}.escala-v3-sticky-cta a{display:inline-flex;align-items:center;justify-content:center;padding:11px 16px;border-radius:999px;background:var(--escala-gold);color:#000;text-decoration:none;font-weight:800;font-size:14px}
+@media(max-width:900px){.escala-v3-grid,.escala-case-grid{grid-template-columns:1fr}.escala-v3-section{padding:64px 0}.escala-v3-cta-band{display:block}.escala-v3-cta-band .btn{margin-top:18px}.escala-product-live{padding:22px}.escala-v3-sticky-cta{width:calc(100% - 28px);justify-content:space-between}.escala-v3-sticky-cta span{font-size:12px;white-space:normal}.escala-v3-cursor{display:none!important}.live-product-zone:before,.product-main:before,.infoproduct-card:before,.escala-product-live:before{animation-duration:13s;opacity:.55}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important}.escala-v3-reveal{opacity:1;transform:none;filter:none}#intro-logo{display:none!important}}
+</style>
+<style id="escala-global-nav-css">
+.escala-page-map{width:min(1180px,calc(100% - 44px));margin:72px auto 42px;padding:26px;border:1px solid rgba(212,175,55,.18);border-radius:28px;background:linear-gradient(180deg,rgba(255,255,255,.045),rgba(255,255,255,.018));box-shadow:0 24px 80px rgba(0,0,0,.36)}
+.escala-page-map__head{display:flex;justify-content:space-between;gap:18px;align-items:flex-end;margin-bottom:18px}.escala-page-map__head h3{margin:0;color:#fff;font-size:22px;letter-spacing:-.03em}.escala-page-map__head p{margin:6px 0 0;color:rgba(255,255,255,.62);font-size:14px;line-height:1.5}.escala-page-map__badge{white-space:nowrap;color:#D4AF37;border:1px solid rgba(212,175,55,.25);border-radius:999px;padding:8px 12px;font-size:11px;font-weight:900;letter-spacing:.12em;text-transform:uppercase;background:rgba(212,175,55,.06)}
+.escala-page-map__grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.escala-page-map__grid a{display:block;text-decoration:none;color:rgba(255,255,255,.82);padding:13px 14px;border-radius:16px;border:1px solid rgba(255,255,255,.08);background:rgba(0,0,0,.24);font-size:13px;font-weight:800;transition:.22s ease}.escala-page-map__grid a:hover{color:#fff;border-color:rgba(212,175,55,.45);transform:translateY(-2px);box-shadow:0 14px 34px rgba(212,175,55,.08)}
+@media(max-width:860px){.escala-page-map{width:min(100% - 28px,1180px);padding:18px;margin:42px auto 28px}.escala-page-map__head{display:block}.escala-page-map__badge{display:inline-flex;margin-top:12px}.escala-page-map__grid{grid-template-columns:1fr 1fr}.escala-page-map__grid a{font-size:12px;padding:12px}}
+</style>
+<!-- ESCALA V13 AUDITORÍA: fixes globales de estabilidad, móvil e imágenes -->
+<style id="escala-v13-audit-fixes">
+  html,body{max-width:100%;overflow-x:hidden!important;}
+  body{scroll-behavior:auto!important;}
+  img{max-width:100%;height:auto;display:block;}
+  a,button{touch-action:manipulation;}
+  *,*::before,*::after{box-sizing:border-box;}
+  p,li,h1,h2,h3,h4,h5,h6,.lead,.statement,.card,.script,.code{overflow-wrap:anywhere;word-break:normal;}
+  .escala-brand-intro,#intro-logo,.pro-cursor,.pro-cursor-dot,.pro-orb,.pro-beam,.escala-v3-cursor,.product-live-stage,.product-live-badge{display:none!important;opacity:0!important;visibility:hidden!important;pointer-events:none!important;animation:none!important;}
+  .noise{pointer-events:none!important;}
+  .premium-image,.visual-image,.escala-visual-lift__media{overflow:hidden;border-radius:28px;border:1px solid rgba(212,175,55,.28);background:#050505;box-shadow:0 24px 80px rgba(0,0,0,.56),0 0 42px rgba(212,175,55,.12);}
+  .premium-image img,.visual-image img,.escala-visual-lift__media img{width:100%;height:auto;min-height:0!important;object-fit:contain!important;object-position:center!important;background:#050505;}
+  .escala-visual-lift{width:min(1180px,calc(100% - 38px));margin:42px auto;padding:34px;border:1px solid rgba(212,175,55,.24);border-radius:34px;background:radial-gradient(circle at 80% 0%,rgba(212,175,55,.14),transparent 36%),linear-gradient(180deg,rgba(255,255,255,.045),rgba(255,255,255,.012));box-shadow:0 26px 90px rgba(0,0,0,.45);}
+  .escala-visual-lift__grid{display:grid;grid-template-columns:.92fr 1.08fr;gap:28px;align-items:center;}
+  .escala-visual-lift__kicker{color:#F4D77A;font-size:12px;text-transform:uppercase;letter-spacing:.18em;font-weight:900;margin-bottom:12px;}
+  .escala-visual-lift h2{font-size:clamp(34px,4.6vw,62px);line-height:.92;letter-spacing:-.06em;margin:0 0 16px;color:#F7F3EA;}
+  .escala-visual-lift p{color:#D8D2C4;font-size:17px;line-height:1.65;margin:0;}
+  .escala-visual-lift__pills{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px;}
+  .escala-visual-lift__pills span{border:1px solid rgba(212,175,55,.25);border-radius:999px;padding:7px 10px;color:#D8D2C4;font-size:12px;background:rgba(255,255,255,.035);font-weight:800;}
+  @media(max-width:980px){
+    .hero,.hero-grid,.cover,.cover-grid,.section-head,.grid,.grid-2,.grid-3,.grid-4,.two,.three,.four,.cards,.modules,.content-grid,.diagnostic,.footer-grid,.escala-visual-lift__grid{grid-template-columns:1fr!important;}
+    section,.section{padding-left:0!important;padding-right:0!important;}
+    .wrap,.container{width:min(100% - 28px,1180px)!important;}
+    .escala-visual-lift{width:min(100% - 28px,1180px);padding:22px;border-radius:26px;}
+    .nav,.nav-inner,header .wrap{min-height:auto!important;height:auto!important;flex-wrap:wrap!important;padding-top:12px!important;padding-bottom:12px!important;}
+    .links,.navlinks,.nav-right nav{display:none!important;}
+    h1{font-size:clamp(42px,13vw,72px)!important;line-height:.9!important;}
+    h2{font-size:clamp(32px,10vw,54px)!important;line-height:.94!important;}
+    .card,.module,.project,.post,.hero-card,.device,.cta,.price-box{height:auto!important;min-height:0!important;}
+    .actions,.cta-row{display:flex!important;flex-wrap:wrap!important;width:100%!important;gap:10px!important;}
+    .actions .btn,.cta-row .btn,.btn{white-space:normal!important;text-align:center;}
+  }
+  @media(max-width:620px){
+    .wrap,.container{width:min(100% - 24px,1180px)!important;}
+    .hero,.cover{padding-top:44px!important;padding-bottom:54px!important;min-height:auto!important;}
+    .card,.module,.project,.post,.hero-card,.device,.cta,.tool,.screen,.section,.escala-visual-lift{border-radius:22px!important;padding:18px!important;}
+    .premium-image,.visual-image,.escala-visual-lift__media{border-radius:20px!important;}
+    .premium-image img,.visual-image img,.escala-visual-lift__media img{max-height:none!important;}
+    .btn,button{min-height:44px;}
+    .sidebar,.toc,.info-panel{position:relative!important;top:auto!important;height:auto!important;}
+    .app,.layout{display:block!important;}
+    .main{padding-left:16px!important;padding-right:16px!important;}
+  }
+  @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important;}}
+</style>
+<style>
+/* === ESCALA V19 GLOBAL REPAIR === */
+:root{
+  --font-ui:'Inter',system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
+  --font-display:'Bebas Neue',sans-serif;
+  --font-premium:'Cormorant Garamond',serif;
+  --gold:#D4AF37; --gold2:#F4D77A; --white:#F7F3EA; --text:#D8D2C4; --muted:#9B9486;
+}
+body{font-family:var(--font-ui)!important;overflow-x:hidden!important}
+h1,.hero h1,.cover h1{font-family:var(--font-display)!important;letter-spacing:.01em!important;text-transform:uppercase}
+.statement,.premium,blockquote{font-family:var(--font-premium)!important}
+img{max-width:100%;height:auto}
+a.brand img,.brand-logo,.escala-logo-img,.footer-logo,.logo-stage img{object-fit:contain!important}
+@media(max-width:720px){
+  body{overflow-x:hidden!important}
+  h1,.hero h1,.cover h1{font-size:clamp(46px,15vw,76px)!important;line-height:.88!important}
+  h2,.section h2{font-size:clamp(34px,11vw,56px)!important}
+  .wrap,.container{width:min(100% - 26px,1180px)!important}
+  .grid,.grid-2,.grid-3,.hero,.hero-grid,.cover,.layout,.section-head{grid-template-columns:1fr!important}
+  .navlinks,.links,.nav-right{display:none!important}
+  .nav,.nav-inner{min-height:68px!important;height:auto!important;padding:10px 0!important}
+  .brand img,.brand-logo,.escala-logo-img{width:42px!important;height:42px!important}
+  .hero,.cover{min-height:auto!important;padding-top:48px!important;padding-bottom:56px!important}
+  .card,.hero-card,.device,.cta,.visual,.premium-image{border-radius:22px!important}
+}
+</style>
+<link href="assets/img/favicon.png" rel="icon"/></head>
+<body>
+<div class="noise"></div><div class="light"></div>
+<nav class="nav"><div class="container nav-inner">
+<a class="brand" href="index.html"><img alt="ESCALA logo" class="escala-logo-img" src="assets/img/logo-escala-original.png"/><span>ESCALA</span></a>
+<div class="links"><a href="index.html">Inicio</a><a href="sistema.html">Sistema</a><a href="servicios.html">Servicios</a><a href="proceso.html">Proceso</a><a href="portfolio.html">Portfolio</a><a href="blog.html">Biblioteca</a><a href="infoproductos.html">Infoproductos</a><a href="dashboard.html">Dashboard</a></div>
+<a class="btn" href="brief.html">Diagnóstico</a>
+</div></nav>
+<header class="hero container">
+<div>
+<div class="kicker"><span class="pulse"></span> Guía práctica · IA aplicada</div>
+<h1>Cómo crear una landing page con IA <span class="gold">y que convierta.</span></h1>
+<p>No se trata de pedirle a Claude o ChatGPT “hazme una web”. Se trata de darle contexto, estructura y criterio para que construya una página pensada para generar confianza, leads y ventas.</p>
+<div class="actions"><a class="btn" href="#prompt">Ver prompt</a><a class="btn secondary" href="#wireframe">Ver estructura</a></div>
+</div>
+<div class="hero-panel">
+<div class="window">
+<div class="win-top"><div class="dots"><span></span><span></span><span></span></div><div class="title">PROMPT → LANDING</div></div>
+<div class="win-body">
+<div class="prompt-box">
+<small>Prompt estratégico</small>
+<div class="code">Crea una landing para un negocio que quiere más clientes, no tiene sistema de captación y necesita explicar su valor en menos de 10 segundos.</div>
+</div>
+<div class="arrow">↓</div>
+<div class="landing-preview">
+<small>Resultado generado</small>
+<div class="lp-card">
+<div class="lp-hero"><h3>Consigue más clientes sin depender de publicar todos los días</h3><p>Un sistema claro para atraer, convertir y medir oportunidades.</p></div>
+<div class="lp-sections"><div class="lp-section">Problema</div><div class="lp-section">Solución</div><div class="lp-section">Beneficios</div><div class="lp-section">Prueba social</div></div>
+<div class="lp-cta">EMPEZAR AHORA</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</header>
+<main class="article container">
+<aside class="toc">
+<b>Contenido</b>
+<a href="#error">01 · Error común</a>
+<a href="#estructura">02 · Estructura</a>
+<a href="#prompt">03 · Prompt</a>
+<a href="#wireframe">04 · Wireframe</a>
+<a href="#conversion">05 · Conversión</a>
+<a href="#quiz">06 · Mini test</a>
+</aside>
+<div class="content">
+<section id="error">
+<span class="label">Primero, estrategia</span>
+<h2>El error: pedir una landing sin pensar la conversión.</h2>
+<p>La mayoría abre ChatGPT o Claude y escribe: “hazme una landing para mi negocio”. El resultado suele ser una página bonita en apariencia, pero débil en lo importante: no diferencia, no explica bien el problema, no dirige la atención y no convierte.</p>
+<div class="grid-2">
+<div class="card bad"><span class="label">Mal enfoque</span><h3>“Hazme una web bonita”</h3><p>La IA inventa secciones genéricas porque no entiende tu oferta, tu cliente ni el objetivo comercial.</p></div>
+<div class="card good"><span class="label">Buen enfoque</span><h3>“Construye una estructura que venda”</h3><p>La IA trabaja mucho mejor cuando le das contexto, reglas, bloques y un resultado esperado.</p></div>
+</div>
+</section>
+<section id="estructura">
+<span class="label">Arquitectura de landing</span>
+<h2>Una landing no es diseño. Es una secuencia de decisión.</h2>
+<p>Una buena landing guía al visitante por una ruta mental. Primero capta atención, luego muestra el problema, después presenta la solución, elimina dudas y finalmente pide una acción.</p>
+<div class="framework">
+<div class="card step"><strong>01</strong><h3>Hero</h3><p>Promesa clara, concreta y entendible en menos de 10 segundos.</p></div>
+<div class="card step"><strong>02</strong><h3>Problema</h3><p>El visitante debe sentir: “esto me pasa a mí”.</p></div>
+<div class="card step"><strong>03</strong><h3>Solución</h3><p>Explica qué haces y por qué es diferente.</p></div>
+<div class="card step"><strong>04</strong><h3>Beneficios</h3><p>Convierte características en resultados deseables.</p></div>
+<div class="card step"><strong>05</strong><h3>Prueba</h3><p>Casos, métricas, testimonios o demostración visual.</p></div>
+<div class="card step"><strong>06</strong><h3>CTA</h3><p>Una acción clara, fácil y sin fricción.</p></div>
+</div>
+</section>
+<section id="prompt">
+<span class="label">Prompt copiable</span>
+<h2>El prompt correcto para generar una landing con IA.</h2>
+<p>Este prompt fuerza a la IA a pensar como estratega, copywriter y diseñador de conversión. Puedes usarlo en Claude, ChatGPT o Claude Code.</p>
+<div class="prompt-large">
+<div class="win-top"><div class="dots"><span></span><span></span><span></span></div><button class="copy-btn" onclick="copyPrompt()">Copiar prompt</button></div>
+<div class="code" id="promptText">
+Actúa como estratega digital, copywriter de conversión y diseñador UX.
+
+Analiza este negocio:
+[NOMBRE DEL NEGOCIO]
+[QUÉ VENDE]
+[A QUIÉN AYUDA]
+[PROBLEMA PRINCIPAL DEL CLIENTE]
+[RESULTADO QUE PROMETE]
+
+Crea una landing page completa con esta estructura:
+
+1. HERO
+- titular claro y potente
+- subtítulo que explique el resultado
+- CTA principal
+
+2. PROBLEMA
+- qué está perdiendo el cliente
+- por qué ocurre
+- qué pasa si no lo soluciona
+
+3. SOLUCIÓN
+- cómo ayuda el negocio
+- por qué es diferente
+- qué proceso sigue
+
+4. BENEFICIOS
+- 5 beneficios concretos
+- escritos como resultados, no características
+
+5. PRUEBA / CONFIANZA
+- elementos de autoridad
+- casos, métricas o garantías posibles
+
+6. CTA FINAL
+- mensaje directo
+- acción simple
+
+Después, genera:
+- wireframe por secciones
+- copy final
+- versión HTML limpia y responsive
+- 3 mejoras para aumentar conversión
+</div>
+</div>
+</section>
+<section id="wireframe">
+<span class="label">Visual interactivo</span>
+<h2>Wireframe recomendado para convertir.</h2>
+<p>Antes de diseñar, ordena. Este wireframe es la base para que Claude o ChatGPT no generen una página desordenada.</p>
+<div class="wireframe">
+<div class="wf-block"><b>HERO</b><span>Titular + promesa + CTA + visual principal.</span></div>
+<div class="wf-grid">
+<div class="wf-block"><b>PROBLEMA</b><span>Dolor, pérdida y situación actual.</span></div>
+<div class="wf-block"><b>SOLUCIÓN</b><span>Sistema, método o servicio como puente.</span></div>
+</div>
+<div class="wf-grid">
+<div class="wf-block"><b>BENEFICIOS</b><span>Resultados concretos que importan.</span></div>
+<div class="wf-block"><b>PRUEBA</b><span>Casos, datos, autoridad o demo.</span></div>
+</div>
+<div class="wf-block"><b>CTA FINAL</b><span>Una acción clara: pedir diagnóstico, escribir DM o descargar guía.</span></div>
+</div>
+</section>
+<section id="conversion">
+<span class="label">Criterio ESCALA</span>
+<h2>Lo que convierte no es la IA. Es el sistema detrás.</h2>
+<p>La IA acelera la producción, pero el criterio sigue siendo humano. Una landing generada con IA solo funciona si parte de una buena oferta, un problema claro y una estructura pensada para vender.</p>
+<div class="grid-2">
+<div class="card"><h3>Úsala para velocidad</h3><p>Claude o ChatGPT pueden darte estructura, copy, secciones, variaciones y código en minutos.</p></div>
+<div class="card"><h3>No delegues el criterio</h3><p>Tú decides qué promesa es creíble, qué dolor es real y qué CTA tiene sentido para el negocio.</p></div>
+</div>
+</section>
+<section id="quiz">
+<span class="label">Mini test</span>
+<h2>¿Tu landing está lista para captar?</h2>
+<p>Responde mentalmente. Si fallas en una de estas preguntas, la landing todavía necesita estrategia.</p>
+<div class="quiz">
+<h3>Pregunta clave</h3>
+<p>¿Tu visitante entiende en menos de 10 segundos qué haces, para quién y qué resultado puede conseguir?</p>
+<button onclick="showResult('sí')">Sí, está claro</button>
+<button onclick="showResult('no')">No del todo</button>
+<div class="quiz-result" id="quizResult"></div>
+</div>
+<div class="cta-box">
+<span class="label">Infoproducto ESCALA</span>
+<h2>¿Quieres el sistema completo de prompts?</h2>
+<p>Estamos creando guías, cursos y plantillas para convertir IA en activos reales: landings, contenido, automatizaciones y dashboards.</p>
+<div class="actions" style="justify-content:center;margin-bottom:0"><a class="btn" href="contacto.html">Quiero la guía</a><a class="btn secondary" href="blog.html">Volver al blog</a></div>
+</div>
+</section>
+</div>
+</main>
+<section aria-label="Navegación ESCALA" class="escala-page-map" id="escala-page-map">
+<div class="escala-page-map__head">
+<div><h3>Mapa rápido ESCALA</h3><p>Todas las páginas del ecosistema están conectadas. Cada enlace se abre en una pestaña nueva para no perder la página actual.</p></div>
+<span class="escala-page-map__badge">Nueva pestaña</span>
+</div>
+<div class="escala-page-map__grid"><a href="index.html">Home</a><a href="sistema.html">Sistema</a><a href="servicios.html">Servicios</a><a href="proceso.html">Proceso</a><a href="portfolio.html">Portfolio</a><a href="blog.html">Blog</a><a href="dashboard.html">Dashboard</a><a href="brief.html">Diagnóstico</a><a href="sistema-ia.html">Sistema IA</a><a href="pack-prompts-ia.html">Pack Prompts IA</a><a href="guia-diagnostico-digital.html">Guía Diagnóstico</a><a href="checkout-sistema-ia.html">Checkout</a><a href="blog-post-encontrar-clientes-ia.html">Artículo Clientes IA</a><a href="blog-post-automatizar-leads-ia.html">Artículo Leads IA</a></div>
+</section>
+<footer>
+<div class="container footer-grid">
+<div><h4>ESCALA</h4><p>Sistema operativo de crecimiento con IA.</p><p>Alicante · España</p></div>
+<div><h4>Sistema</h4><a href="sistema.html">ESCALA OS</a><a href="proceso.html">Proceso</a><a href="dashboard.html">Dashboard</a></div>
+<div><h4>Empresa</h4><a href="portfolio.html">Portfolio</a><a href="blog.html">Blog</a><a href="contacto.html">Contacto</a></div>
+<div><h4>Contacto</h4><a href="mailto:agency.escala@gmail.com">agency.escala@gmail.com</a><a href="https://www.instagram.com/escala.sistema/" target="_blank">Instagram · @escala.sistema</a><a href="https://www.tiktok.com/@escala.agency" target="_blank">TikTok · @escala.agency</a><p>© 2026 ESCALA</p></div>
+</div>
+</footer>
+<script>
+function copyPrompt(){
+  const text = document.getElementById('promptText').innerText;
+  navigator.clipboard.writeText(text).then(() => {
+    const btn = document.querySelector('.copy-btn');
+    btn.textContent = 'Copiado ✓';
+    setTimeout(()=>btn.textContent='Copiar prompt', 1800);
+  });
+}
+function showResult(answer){
+  const box = document.getElementById('quizResult');
+  box.style.display = 'block';
+  if(answer === 'sí') {
+    box.textContent = 'Bien. Ahora revisa si tu CTA es igual de claro.';
+  } else {
+    box.textContent = 'Entonces no necesitas más diseño: necesitas mejor mensaje.';
+  }
+}
+</script>
+<script>
+(function(){
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  document.body.insertAdjacentHTML('afterbegin','<div class="pro-orb"></div><div class="pro-beam"></div><div class="pro-cursor"></div><div class="pro-cursor-dot"></div>');
+  const nav=document.querySelector('.nav');
+  const onScroll=()=>{ if(nav) nav.classList.toggle('is-scrolled', window.scrollY>24); };
+  onScroll(); window.addEventListener('scroll', onScroll, {passive:true});
+  document.querySelectorAll('.btn,a.btn,.card,.module,.step,.post,.project,.engine-card').forEach(el=>el.classList.add('magnetic'));
+  if(!reduce){
+    const revealTargets=document.querySelectorAll('section,.card,.module,.step,.post,.project,.chapter,.cta,.content-engine,.os-visual,.process-visual,.portfolio-visual,.book-card,.engine-card');
+    revealTargets.forEach((el,i)=>{el.classList.add('reveal-pro'); el.style.transitionDelay=Math.min((i%6)*70,350)+'ms';});
+    const io=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in-view');io.unobserve(e.target)}}),{threshold:.12,rootMargin:'0px 0px -8% 0px'});
+    revealTargets.forEach(el=>io.observe(el));
+  }
+  const cursor=document.querySelector('.pro-cursor'), dot=document.querySelector('.pro-cursor-dot');
+  let cx=innerWidth/2, cy=innerHeight/2, tx=cx, ty=cy;
+  if(cursor && dot && matchMedia('(pointer:fine)').matches){
+    addEventListener('mousemove',e=>{tx=e.clientX;ty=e.clientY;dot.style.transform=`translate(${tx}px,${ty}px) translate(-50%,-50%)`;},{passive:true});
+    const loop=()=>{cx+=(tx-cx)*.18;cy+=(ty-cy)*.18;cursor.style.transform=`translate(${cx}px,${cy}px) translate(-50%,-50%)`;requestAnimationFrame(loop)}; loop();
+    document.querySelectorAll('a,button,.btn,.card,.module,.step,.post,.project').forEach(el=>{el.addEventListener('mouseenter',()=>cursor.classList.add('is-hover'));el.addEventListener('mouseleave',()=>cursor.classList.remove('is-hover'));});
+  }
+  document.querySelectorAll('.card,.module,.step,.post,.project,.engine-card').forEach(card=>{
+    card.addEventListener('mousemove',e=>{const r=card.getBoundingClientRect();const x=e.clientX-r.left,y=e.clientY-r.top;card.style.setProperty('--mx',x+'px');card.style.setProperty('--my',y+'px');const ry=((x/r.width)-.5)*5;const rx=-((y/r.height)-.5)*5;card.style.setProperty('--rx',rx+'deg');card.style.setProperty('--ry',ry+'deg');},{passive:true});
+    card.addEventListener('mouseleave',()=>{card.style.setProperty('--rx','0deg');card.style.setProperty('--ry','0deg');});
+  });
+  document.querySelectorAll('.magnetic').forEach(el=>{el.addEventListener('mousemove',e=>{if(!matchMedia('(pointer:fine)').matches)return;const r=el.getBoundingClientRect();const x=(e.clientX-r.left-r.width/2)*.08;const y=(e.clientY-r.top-r.height/2)*.08;el.style.transform=`translate(${x}px,${y}px)`;},{passive:true});el.addEventListener('mouseleave',()=>{el.style.transform='';});});
+})();
+</script>
+<script>
+(function(){
+  const path = (location.pathname || '').split('/').pop() || 'index.html';
+  const productPages = ['sistema-ia.html','checkout-sistema-ia.html','pack-prompts-ia.html','guia-diagnostico-digital.html'];
+  const logo = document.querySelector('.brand img');
+
+  // Intro real: visible en la home cada vez que se carga index.html.
+  if ((path === 'index.html' || path === '') && document.body && logo) {
+    const intro = document.createElement('div');
+    intro.className = 'escala-brand-intro';
+    intro.innerHTML = '<div class="escala-brand-mark"><img src="'+logo.getAttribute('src')+'" alt="ESCALA"><span>ESCALA</span></div>';
+    document.body.prepend(intro);
+    setTimeout(()=> intro.remove(), 2850);
+  }
+
+  // Producto vivo: detecta páginas de infoproducto y tarjetas que apunten a ellas.
+  if (productPages.includes(path)) {
+    document.body.classList.add('escala-product-page');
+    const stage = document.createElement('div');
+    stage.className = 'product-live-stage';
+    stage.innerHTML = '<div class="product-live-badge"></div>';
+    document.body.prepend(stage);
+  }
+
+  const candidates = document.querySelectorAll('article,.card,.post,.project,.module,.engine-card,.book-card,.pricing-card,.offer-card,a');
+  candidates.forEach(el => {
+    const text = (el.textContent || '').toLowerCase();
+    const ownHref = el.matches && el.matches('a[href]') ? el.getAttribute('href') : '';
+    const hrefs = Array.from(el.querySelectorAll ? el.querySelectorAll('a[href]') : []).map(a=>a.getAttribute('href')).join(' ');
+    const blob = text + ' ' + ownHref + ' ' + hrefs;
+    if (blob.includes('infoproduct') || blob.includes('sistema ia') || blob.includes('prompts') || blob.includes('diagnóstico digital') || productPages.some(p => blob.includes(p))) {
+      el.classList.add('infoproduct-signal');
+      if (!el.querySelector('.vivo-particle')) {
+        for (let i=0;i<4;i++) { const s=document.createElement('span'); s.className='vivo-particle'; el.appendChild(s); }
+      }
+    }
+  });
+
+  document.querySelectorAll('.infoproduct-signal').forEach(card=>{
+    card.addEventListener('pointermove', e=>{
+      const r = card.getBoundingClientRect();
+      const px = ((e.clientX-r.left)/r.width*100); const py = ((e.clientY-r.top)/r.height*100);
+      card.style.setProperty('--mx', px.toFixed(1)+'%'); card.style.setProperty('--my', py.toFixed(1)+'%');
+      card.style.setProperty('--ry', ((px-50)*0.08).toFixed(2)+'deg'); card.style.setProperty('--rx', ((50-py)*0.08).toFixed(2)+'deg');
+    }, {passive:true});
+    card.addEventListener('pointerleave', ()=>{card.style.setProperty('--rx','0deg');card.style.setProperty('--ry','0deg');});
+  });
+})();
+</script>
+<script id="escala-v3-final-js">
+(function(){
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const sections = document.querySelectorAll('main section, header.hero, .card, .grid-3 > *, .grid-2 > *, .escala-case, .escala-v3-card, .escala-product-live');
+  sections.forEach((el,i)=>{ if(!el.classList.contains('no-reveal')){ el.classList.add('escala-v3-reveal'); el.style.transitionDelay = Math.min(i%8*70, 420)+'ms'; }});
+  if(!reduce && 'IntersectionObserver' in window){
+    const io = new IntersectionObserver((entries)=>entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('is-visible');io.unobserve(e.target)}}),{threshold:.12,rootMargin:'0px 0px -8% 0px'});
+    document.querySelectorAll('.escala-v3-reveal').forEach(el=>io.observe(el));
+  } else { document.querySelectorAll('.escala-v3-reveal').forEach(el=>el.classList.add('is-visible')); }
+  if(!reduce && window.matchMedia('(pointer:fine)').matches){
+    const cursor=document.createElement('div'); cursor.className='escala-v3-cursor'; document.body.appendChild(cursor);
+    window.addEventListener('mousemove',e=>{cursor.style.left=e.clientX+'px';cursor.style.top=e.clientY+'px'});
+    document.querySelectorAll('a,button,.btn,.escala-v3-card,.card,.escala-product-live').forEach(el=>{el.addEventListener('mouseenter',()=>cursor.classList.add('is-hover'));el.addEventListener('mouseleave',()=>cursor.classList.remove('is-hover'));});
+  }
+  document.querySelectorAll('.escala-v3-card,.card,.escala-product-live').forEach(card=>{
+    card.addEventListener('mousemove',e=>{const r=card.getBoundingClientRect(); const x=e.clientX-r.left, y=e.clientY-r.top; card.style.setProperty('--mx',x+'px');card.style.setProperty('--my',y+'px');card.style.setProperty('--rx',((y/r.height)-.5)*-5+'deg');card.style.setProperty('--ry',((x/r.width)-.5)*7+'deg');});
+    card.addEventListener('mouseleave',()=>{card.style.setProperty('--rx','0deg');card.style.setProperty('--ry','0deg');});
+  });
+  const sticky=document.createElement('div'); sticky.className='escala-v3-sticky-cta'; sticky.innerHTML='<span>¿Quieres ver qué sistema necesita tu negocio?</span><a href="brief.html">Diagnóstico</a>'; document.body.appendChild(sticky);
+  window.addEventListener('scroll',()=>{sticky.classList.toggle('is-visible', window.scrollY>700)}, {passive:true});
+})();
+</script>
+<script id="escala-local-nav-guard">
+(function(){
+  if(location.protocol==='file:' && /AppData/i.test(decodeURIComponent(location.pathname))){
+    var box=document.createElement('div');
+    box.className='local-open-warning';
+    box.innerHTML='<button onclick="this.parentElement.remove()">OK</button>Para navegar entre páginas sin errores, extrae el ZIP completo en una carpeta y abre index.html desde esa carpeta.';
+    document.addEventListener('DOMContentLoaded',function(){document.body.appendChild(box);});
+  }
+})();
+</script>
+<script id="escala-force-new-tabs">
+(function(){
+  document.querySelectorAll('a[href$=".html"], a[href*=".html#"]').forEach(function(a){
+    a.setAttribute('target','_blank');
+    a.setAttribute('rel','noopener noreferrer');
+  });
+})();
+</script>
+<script id="escala-v13-runtime-fixes">
+(function(){
+  function kill(){
+    document.querySelectorAll('.escala-brand-intro,#intro-logo,.pro-cursor,.pro-cursor-dot,.pro-orb,.pro-beam,.escala-v3-cursor,.product-live-stage,.product-live-badge').forEach(function(el){el.remove();});
+  }
+  kill(); setTimeout(kill,300); setTimeout(kill,1200);
+  document.querySelectorAll('img').forEach(function(img){
+    img.loading = img.loading || 'lazy';
+    img.decoding = 'async';
+    img.addEventListener('error', function(){
+      this.style.display='none';
+      var box=document.createElement('div');
+      box.className='escala-image-fallback';
+      box.style.cssText='border:1px solid rgba(212,175,55,.25);border-radius:22px;padding:22px;color:#F4D77A;background:#050505;text-align:center;font-weight:900;letter-spacing:.12em;text-transform:uppercase;';
+      box.textContent='ESCALA · Visual no disponible';
+      this.parentNode && this.parentNode.appendChild(box);
+    });
+  });
+})();
+</script>
+</body>
+</html>

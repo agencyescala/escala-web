@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+
+<html lang="es">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>ESCALA — Tu negocio en modo sistema</title>
+<meta content="ESCALA convierte negocios dispersos en sistemas de crecimiento: estrategia, contenido, web, automatización, CRM y analítica." name="description"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&amp;family=Cormorant+Garamond:wght@500;600;700&amp;family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --black:#000; --bg:#050505; --panel:#090909; --panel2:#101010;
+  --gold:#D4AF37; --gold2:#F4D77A; --gold3:#7A5A13;
+  --white:#F7F3EA; --text:#D8D2C4; --muted:#9B9486;
+  --line:rgba(212,175,55,.28); --line2:rgba(255,255,255,.10);
+  --font-ui:'Inter',system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
+  --font-display:'Bebas Neue',sans-serif; --font-premium:'Cormorant Garamond',serif;
+}
+*{box-sizing:border-box} html{scroll-behavior:smooth}
+body{margin:0;background:#000;color:var(--white);font-family:var(--font-ui);line-height:1.55;overflow-x:hidden}
+body::before{content:"";position:fixed;inset:0;z-index:-3;background:
+ radial-gradient(circle at 10% 0%,rgba(212,175,55,.22),transparent 28%),
+ radial-gradient(circle at 88% 18%,rgba(244,215,122,.12),transparent 30%),
+ linear-gradient(180deg,#000 0%,#050505 52%,#000 100%)}
+body::after{content:"";position:fixed;inset:0;z-index:-2;pointer-events:none;opacity:.18;background-image:
+ linear-gradient(rgba(255,255,255,.055) 1px,transparent 1px),
+ linear-gradient(90deg,rgba(255,255,255,.055) 1px,transparent 1px);background-size:72px 72px}
+a{color:inherit;text-decoration:none}.wrap{width:min(1180px,calc(100% - 38px));margin:auto}.gold{color:var(--gold2)}
+.topbar{position:sticky;top:0;z-index:20;background:rgba(0,0,0,.86);border-bottom:1px solid var(--line2);backdrop-filter:blur(18px)}
+.nav{height:76px;display:flex;align-items:center;justify-content:space-between;gap:18px}
+.brand{display:flex;align-items:center;gap:14px;font-size:12px;letter-spacing:.20em;text-transform:uppercase;font-weight:950;white-space:nowrap}
+.brand img{width:48px;height:48px;object-fit:contain;display:block;filter:drop-shadow(0 0 18px rgba(212,175,55,.22))}
+.navlinks{display:flex;align-items:center;gap:6px;flex-wrap:wrap;justify-content:flex-end}
+.navlinks a{color:var(--muted);font-size:12px;font-weight:850;padding:8px 10px;border-radius:999px;border:1px solid transparent;transition:.22s}
+.navlinks a:hover{color:#fff;border-color:var(--line);background:rgba(212,175,55,.08)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;text-decoration:none;border-radius:18px;padding:16px 22px;border:1px solid var(--line);font-weight:950;transition:.25s;position:relative;overflow:hidden}
+.btn::before{content:"";position:absolute;inset:0;background:linear-gradient(120deg,transparent,rgba(255,255,255,.26),transparent);transform:translateX(-140%);transition:.6s}.btn:hover::before{transform:translateX(140%)}
+.btn.primary{background:linear-gradient(135deg,var(--gold),var(--gold2));color:#060606;box-shadow:0 24px 80px rgba(212,175,55,.25)}
+.btn.secondary{background:rgba(255,255,255,.045);color:var(--white)}
+.hero{min-height:calc(100vh - 76px);display:grid;grid-template-columns:1.02fr .98fr;gap:48px;align-items:center;padding:78px 0 92px;position:relative}
+.eyebrow{display:inline-flex;align-items:center;gap:10px;padding:9px 14px;border:1px solid var(--line);border-radius:999px;color:var(--gold2);background:rgba(212,175,55,.08);font-size:12px;letter-spacing:.18em;text-transform:uppercase;font-weight:900}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--gold);box-shadow:0 0 24px var(--gold)}
+h1{font-family:var(--font-display);font-size:clamp(64px,10vw,132px);line-height:.82;margin:28px 0 22px;letter-spacing:.01em;font-weight:400;text-transform:uppercase}
+.statement{font-family:var(--font-premium);font-size:clamp(26px,3.5vw,44px);line-height:1.02;letter-spacing:-.03em;max-width:760px;margin:0 0 18px;color:#fff}
+.lead{font-size:clamp(17px,2vw,22px);color:var(--text);max-width:720px;margin:0}
+.actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:32px}
+.hero-meta{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:34px}
+.meta{border:1px solid var(--line2);background:rgba(255,255,255,.035);border-radius:20px;padding:16px}
+.meta b{display:block;color:var(--gold2);font-size:28px;line-height:1}.meta span{font-size:11px;color:var(--muted);font-weight:800;text-transform:uppercase;letter-spacing:.12em}
+.hero-card{border:1px solid var(--line);border-radius:36px;padding:20px;background:linear-gradient(180deg,rgba(18,18,18,.96),rgba(2,2,2,.98));box-shadow:0 28px 90px rgba(0,0,0,.70),0 0 46px rgba(212,175,55,.12);overflow:hidden}
+.hero-card img{width:100%;aspect-ratio:16/10;object-fit:cover;border-radius:26px;border:1px solid var(--line2);display:block}
+.panel{margin-top:18px;border:1px solid var(--line2);border-radius:24px;padding:20px;background:rgba(255,255,255,.035)}
+.panel-title{font-size:28px;line-height:1.02;margin:0 0 8px;letter-spacing:-.03em}.panel p{margin:0;color:var(--text)}
+.section{padding:104px 0;border-top:1px solid var(--line2);position:relative}
+.section-head{display:grid;grid-template-columns:.8fr 1fr;gap:36px;align-items:end;margin-bottom:38px}
+.kicker{color:var(--gold);font-size:12px;letter-spacing:.2em;text-transform:uppercase;font-weight:900}
+.section h2{font-family:var(--font-display);font-size:clamp(48px,6vw,86px);line-height:.9;margin:10px 0 0;letter-spacing:.01em;text-transform:uppercase;font-weight:400}
+.section-head p{font-size:18px;color:#c9c2b5;margin:0}.grid{display:grid;gap:18px}.three{grid-template-columns:repeat(3,1fr)}.two{grid-template-columns:repeat(2,1fr)}
+.card{position:relative;border:1px solid var(--line2);background:linear-gradient(180deg,rgba(255,255,255,.052),rgba(255,255,255,.014));border-radius:28px;padding:27px;overflow:hidden;box-shadow:0 18px 70px rgba(0,0,0,.30);transition:.25s}
+.card:hover{border-color:var(--line);transform:translateY(-3px);box-shadow:0 26px 80px rgba(0,0,0,.48),0 0 34px rgba(212,175,55,.08)}
+.card h3{font-size:25px;line-height:1.05;margin:0 0 12px;letter-spacing:-.035em}.card p{color:var(--text);margin:0}.label{display:inline-flex;padding:6px 10px;border-radius:999px;border:1px solid var(--line);font-size:11px;font-weight:900;text-transform:uppercase;letter-spacing:.14em;color:var(--gold);background:rgba(212,175,55,.055);margin-bottom:14px}
+.visual-card{border:1px solid var(--line);border-radius:30px;overflow:hidden;background:#020202;box-shadow:0 24px 80px rgba(0,0,0,.62),0 0 46px rgba(212,175,55,.12)}
+.visual-card img{width:100%;height:100%;min-height:320px;object-fit:cover;display:block;filter:saturate(1.05) contrast(1.04)}
+.pipeline{display:grid;grid-template-columns:repeat(6,1fr);gap:10px}
+.stage{border:1px solid var(--line2);border-radius:20px;padding:18px;background:rgba(255,255,255,.035)}
+.stage b{display:block;color:var(--gold2);font-size:22px}.stage span{display:block;color:var(--muted);font-size:12px;text-transform:uppercase;letter-spacing:.10em;margin-top:6px}
+.cta{border:1px solid var(--line);border-radius:44px;padding:46px;background:radial-gradient(circle at 85% 0%,rgba(212,175,55,.22),transparent 38%),linear-gradient(135deg,rgba(212,175,55,.13),rgba(255,255,255,.025));box-shadow:0 30px 90px rgba(0,0,0,.62),0 0 54px rgba(212,175,55,.12);overflow:hidden}
+.cta h2{font-family:var(--font-display);font-size:clamp(54px,7vw,96px);line-height:.88;margin:12px 0 18px;letter-spacing:.01em;text-transform:uppercase;font-weight:400}
+.footer{padding:34px 0 56px;color:var(--muted);font-size:14px}
+@media(max-width:920px){.hero,.section-head,.two,.three,.pipeline{grid-template-columns:1fr}.hero{min-height:auto;padding-top:54px}.nav{height:auto;min-height:72px;padding:12px 0}.navlinks{display:none}.hero-meta{grid-template-columns:1fr}.section{padding:76px 0}h1{font-size:clamp(62px,18vw,92px)}.statement{font-size:28px}.visual-card img{min-height:240px}}
+@media(max-width:520px){.wrap{width:min(100% - 26px,1180px)}.actions .btn{width:100%}.card,.cta{padding:22px;border-radius:24px}.hero-card{border-radius:28px;padding:14px}.hero-card img{border-radius:20px}.section h2{font-size:52px}.brand img{width:42px;height:42px}}
+</style>
+<link href="assets/img/favicon.png" rel="icon"/></head>
+<body>
+<header class="topbar">
+<nav class="wrap nav">
+<a aria-label="ESCALA" class="brand" href="index.html">
+<img alt="ESCALA logo" src="assets/img/logo-escala-original.png"/>
+<span>ESCALA</span>
+</a>
+<div class="navlinks"><a href="index.html">Inicio</a><a href="sistema.html">Sistema</a><a href="servicios.html">Servicios</a><a href="proceso.html">Proceso</a><a href="portfolio.html">Portfolio</a><a href="blog.html">Biblioteca</a><a href="brief.html">Diagnóstico</a><a href="dashboard.html">Dashboard</a></div>
+</nav>
+</header>
+<main>
+<section class="wrap hero">
+<div>
+<div class="eyebrow"><span class="dot"></span> Sistema operativo de negocio con IA</div>
+<h1>Tu negocio, <span class="gold">en modo sistema.</span></h1>
+<p class="statement">Estrategia, contenido, web, automatización y analítica conectadas para generar clientes con más claridad.</p>
+<p class="lead">ESCALA no vende piezas sueltas. Diseña activos comerciales y sistemas operativos para que un negocio deje de improvisar y empiece a crecer con estructura.</p>
+<div class="actions">
+<a class="btn primary" href="brief.html">Empezar diagnóstico →</a>
+<a class="btn secondary" href="infoproductos.html">Ver recursos</a>
+</div>
+<div class="hero-meta">
+<div class="meta"><b>01</b><span>Diagnóstico</span></div>
+<div class="meta"><b>06</b><span>Fases sistema</span></div>
+<div class="meta"><b>IA</b><span>Aplicada a negocio</span></div>
+</div>
+</div>
+<aside class="hero-card">
+<img alt="Sistema IA ESCALA" src="assets/img/hero-sistema-ia.jpg"/>
+<div class="panel">
+<h2 class="panel-title">Centro de crecimiento</h2>
+<p>Del brief a la estrategia, del contenido a la captación, de la automatización al control.</p>
+</div>
+</aside>
+</section>
+<section class="wrap section">
+<div class="section-head">
+<div><div class="kicker">01 · Arquitectura</div><h2>Qué construye ESCALA</h2></div>
+<p>Un sistema completo para ver qué está pasando, decidir qué importa y ejecutar acciones que mueven clientes, ingresos y crecimiento.</p>
+</div>
+<div class="grid three">
+<article class="card"><span class="label">Estrategia</span><h3>Claridad antes de ejecutar</h3><p>Diagnóstico, propuesta de valor, buyer persona, oferta y plan de acción conectado a dinero.</p></article>
+<article class="card"><span class="label">Activos</span><h3>Contenido, web y recursos</h3><p>Artículos, infoproductos, landings y entregables que demuestran autoridad y generan demanda.</p></article>
+<article class="card"><span class="label">Automatización</span><h3>Seguimiento y control</h3><p>CRM, pipelines, recordatorios, dashboards y flujos que reducen pérdida de oportunidades.</p></article>
+</div>
+</section>
+<section class="wrap section">
+<div class="section-head">
+<div><div class="kicker">02 · Pipeline</div><h2>De idea a resultado</h2></div>
+<p>La diferencia no está en usar IA. Está en ordenar el proceso de negocio para convertir información en decisiones y acciones.</p>
+</div>
+<div class="pipeline">
+<div class="stage"><b>01</b><span>Brief</span></div>
+<div class="stage"><b>02</b><span>Análisis</span></div>
+<div class="stage"><b>03</b><span>Estrategia</span></div>
+<div class="stage"><b>04</b><span>Ejecución</span></div>
+<div class="stage"><b>05</b><span>Automatización</span></div>
+<div class="stage"><b>06</b><span>Resultados</span></div>
+</div>
+</section>
+<section class="wrap section">
+<div class="section-head">
+<div><div class="kicker">03 · Recursos</div><h2>Contenido que posiciona</h2></div>
+<p>Material diseñado para enseñar, demostrar criterio y abrir conversaciones comerciales.</p>
+</div>
+<div class="grid two">
+<a class="visual-card" href="articulo-ia-aplicada-negocios.html"><img alt="IA aplicada a negocios" src="assets/img/dashboard-ia.jpg"/></a>
+<div class="grid">
+<a class="card" href="infoproducto-ia-aplicada.html"><span class="label">Infoproducto</span><h3>IA aplicada a negocios reales</h3><p>4 sistemas para captar, convertir, automatizar y crear contenido con IA.</p></a>
+<a class="card" href="articulo-captacion-barberias.html"><span class="label">Artículo</span><h3>Sistema de captación para barberías</h3><p>Cómo convertir contenido y DMs en citas reales.</p></a>
+<a class="card" href="dashboard.html"><span class="label">Control Center</span><h3>Dashboard ESCALA</h3><p>Vista de leads, clientes, pipeline, ingresos estimados y acciones recomendadas.</p></a>
+</div>
+</div>
+</section>
+<section class="wrap section">
+<div class="cta">
+<span class="label">Siguiente paso</span>
+<h2>Empieza por el brief</h2>
+<p class="lead">El sistema empieza cuando el negocio deja de estar en la cabeza y se convierte en información clara, accionable y medible.</p>
+<div class="actions"><a class="btn primary" href="brief.html">Abrir brief estratégico →</a><a class="btn secondary" href="contacto.html">Hablar con ESCALA</a></div>
+</div>
+</section>
+</main>
+<footer class="wrap footer">ESCALA · Sistema operativo de negocio con IA · agency.escala@gmail.com</footer>
+</body>
+</html>
