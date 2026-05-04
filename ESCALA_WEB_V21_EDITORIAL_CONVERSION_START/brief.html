@@ -1412,72 +1412,54 @@ body{background:radial-gradient(circle at 82% 8%,rgba(212,175,55,.16),transparen
   }
 
   async function sendBrief(){
-    const completion = calculateCompletion();
+    var completion = calculateCompletion();
     if(completion < 30){
       showToast('Completa al menos el 30% del brief antes de enviar');
       return;
     }
     saveDraft();
-    const p = buildPayload();
-    const name = getBusinessName();
-    
-    // Construir mensaje legible para email
-    let body = '=== BRIEF ESTRATÉGICO ESCALA ===\n\n';
-    body += 'Cliente: ' + p.meta.client_name + '\n';
-    body += 'Completitud: ' + p.scoring.completion + '%\n';
-    body += 'Lead Score: ' + p.scoring.lead_score + '/100\n';
-    body += 'Prioridad: ' + p.scoring.prioridad + '\n';
-    body += 'Fecha: ' + p.meta.generated_at + '\n\n';
-    
-    Object.entries(p.sections).forEach(([sec, vals]) => {
+    var p = buildPayload();
+    var body = 'BRIEF ESCALA\n\nCliente: ' + p.meta.client_name + '\nCompletitud: ' + p.scoring.completion + '%\nLead Score: ' + p.scoring.lead_score + '/100\nPrioridad: ' + p.scoring.prioridad + '\nFecha: ' + p.meta.generated_at + '\n\n';
+    var sections = p.sections;
+    for(var sec in sections){
       body += '--- ' + sec + ' ---\n';
-      Object.entries(vals).forEach(([k, o]) => {
-        if(o.value) body += o.label + ': ' + o.value + '\n';
-      });
+      var vals = sections[sec];
+      for(var k in vals){
+        if(vals[k].value) body += vals[k].label + ': ' + vals[k].value + '\n';
+      }
       body += '\n';
-    });
-
-    // Formspree — reemplaza xqenpgnl con tu ID real de formspree.io
-    const FORMSPREE_ID = 'xqenpgnl';
-    
-    if(FORMSPREE_ID === 'YOUR_FORM_ID'){
-      // Fallback: abrir cliente de email con datos
-      const subject = encodeURIComponent('Brief ESCALA — ' + p.meta.client_name);
-      const mailBody = encodeURIComponent(body.substring(0, 1800));
-      window.open('mailto:agencyescala0@gmail.com?subject=' + subject + '&body=' + mailBody);
-      showToast('Abriendo email...');
-      return;
     }
-
     showToast('Enviando...');
-    try {
-      const res = await fetch('https://formspree.io/f/' + FORMSPREE_ID, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-        body: JSON.stringify({ 
-          _subject: 'Brief ESCALA — ' + p.meta.client_name,
-          _replyto: p.data['Email'] || '',
-          brief_text: body,
-          lead_score: p.scoring.lead_score,
-          completion: p.scoring.completion,
-          cliente: p.meta.client_name
-        })
-      });
+    fetch('https://formspree.io/f/xqenpgnl', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
+      body: JSON.stringify({
+        _subject: 'Brief ESCALA — ' + p.meta.client_name,
+        _replyto: p.data['Email'] || '',
+        mensaje: body,
+        lead_score: p.scoring.lead_score,
+        completitud: p.scoring.completion,
+        cliente: p.meta.client_name
+      })
+    }).then(function(res){
       if(res.ok){
-        showToast('✓ Brief enviado correctamente');
-        // Mensaje de confirmación en pantalla
-        const conf = document.createElement('div');
+        showToast('Brief enviado correctamente');
+        var conf = document.createElement('div');
         conf.style.cssText = 'position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.92);display:flex;align-items:center;justify-content:center;';
-        conf.innerHTML = '<div style="border:1px solid #D4AF37;border-radius:28px;padding:48px 40px;max-width:480px;text-align:center;background:#070707;">' + '<div style="font-size:48px;margin-bottom:16px;">&#10003;</div>' + '<h2 style="font-family:Bebas Neue,sans-serif;font-size:32px;letter-spacing:.08em;color:#FFE08A;margin:0 0 12px;">BRIEF ENVIADO</h2>' + '<p style="color:#bbb;margin:0 0 28px;">Tu brief ha llegado a ESCALA. Te contactamos en menos de 24h.</p>' + '<button onclick="this.parentElement.parentElement.remove()" style="background:linear-gradient(135deg,#D4AF37,#F6D978);color:#000;font-weight:900;border:none;padding:14px 32px;border-radius:14px;cursor:pointer;font-size:14px;">CERRAR</button>' + '</div>';
+        var inner = document.createElement('div');
+        inner.style.cssText = 'border:1px solid #D4AF37;border-radius:28px;padding:48px 40px;max-width:480px;text-align:center;background:#070707;';
+        inner.innerHTML = '<div style="font-size:48px;margin-bottom:16px;">&#10003;</div><h2 style="font-family:Bebas Neue,sans-serif;font-size:32px;letter-spacing:.08em;color:#FFE08A;margin:0 0 12px;">BRIEF ENVIADO</h2><p style="color:#bbb;margin:0 0 28px;">Tu brief ha llegado a ESCALA. Te contactamos en menos de 24h.</p><button style="background:linear-gradient(135deg,#D4AF37,#F6D978);color:#000;font-weight:900;border:none;padding:14px 32px;border-radius:14px;cursor:pointer;font-size:14px;">CERRAR</button>';
+        inner.querySelector('button').onclick = function(){ document.body.removeChild(conf); };
+        conf.appendChild(inner);
         document.body.appendChild(conf);
       } else {
-        showToast('Error al enviar. Usa EXPORTAR .MD como alternativa.');
+        showToast('Error al enviar. Exporta el .MD como alternativa.');
       }
-    } catch(e) {
-      showToast('Sin conexión. Usa EXPORTAR .MD como alternativa.');
-    }
+    }).catch(function(){
+      showToast('Sin conexion. Exporta el .MD como alternativa.');
+    });
   }
-  Object.assign(window,{showToast,updateProgress,data:()=>collectData().flat,buildPayload,saveDraft,loadDraft,clearForm,downloadMarkdown,downloadJSON,downloadBriefOutput,downloadInternalHTML,downloadAIPrompt,downloadAllBriefFiles,exportPDF,nextSection,sendBrief});
+    Object.assign(window,{showToast,updateProgress,data:()=>collectData().flat,buildPayload,saveDraft,loadDraft,clearForm,downloadMarkdown,downloadJSON,downloadBriefOutput,downloadInternalHTML,downloadAIPrompt,downloadAllBriefFiles,exportPDF,nextSection,sendBrief});
   fields.forEach(f=>{ f.addEventListener('input',updateProgress); f.addEventListener('change',updateProgress); });
   window.addEventListener('scroll',setActiveNav,{passive:true});
   applyRuntimeFixes(); setTimeout(applyRuntimeFixes,300); setTimeout(applyRuntimeFixes,1200);
