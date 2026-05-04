@@ -1468,12 +1468,7 @@ body{background:radial-gradient(circle at 82% 8%,rgba(212,175,55,.16),transparen
         // Mensaje de confirmación en pantalla
         const conf = document.createElement('div');
         conf.style.cssText = 'position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.92);display:flex;align-items:center;justify-content:center;';
-        conf.innerHTML = \`<div style="border:1px solid #D4AF37;border-radius:28px;padding:48px 40px;max-width:480px;text-align:center;background:#070707;">
-          <div style="font-size:48px;margin-bottom:16px;">✓</div>
-          <h2 style="font-family:Bebas Neue,sans-serif;font-size:32px;letter-spacing:.08em;color:#FFE08A;margin:0 0 12px;">BRIEF ENVIADO</h2>
-          <p style="color:#bbb;margin:0 0 28px;">Tu brief estratégico ha llegado a ESCALA. Te contactaremos en menos de 24h.</p>
-          <button onclick="this.parentElement.parentElement.remove()" style="background:linear-gradient(135deg,#D4AF37,#F6D978);color:#000;font-weight:900;border:none;padding:14px 32px;border-radius:14px;cursor:pointer;font-size:14px;letter-spacing:.06em;">CERRAR</button>
-        </div>\`;
+        conf.innerHTML = '<div style="border:1px solid #D4AF37;border-radius:28px;padding:48px 40px;max-width:480px;text-align:center;background:#070707;">' + '<div style="font-size:48px;margin-bottom:16px;">&#10003;</div>' + '<h2 style="font-family:Bebas Neue,sans-serif;font-size:32px;letter-spacing:.08em;color:#FFE08A;margin:0 0 12px;">BRIEF ENVIADO</h2>' + '<p style="color:#bbb;margin:0 0 28px;">Tu brief ha llegado a ESCALA. Te contactamos en menos de 24h.</p>' + '<button onclick="this.parentElement.parentElement.remove()" style="background:linear-gradient(135deg,#D4AF37,#F6D978);color:#000;font-weight:900;border:none;padding:14px 32px;border-radius:14px;cursor:pointer;font-size:14px;">CERRAR</button>' + '</div>';
         document.body.appendChild(conf);
       } else {
         showToast('Error al enviar. Usa EXPORTAR .MD como alternativa.');
