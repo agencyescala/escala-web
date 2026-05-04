@@ -1419,7 +1419,7 @@ body{background:radial-gradient(circle at 82% 8%,rgba(212,175,55,.16),transparen
     }
     saveDraft();
     var p = buildPayload();
-    var body = 'BRIEF ESCALA\n\nCliente: ' + p.meta.client_name + '\nCompletitud: ' + p.scoring.completion + '%\nLead Score: ' + p.scoring.lead_score + '/100\nPrioridad: ' + p.scoring.prioridad + '\nFecha: ' + p.meta.generated_at + '\n\n';
+    var body = 'BRIEF ESCALA\n\nCliente: ' + p.meta.client_name + '\nCompletitud: ' + p.scoring.completion + '%\nLead Score: ' + p.scoring.lead_score + '/100\nPrioridad: ' + p.scoring.prioridad + '\n\n';
     var sections = p.sections;
     for(var sec in sections){
       body += '--- ' + sec + ' ---\n';
@@ -1430,19 +1430,18 @@ body{background:radial-gradient(circle at 82% 8%,rgba(212,175,55,.16),transparen
       body += '\n';
     }
     showToast('Enviando...');
-    fetch('https://formspree.io/f/xqenpgnl', {
+    fetch('https://api.web3forms.com/submit', {
       method: 'POST',
       headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
       body: JSON.stringify({
-        _subject: 'Brief ESCALA — ' + p.meta.client_name,
-        _replyto: p.data['Email'] || '',
-        mensaje: body,
-        lead_score: p.scoring.lead_score,
-        completitud: p.scoring.completion,
-        cliente: p.meta.client_name
+        access_key: '44eccd94-3e74-42ab-bf56-03cf5e01b9ff',
+        subject: 'Brief ESCALA — ' + p.meta.client_name,
+        from_name: p.meta.client_name || 'Nuevo cliente',
+        replyto: p.data['Email'] || '',
+        message: body
       })
-    }).then(function(res){
-      if(res.ok){
+    }).then(function(res){ return res.json(); }).then(function(data){
+      if(data.success){
         showToast('Brief enviado correctamente');
         var conf = document.createElement('div');
         conf.style.cssText = 'position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.92);display:flex;align-items:center;justify-content:center;';
@@ -1453,10 +1452,10 @@ body{background:radial-gradient(circle at 82% 8%,rgba(212,175,55,.16),transparen
         conf.appendChild(inner);
         document.body.appendChild(conf);
       } else {
-        showToast('Error al enviar. Exporta el .MD como alternativa.');
+        showToast('Error al enviar. Intentalo de nuevo.');
       }
     }).catch(function(){
-      showToast('Sin conexion. Exporta el .MD como alternativa.');
+      showToast('Sin conexion. Intentalo de nuevo.');
     });
   }
     Object.assign(window,{showToast,updateProgress,data:()=>collectData().flat,buildPayload,saveDraft,loadDraft,clearForm,downloadMarkdown,downloadJSON,downloadBriefOutput,downloadInternalHTML,downloadAIPrompt,downloadAllBriefFiles,exportPDF,nextSection,sendBrief});
