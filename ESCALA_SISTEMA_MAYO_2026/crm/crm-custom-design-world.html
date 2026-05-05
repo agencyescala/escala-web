@@ -1,0 +1,848 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Custom Design World — CRM</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --bg:#F8F6F2;--bg2:#F0EDE6;--panel:#FFFFFF;--panel2:#FAF8F4;
+  --ink:#0A0A0A;--muted:#6B6560;--subtle:#AAA49E;
+  --rose:#C4455A;--rose2:#E8607A;--rose3:rgba(196,69,90,.08);
+  --teal:#1A6B6B;--teal2:#2A8F8F;--teal3:rgba(26,107,107,.08);
+  --gold:#C9882A;--gold2:#E8A840;
+  --green:#1A7A3A;--green2:#25A84F;
+  --line:rgba(10,10,10,.08);--line2:rgba(10,10,10,.05);
+  --font-display:'Playfair Display',serif;
+  --font-ui:'Plus Jakarta Sans',sans-serif;
+  --font-mono:'DM Mono',monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font-family:var(--font-ui);min-height:100vh;overflow-x:hidden}
+body::before{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;
+  background-image:repeating-linear-gradient(0deg,transparent,transparent 28px,rgba(196,69,90,.018) 28px,rgba(196,69,90,.018) 29px),
+  repeating-linear-gradient(90deg,transparent,transparent 28px,rgba(26,107,107,.015) 28px,rgba(26,107,107,.015) 29px)}
+body>*{position:relative;z-index:1}
+
+/* HEADER */
+.header{background:var(--ink);border-bottom:2px solid var(--rose);position:sticky;top:0;z-index:100}
+.header-inner{max-width:1400px;margin:auto;padding:0 24px;height:64px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.brand{display:flex;align-items:center;gap:14px}
+.brand-name{font-family:var(--font-display);font-size:20px;color:#fff;font-style:italic}
+.brand-tag{font-family:var(--font-mono);font-size:10px;color:rgba(255,255,255,.35);letter-spacing:.1em;text-transform:uppercase}
+.header-actions{display:flex;align-items:center;gap:10px}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:8px 16px;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;transition:.18s;border:none;font-family:var(--font-ui);letter-spacing:.02em}
+.btn-rose{background:var(--rose);color:#fff}
+.btn-rose:hover{background:var(--rose2)}
+.btn-ghost{background:rgba(255,255,255,.08);color:rgba(255,255,255,.7);border:1px solid rgba(255,255,255,.12)}
+.btn-ghost:hover{background:rgba(255,255,255,.14)}
+.live-badge{display:flex;align-items:center;gap:6px;font-size:11px;font-weight:700;color:var(--green2);text-transform:uppercase;letter-spacing:.1em}
+.live-dot{width:6px;height:6px;border-radius:50%;background:var(--green2);animation:blink 1.6s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.25}}
+
+/* LAYOUT */
+.app{max-width:1400px;margin:0 auto;padding:24px}
+
+/* TABS */
+.tabs{display:flex;gap:4px;margin-bottom:24px;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:4px}
+.tab{flex:1;padding:10px 16px;border-radius:9px;font-size:13px;font-weight:700;cursor:pointer;transition:.15s;text-align:center;color:var(--muted);border:none;background:transparent;font-family:var(--font-ui)}
+.tab.active{background:var(--ink);color:#fff}
+.tab:hover:not(.active){background:var(--bg2)}
+.tab-content{display:none}
+.tab-content.active{display:block}
+
+/* MÉTRICAS TOP */
+.metrics-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-bottom:24px}
+.metric{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:18px;position:relative;overflow:hidden;transition:.18s}
+.metric::before{content:"";position:absolute;top:0;left:0;right:0;height:2px}
+.metric.rose::before{background:var(--rose)}
+.metric.teal::before{background:var(--teal2)}
+.metric.gold::before{background:var(--gold)}
+.metric.green::before{background:var(--green2)}
+.metric.ink::before{background:var(--ink)}
+.metric-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:var(--subtle);margin-bottom:8px}
+.metric-val{font-family:var(--font-display);font-size:36px;line-height:1;margin-bottom:4px}
+.metric-val.rose{color:var(--rose)}
+.metric-val.teal{color:var(--teal2)}
+.metric-val.gold{color:var(--gold)}
+.metric-val.green{color:var(--green2)}
+.metric-sub{font-size:12px;color:var(--muted)}
+
+/* MAIN GRID */
+.main-grid{display:grid;grid-template-columns:1fr 380px;gap:16px}
+
+/* PANEL */
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:16px;overflow:hidden}
+.panel-head{padding:16px 20px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:12px}
+.panel-title{font-family:var(--font-display);font-size:16px;font-weight:700}
+.panel-badge{font-size:10px;font-weight:800;padding:4px 10px;border-radius:999px;text-transform:uppercase;letter-spacing:.1em}
+.badge-rose{background:var(--rose3);color:var(--rose);border:1px solid rgba(196,69,90,.2)}
+.badge-teal{background:var(--teal3);color:var(--teal);border:1px solid rgba(26,107,107,.2)}
+.badge-green{background:rgba(26,122,58,.08);color:var(--green2);border:1px solid rgba(26,122,58,.2)}
+.badge-gold{background:rgba(201,136,42,.08);color:var(--gold);border:1px solid rgba(201,136,42,.2)}
+.badge-muted{background:var(--bg2);color:var(--muted);border:1px solid var(--line)}
+
+/* KANBAN */
+.kanban{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;padding:16px}
+.kanban-col{}
+.kanban-col-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+.kanban-col-title{font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.1em}
+.kanban-count{font-size:11px;font-weight:700;padding:2px 8px;border-radius:999px;background:var(--bg2);color:var(--muted)}
+.kanban-cards{display:flex;flex-direction:column;gap:8px;min-height:120px}
+.kanban-card{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px;cursor:pointer;transition:.18s;position:relative}
+.kanban-card:hover{border-color:rgba(196,69,90,.3);box-shadow:0 4px 16px rgba(0,0,0,.06);transform:translateY(-1px)}
+.kanban-card-name{font-size:14px;font-weight:700;margin-bottom:4px}
+.kanban-card-detail{font-size:12px;color:var(--muted);margin-bottom:8px}
+.kanban-card-footer{display:flex;align-items:center;justify-content:space-between}
+.kanban-card-type{font-size:10px;font-weight:800;padding:3px 8px;border-radius:6px;text-transform:uppercase;letter-spacing:.08em}
+.type-academia{background:var(--rose3);color:var(--rose)}
+.type-club{background:var(--teal3);color:var(--teal)}
+.type-particular{background:rgba(201,136,42,.08);color:var(--gold)}
+.type-federacion{background:rgba(26,122,58,.08);color:var(--green)}
+.kanban-card-val{font-family:var(--font-mono);font-size:12px;font-weight:700;color:var(--ink)}
+
+/* TABLA CLIENTES */
+.table-wrap{overflow-x:auto}
+.table{width:100%;border-collapse:collapse}
+.table th{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);padding:12px 16px;text-align:left;border-bottom:1px solid var(--line);white-space:nowrap}
+.table td{padding:12px 16px;border-bottom:1px solid var(--line2);font-size:13px;vertical-align:middle}
+.table tr:last-child td{border-bottom:none}
+.table tr:hover td{background:var(--bg2)}
+.client-name{font-weight:700}
+.client-org{font-size:12px;color:var(--muted)}
+.status-pill{display:inline-flex;align-items:center;gap:5px;padding:4px 10px;border-radius:999px;font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.08em;white-space:nowrap}
+.status-nuevo{background:var(--rose3);color:var(--rose);border:1px solid rgba(196,69,90,.2)}
+.status-contactado{background:rgba(201,136,42,.08);color:var(--gold);border:1px solid rgba(201,136,42,.2)}
+.status-presupuesto{background:var(--teal3);color:var(--teal);border:1px solid rgba(26,107,107,.2)}
+.status-cerrado{background:rgba(26,122,58,.08);color:var(--green2);border:1px solid rgba(26,122,58,.2)}
+.status-recurrente{background:var(--ink);color:#fff}
+.action-btns{display:flex;gap:6px}
+.action-btn{padding:5px 10px;border-radius:6px;font-size:11px;font-weight:700;cursor:pointer;border:1px solid var(--line);background:var(--bg2);color:var(--ink);transition:.15s;font-family:var(--font-ui)}
+.action-btn:hover{background:var(--ink);color:#fff;border-color:var(--ink)}
+.val-cell{font-family:var(--font-mono);font-weight:700}
+
+/* FORMULARIO NUEVO CLIENTE */
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:20px}
+.form-group{display:flex;flex-direction:column;gap:6px}
+.form-group.full{grid-column:1/-1}
+.form-label{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:var(--muted)}
+.form-input{padding:10px 14px;border:1px solid var(--line);border-radius:8px;font-size:13px;font-family:var(--font-ui);background:var(--panel);color:var(--ink);transition:.15s;outline:none}
+.form-input:focus{border-color:var(--rose);box-shadow:0 0 0 3px rgba(196,69,90,.1)}
+.form-select{padding:10px 14px;border:1px solid var(--line);border-radius:8px;font-size:13px;font-family:var(--font-ui);background:var(--panel);color:var(--ink);cursor:pointer;outline:none}
+.form-select:focus{border-color:var(--rose)}
+.form-actions{padding:0 20px 20px;display:flex;gap:10px}
+.btn-save{background:var(--rose);color:#fff;padding:12px 24px;border-radius:8px;font-size:13px;font-weight:800;cursor:pointer;border:none;font-family:var(--font-ui);transition:.15s;letter-spacing:.04em;text-transform:uppercase}
+.btn-save:hover{background:var(--rose2)}
+.btn-cancel{background:var(--bg2);color:var(--muted);padding:12px 20px;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;border:1px solid var(--line);font-family:var(--font-ui)}
+
+/* SIDEBAR DERECHO */
+.sidebar{display:flex;flex-direction:column;gap:16px}
+
+/* ACTIVIDAD */
+.activity-list{padding:8px 0}
+.activity-item{display:flex;align-items:flex-start;gap:12px;padding:12px 20px;border-bottom:1px solid var(--line2)}
+.activity-item:last-child{border-bottom:none}
+.activity-icon{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0}
+.ai-rose{background:var(--rose3)}
+.ai-teal{background:var(--teal3)}
+.ai-gold{background:rgba(201,136,42,.08)}
+.ai-green{background:rgba(26,122,58,.08)}
+.activity-content{flex:1}
+.activity-text{font-size:13px;color:var(--ink2);line-height:1.4;margin-bottom:3px}
+.activity-time{font-size:11px;color:var(--subtle);font-family:var(--font-mono)}
+
+/* PRÓXIMAS ACCIONES */
+.acciones-list{padding:8px 0}
+.accion-item{display:flex;align-items:center;gap:12px;padding:12px 20px;border-bottom:1px solid var(--line2);cursor:pointer;transition:.15s}
+.accion-item:last-child{border-bottom:none}
+.accion-item:hover{background:var(--bg2)}
+.accion-check{width:18px;height:18px;border-radius:50%;border:2px solid var(--line);flex-shrink:0;transition:.15s}
+.accion-item.done .accion-check{background:var(--green2);border-color:var(--green2)}
+.accion-item.done .accion-text{text-decoration:line-through;color:var(--subtle)}
+.accion-text{font-size:13px;flex:1}
+.accion-date{font-size:11px;color:var(--subtle);font-family:var(--font-mono);white-space:nowrap}
+
+/* DIAGNÓSTICO MARKETING */
+.diag-section{padding:20px}
+.diag-score-wrap{display:flex;align-items:center;gap:20px;margin-bottom:20px}
+.diag-score-circle{width:80px;height:80px;border-radius:50%;background:conic-gradient(var(--rose) 0% 71%,var(--bg2) 71%);display:flex;align-items:center;justify-content:center;position:relative;flex-shrink:0}
+.diag-score-circle::before{content:"";position:absolute;width:60px;height:60px;border-radius:50%;background:var(--panel)}
+.diag-score-num{position:relative;z-index:1;font-family:var(--font-display);font-size:22px;font-weight:700;color:var(--rose)}
+.diag-score-info h3{font-family:var(--font-display);font-size:20px;margin-bottom:4px}
+.diag-score-info p{font-size:13px;color:var(--muted)}
+.diag-areas{display:flex;flex-direction:column;gap:10px;margin-bottom:20px}
+.diag-area{display:flex;align-items:center;gap:12px}
+.diag-area-label{font-size:12px;font-weight:700;width:120px;flex-shrink:0;color:var(--ink2)}
+.diag-bar-bg{flex:1;height:8px;background:var(--bg2);border-radius:999px;overflow:hidden}
+.diag-bar-fill{height:100%;border-radius:999px;transition:width .8s ease}
+.diag-area-val{font-family:var(--font-mono);font-size:12px;font-weight:700;width:32px;text-align:right;flex-shrink:0}
+.diag-insights{display:flex;flex-direction:column;gap:8px}
+.diag-insight{display:flex;align-items:flex-start;gap:10px;padding:10px 14px;border-radius:8px;font-size:13px}
+.insight-opp{background:rgba(26,122,58,.06);border:1px solid rgba(26,122,58,.15);color:var(--green)}
+.insight-warn{background:var(--rose3);border:1px solid rgba(196,69,90,.2);color:var(--rose)}
+.insight-info{background:var(--teal3);border:1px solid rgba(26,107,107,.2);color:var(--teal)}
+
+/* MODAL */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:200;display:none;align-items:center;justify-content:center;padding:20px}
+.modal-overlay.open{display:flex}
+.modal{background:var(--panel);border-radius:20px;width:min(600px,100%);max-height:90vh;overflow-y:auto;box-shadow:0 32px 80px rgba(0,0,0,.3)}
+.modal-head{padding:24px 24px 0;display:flex;align-items:center;justify-content:space-between}
+.modal-title{font-family:var(--font-display);font-size:24px}
+.modal-close{width:32px;height:32px;border-radius:50%;background:var(--bg2);border:none;cursor:pointer;font-size:18px;display:flex;align-items:center;justify-content:center;color:var(--muted)}
+
+/* TOAST */
+.toast{position:fixed;bottom:24px;right:24px;background:var(--ink);color:#fff;padding:12px 20px;border-radius:10px;font-size:13px;font-weight:700;z-index:300;transform:translateY(80px);opacity:0;transition:.3s;border-left:3px solid var(--rose)}
+.toast.show{transform:translateY(0);opacity:1}
+
+/* EMPTY STATE */
+.empty{padding:40px;text-align:center;color:var(--muted)}
+.empty-icon{font-size:40px;margin-bottom:12px}
+.empty-text{font-size:14px}
+
+/* RESPONSIVE */
+@media(max-width:1100px){
+  .main-grid{grid-template-columns:1fr}
+  .metrics-grid{grid-template-columns:repeat(3,1fr)}
+  .kanban{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:640px){
+  .app{padding:16px}
+  .metrics-grid{grid-template-columns:1fr 1fr}
+  .tabs{flex-wrap:wrap}
+  .kanban{grid-template-columns:1fr}
+  .form-grid{grid-template-columns:1fr}
+  .header-inner{padding:0 16px}
+}
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="header-inner">
+    <div class="brand">
+      <div>
+        <div class="brand-name">Custom Design World</div>
+        <div class="brand-tag">CRM · Sistema ESCALA</div>
+      </div>
+    </div>
+    <div class="header-actions">
+      <div class="live-badge"><span class="live-dot"></span> En vivo</div>
+      <button class="btn btn-ghost" onclick="openModal()">+ Nuevo cliente</button>
+      <button class="btn btn-rose" onclick="exportData()">Exportar</button>
+    </div>
+  </div>
+</header>
+
+<div class="app">
+
+  <!-- TABS -->
+  <div class="tabs">
+    <button class="tab active" onclick="switchTab('pipeline')">Pipeline</button>
+    <button class="tab" onclick="switchTab('clientes')">Clientes</button>
+    <button class="tab" onclick="switchTab('diagnostico')">Diagnóstico Marketing</button>
+    <button class="tab" onclick="switchTab('acciones')">Próximas Acciones</button>
+  </div>
+
+  <!-- MÉTRICAS TOP -->
+  <div class="metrics-grid">
+    <div class="metric rose">
+      <div class="metric-label">Leads activos</div>
+      <div class="metric-val rose" id="m-leads">0</div>
+      <div class="metric-sub">en pipeline</div>
+    </div>
+    <div class="metric teal">
+      <div class="metric-label">Clientes cerrados</div>
+      <div class="metric-val teal" id="m-cerrados">0</div>
+      <div class="metric-sub">este mes</div>
+    </div>
+    <div class="metric gold">
+      <div class="metric-label">Valor pipeline</div>
+      <div class="metric-val gold" id="m-valor">0€</div>
+      <div class="metric-sub">potencial</div>
+    </div>
+    <div class="metric green">
+      <div class="metric-label">Recurrentes</div>
+      <div class="metric-val green" id="m-recurrentes">0</div>
+      <div class="metric-sub">academias activas</div>
+    </div>
+    <div class="metric ink">
+      <div class="metric-label">Ticket medio</div>
+      <div class="metric-val" id="m-ticket">—</div>
+      <div class="metric-sub">por cliente</div>
+    </div>
+  </div>
+
+  <!-- PIPELINE TAB -->
+  <div id="tab-pipeline" class="tab-content active">
+    <div class="main-grid">
+      <div class="panel">
+        <div class="panel-head">
+          <span class="panel-title">Pipeline de Clientes</span>
+          <span class="panel-badge badge-rose" id="total-badge">0 leads</span>
+        </div>
+        <div class="kanban">
+          <div class="kanban-col">
+            <div class="kanban-col-header">
+              <span class="kanban-col-title" style="color:var(--rose)">Nuevo</span>
+              <span class="kanban-count" id="count-nuevo">0</span>
+            </div>
+            <div class="kanban-cards" id="col-nuevo"></div>
+          </div>
+          <div class="kanban-col">
+            <div class="kanban-col-header">
+              <span class="kanban-col-title" style="color:var(--gold)">Contactado</span>
+              <span class="kanban-count" id="count-contactado">0</span>
+            </div>
+            <div class="kanban-cards" id="col-contactado"></div>
+          </div>
+          <div class="kanban-col">
+            <div class="kanban-col-header">
+              <span class="kanban-col-title" style="color:var(--teal2)">Presupuesto</span>
+              <span class="kanban-count" id="count-presupuesto">0</span>
+            </div>
+            <div class="kanban-cards" id="col-presupuesto"></div>
+          </div>
+          <div class="kanban-col">
+            <div class="kanban-col-header">
+              <span class="kanban-col-title" style="color:var(--green2)">Cerrado</span>
+              <span class="kanban-count" id="count-cerrado">0</span>
+            </div>
+            <div class="kanban-cards" id="col-cerrado"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sidebar">
+        <div class="panel">
+          <div class="panel-head">
+            <span class="panel-title">Actividad reciente</span>
+            <span class="panel-badge badge-muted" id="activity-count">0 eventos</span>
+          </div>
+          <div class="activity-list" id="activity-list">
+            <div class="empty"><div class="empty-icon">📋</div><div class="empty-text">Sin actividad aún</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CLIENTES TAB -->
+  <div id="tab-clientes" class="tab-content">
+    <div class="panel">
+      <div class="panel-head">
+        <span class="panel-title">Todos los clientes</span>
+        <div style="display:flex;gap:8px;align-items:center">
+          <input type="text" placeholder="Buscar..." id="search-input" onInput="filterClients()" style="padding:7px 12px;border:1px solid var(--line);border-radius:8px;font-size:13px;font-family:var(--font-ui);outline:none;width:160px"/>
+          <span class="panel-badge badge-muted" id="clients-count">0 clientes</span>
+        </div>
+      </div>
+      <div class="table-wrap">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Cliente</th>
+              <th>Tipo</th>
+              <th>Estado</th>
+              <th>Producto</th>
+              <th>Valor</th>
+              <th>Fecha</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody id="clients-table"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- DIAGNÓSTICO TAB -->
+  <div id="tab-diagnostico" class="tab-content">
+    <div class="main-grid">
+      <div class="panel">
+        <div class="panel-head">
+          <span class="panel-title">Diagnóstico de Marketing</span>
+          <span class="panel-badge badge-rose">Generado por ESCALA</span>
+        </div>
+        <div class="diag-section">
+          <div class="diag-score-wrap">
+            <div class="diag-score-circle">
+              <span class="diag-score-num">71</span>
+            </div>
+            <div class="diag-score-info">
+              <h3>Lead Score: Prioridad Media-Alta</h3>
+              <p>Custom Design World tiene producto diferenciado pero sistema de captación inexistente. Alto potencial de crecimiento con el sistema correcto.</p>
+            </div>
+          </div>
+
+          <div class="diag-areas">
+            <div class="diag-area">
+              <span class="diag-area-label">Producto</span>
+              <div class="diag-bar-bg"><div class="diag-bar-fill" style="width:95%;background:var(--green2)"></div></div>
+              <span class="diag-area-val" style="color:var(--green2)">95</span>
+            </div>
+            <div class="diag-area">
+              <span class="diag-area-label">Diferenciación</span>
+              <div class="diag-bar-bg"><div class="diag-bar-fill" style="width:90%;background:var(--teal2)"></div></div>
+              <span class="diag-area-val" style="color:var(--teal2)">90</span>
+            </div>
+            <div class="diag-area">
+              <span class="diag-area-label">Equipo</span>
+              <div class="diag-bar-bg"><div class="diag-bar-fill" style="width:80%;background:var(--gold)"></div></div>
+              <span class="diag-area-val" style="color:var(--gold)">80</span>
+            </div>
+            <div class="diag-area">
+              <span class="diag-area-label">Presupuesto</span>
+              <div class="diag-bar-bg"><div class="diag-bar-fill" style="width:75%;background:var(--gold)"></div></div>
+              <span class="diag-area-val" style="color:var(--gold)">75</span>
+            </div>
+            <div class="diag-area">
+              <span class="diag-area-label">Captación</span>
+              <div class="diag-bar-bg"><div class="diag-bar-fill" style="width:15%;background:var(--rose)"></div></div>
+              <span class="diag-area-val" style="color:var(--rose)">15</span>
+            </div>
+            <div class="diag-area">
+              <span class="diag-area-label">Presencia digital</span>
+              <div class="diag-bar-bg"><div class="diag-bar-fill" style="width:20%;background:var(--rose)"></div></div>
+              <span class="diag-area-val" style="color:var(--rose)">20</span>
+            </div>
+            <div class="diag-area">
+              <span class="diag-area-label">Automatización</span>
+              <div class="diag-bar-bg"><div class="diag-bar-fill" style="width:5%;background:var(--rose)"></div></div>
+              <span class="diag-area-val" style="color:var(--rose)">5</span>
+            </div>
+          </div>
+
+          <div class="diag-insights">
+            <div class="diag-insight insight-opp">✦ <strong>Oportunidad:</strong> +15.000 academias de danza en España sin proveedor digital de referencia. Quien llega primero gana.</div>
+            <div class="diag-insight insight-opp">✦ <strong>Ventaja única:</strong> Diseñador propio + taller propio = diferenciación brutal que ningún competidor puede replicar en digital.</div>
+            <div class="diag-insight insight-warn">⚠ <strong>Crítico:</strong> 100% captación por boca a boca. Sin sistema digital, el crecimiento tiene techo inmediato.</div>
+            <div class="diag-insight insight-warn">⚠ <strong>Urgente:</strong> Web actual no convierte. Cada mes sin cambiarla son clientes que van a la competencia.</div>
+            <div class="diag-insight insight-info">→ <strong>Acción prioritaria:</strong> Nueva web + SEO para danza/patinaje/rítmica + estrategia Instagram. Resultado estimado en 90 días: 25-40 leads cualificados/mes.</div>
+          </div>
+        </div>
+      </div>
+      <div class="sidebar">
+        <div class="panel">
+          <div class="panel-head">
+            <span class="panel-title">Datos del Brief</span>
+            <span class="panel-badge badge-teal">83% completado</span>
+          </div>
+          <div style="padding:16px 20px;display:flex;flex-direction:column;gap:10px">
+            <div style="display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--line2)">
+              <span style="font-size:13px;color:var(--muted)">Empresa</span>
+              <span style="font-size:13px;font-weight:700">Custom Design World</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--line2)">
+              <span style="font-size:13px;color:var(--muted)">Responsable</span>
+              <span style="font-size:13px;font-weight:700">Miguel Ángel M.</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--line2)">
+              <span style="font-size:13px;color:var(--muted)">Sector</span>
+              <span style="font-size:13px;font-weight:700">Danza / Patinaje</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--line2)">
+              <span style="font-size:13px;color:var(--muted)">Budget</span>
+              <span style="font-size:13px;font-weight:700;color:var(--green2)">1.000-2.500€/mes</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--line2)">
+              <span style="font-size:13px;color:var(--muted)">Arranque</span>
+              <span style="font-size:13px;font-weight:700">Próximos 3 meses</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--line2)">
+              <span style="font-size:13px;color:var(--muted)">Canal actual</span>
+              <span style="font-size:13px;font-weight:700;color:var(--rose)">Solo boca a boca</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;padding:10px 0">
+              <span style="font-size:13px;color:var(--muted)">CRM actual</span>
+              <span style="font-size:13px;font-weight:700;color:var(--rose)">Ninguno</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ACCIONES TAB -->
+  <div id="tab-acciones" class="tab-content">
+    <div class="main-grid">
+      <div class="panel">
+        <div class="panel-head">
+          <span class="panel-title">Próximas Acciones</span>
+          <button class="btn btn-rose" onclick="addAccion()" style="font-size:12px;padding:6px 14px">+ Nueva acción</button>
+        </div>
+        <div class="acciones-list" id="acciones-list"></div>
+      </div>
+      <div class="sidebar">
+        <div class="panel">
+          <div class="panel-head">
+            <span class="panel-title">Resumen semanal</span>
+          </div>
+          <div style="padding:16px 20px;display:flex;flex-direction:column;gap:12px">
+            <div style="text-align:center;padding:20px 0">
+              <div style="font-family:var(--font-display);font-size:48px;color:var(--rose)" id="acciones-pct">0%</div>
+              <div style="font-size:12px;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.1em;margin-top:4px">Completado esta semana</div>
+            </div>
+            <div style="display:flex;justify-content:space-between;padding:10px 14px;background:var(--bg2);border-radius:8px">
+              <span style="font-size:13px;color:var(--muted)">Pendientes</span>
+              <span style="font-size:13px;font-weight:800;color:var(--rose)" id="acciones-pending">0</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;padding:10px 14px;background:var(--bg2);border-radius:8px">
+              <span style="font-size:13px;color:var(--muted)">Completadas</span>
+              <span style="font-size:13px;font-weight:800;color:var(--green2)" id="acciones-done">0</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL NUEVO CLIENTE -->
+<div class="modal-overlay" id="modal-overlay" onclick="closeModalOutside(event)">
+  <div class="modal">
+    <div class="modal-head">
+      <span class="modal-title">Nuevo cliente</span>
+      <button class="modal-close" onclick="closeModal()">×</button>
+    </div>
+    <div class="form-grid">
+      <div class="form-group">
+        <label class="form-label">Nombre / Academia</label>
+        <input class="form-input" id="f-nombre" placeholder="Academia de Danza Ejemplo" type="text"/>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Contacto</label>
+        <input class="form-input" id="f-contacto" placeholder="Nombre del responsable" type="text"/>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Teléfono</label>
+        <input class="form-input" id="f-telefono" placeholder="600 000 000" type="tel"/>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Email</label>
+        <input class="form-input" id="f-email" placeholder="contacto@academia.com" type="email"/>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Tipo</label>
+        <select class="form-select" id="f-tipo">
+          <option value="academia">Academia de danza</option>
+          <option value="club">Club deportivo</option>
+          <option value="particular">Particular</option>
+          <option value="federacion">Federación</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Estado</label>
+        <select class="form-select" id="f-estado">
+          <option value="nuevo">Nuevo lead</option>
+          <option value="contactado">Contactado</option>
+          <option value="presupuesto">Presupuesto enviado</option>
+          <option value="cerrado">Cerrado</option>
+          <option value="recurrente">Recurrente</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Producto solicitado</label>
+        <input class="form-input" id="f-producto" placeholder="Ej: Uniformes danza clásica x20" type="text"/>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Valor estimado (€)</label>
+        <input class="form-input" id="f-valor" placeholder="500" type="number"/>
+      </div>
+      <div class="form-group full">
+        <label class="form-label">Notas</label>
+        <input class="form-input" id="f-notas" placeholder="Detalles adicionales, temporada, urgencia..." type="text"/>
+      </div>
+    </div>
+    <div class="form-actions">
+      <button class="btn-save" onclick="saveClient()">Guardar cliente</button>
+      <button class="btn-cancel" onclick="closeModal()">Cancelar</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// === ESTADO ===
+let state = {
+  clients: JSON.parse(localStorage.getItem('cdw_clients') || '[]'),
+  acciones: JSON.parse(localStorage.getItem('cdw_acciones') || '[]'),
+  activity: JSON.parse(localStorage.getItem('cdw_activity') || '[]')
+};
+
+// Datos de demo si está vacío
+if(state.clients.length === 0){
+  state.clients = [
+    {id:1,nombre:'Academia Danza Alicante',contacto:'María López',telefono:'965123456',email:'info@danzaalicante.com',tipo:'academia',estado:'presupuesto',producto:'Uniformes gala x25',valor:1250,notas:'Temporada junio',fecha:'2026-04-28'},
+    {id:2,nombre:'Club Patinaje Elche',contacto:'Carlos Ruiz',telefono:'965234567',email:'club@patinajeelche.com',tipo:'club',estado:'contactado',producto:'Trajes competición x10',valor:800,notas:'Campeonato mayo',fecha:'2026-05-01'},
+    {id:3,nombre:'Ana García',contacto:'Ana García',telefono:'686111222',email:'ana@gmail.com',tipo:'particular',estado:'nuevo',producto:'Vestido danza personalizado',valor:180,notas:'Actuación fin de curso',fecha:'2026-05-03'},
+    {id:4,nombre:'Academia Rítmica Valencia',contacto:'Laura Martínez',telefono:'963456789',email:'ritmica@valencia.com',tipo:'academia',estado:'cerrado',producto:'Maillots competición x30',valor:2100,notas:'Cliente recurrente',fecha:'2026-04-15'},
+    {id:5,nombre:'Federación Danza CV',contacto:'José Sánchez',telefono:'963111000',email:'fed@danzacv.es',tipo:'federacion',estado:'nuevo',producto:'Vestuario gala regional',valor:4500,notas:'Evento octubre',fecha:'2026-05-04'},
+  ];
+  saveState();
+}
+
+if(state.acciones.length === 0){
+  state.acciones = [
+    {id:1,texto:'Enviar presupuesto a Academia Danza Alicante',fecha:'Hoy',done:false},
+    {id:2,texto:'Llamar a Club Patinaje Elche — seguimiento',fecha:'Mañana',done:false},
+    {id:3,texto:'Preparar catálogo temporada verano',fecha:'Esta semana',done:true},
+    {id:4,texto:'Contactar Federación Danza CV',fecha:'Viernes',done:false},
+    {id:5,texto:'Actualizar Instagram con nuevos diseños',fecha:'Esta semana',done:true},
+  ];
+  saveState();
+}
+
+if(state.activity.length === 0){
+  state.activity = [
+    {icon:'📧',color:'ai-rose',texto:'Presupuesto enviado a Academia Danza Alicante',time:'Hace 2h'},
+    {icon:'📞',color:'ai-teal',texto:'Llamada con Club Patinaje Elche — interesados',time:'Ayer'},
+    {icon:'✅',color:'ai-green',texto:'Pedido cerrado — Academia Rítmica Valencia 2.100€',time:'Hace 3 días'},
+    {icon:'🆕',color:'ai-gold',texto:'Nuevo lead — Federación Danza CV (4.500€)',time:'Hace 1 día'},
+  ];
+  saveState();
+}
+
+function saveState(){
+  localStorage.setItem('cdw_clients', JSON.stringify(state.clients));
+  localStorage.setItem('cdw_acciones', JSON.stringify(state.acciones));
+  localStorage.setItem('cdw_activity', JSON.stringify(state.activity));
+}
+
+// === RENDER ===
+function render(){
+  renderMetrics();
+  renderKanban();
+  renderTable();
+  renderActivity();
+  renderAcciones();
+}
+
+function renderMetrics(){
+  const active = state.clients.filter(c => !['cerrado','recurrente'].includes(c.estado)).length;
+  const cerrados = state.clients.filter(c => c.estado === 'cerrado').length;
+  const valor = state.clients.reduce((s,c) => s + (Number(c.valor)||0), 0);
+  const recurrentes = state.clients.filter(c => c.estado === 'recurrente').length;
+  const tickets = state.clients.filter(c => c.valor > 0);
+  const ticket = tickets.length ? Math.round(tickets.reduce((s,c) => s + Number(c.valor), 0) / tickets.length) : 0;
+
+  document.getElementById('m-leads').textContent = active;
+  document.getElementById('m-cerrados').textContent = cerrados;
+  document.getElementById('m-valor').textContent = valor.toLocaleString('es') + '€';
+  document.getElementById('m-recurrentes').textContent = recurrentes;
+  document.getElementById('m-ticket').textContent = ticket ? ticket + '€' : '—';
+  document.getElementById('total-badge').textContent = state.clients.length + ' leads';
+  document.getElementById('clients-count').textContent = state.clients.length + ' clientes';
+}
+
+function renderKanban(){
+  const cols = ['nuevo','contactado','presupuesto','cerrado'];
+  cols.forEach(col => {
+    const container = document.getElementById('col-' + col);
+    const count = document.getElementById('count-' + col);
+    const items = state.clients.filter(c => c.estado === col || (col === 'cerrado' && c.estado === 'recurrente'));
+    count.textContent = items.length;
+    if(items.length === 0){
+      container.innerHTML = '<div class="empty" style="padding:20px"><div class="empty-icon" style="font-size:24px">📭</div></div>';
+      return;
+    }
+    container.innerHTML = items.map(c => `
+      <div class="kanban-card" onclick="quickEdit(${c.id})">
+        <div class="kanban-card-name">${c.nombre}</div>
+        <div class="kanban-card-detail">${c.producto || 'Sin producto'}</div>
+        <div class="kanban-card-footer">
+          <span class="kanban-card-type type-${c.tipo}">${c.tipo}</span>
+          <span class="kanban-card-val">${c.valor ? c.valor.toLocaleString('es') + '€' : '—'}</span>
+        </div>
+      </div>`).join('');
+  });
+}
+
+function renderTable(){
+  const search = (document.getElementById('search-input')?.value || '').toLowerCase();
+  const clients = state.clients.filter(c =>
+    !search || c.nombre.toLowerCase().includes(search) ||
+    (c.contacto||'').toLowerCase().includes(search) ||
+    (c.producto||'').toLowerCase().includes(search)
+  );
+  const tbody = document.getElementById('clients-table');
+  if(!clients.length){
+    tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;padding:32px;color:var(--muted)">No hay clientes aún</td></tr>';
+    return;
+  }
+  tbody.innerHTML = clients.map(c => `
+    <tr>
+      <td><div class="client-name">${c.nombre}</div><div class="client-org">${c.contacto||''}</div></td>
+      <td><span class="kanban-card-type type-${c.tipo}" style="padding:4px 10px;border-radius:6px;font-size:11px;font-weight:800;text-transform:uppercase">${c.tipo}</span></td>
+      <td><span class="status-pill status-${c.estado}">${statusLabel(c.estado)}</span></td>
+      <td style="max-width:160px;font-size:13px">${c.producto||'—'}</td>
+      <td class="val-cell">${c.valor ? c.valor.toLocaleString('es') + '€' : '—'}</td>
+      <td style="color:var(--muted);font-size:12px;font-family:var(--font-mono)">${c.fecha||'—'}</td>
+      <td>
+        <div class="action-btns">
+          <button class="action-btn" onclick="advanceStatus(${c.id})">Avanzar</button>
+          <button class="action-btn" onclick="deleteClient(${c.id})" style="color:var(--rose)">×</button>
+        </div>
+      </td>
+    </tr>`).join('');
+}
+
+function renderActivity(){
+  const list = document.getElementById('activity-list');
+  document.getElementById('activity-count').textContent = state.activity.length + ' eventos';
+  if(!state.activity.length){
+    list.innerHTML = '<div class="empty"><div class="empty-icon">📋</div><div class="empty-text">Sin actividad aún</div></div>';
+    return;
+  }
+  list.innerHTML = state.activity.slice(0,8).map(a => `
+    <div class="activity-item">
+      <div class="activity-icon ${a.color}">${a.icon}</div>
+      <div class="activity-content">
+        <div class="activity-text">${a.texto}</div>
+        <div class="activity-time">${a.time}</div>
+      </div>
+    </div>`).join('');
+}
+
+function renderAcciones(){
+  const list = document.getElementById('acciones-list');
+  if(!state.acciones.length){
+    list.innerHTML = '<div class="empty"><div class="empty-icon">✅</div><div class="empty-text">Sin acciones pendientes</div></div>';
+    return;
+  }
+  list.innerHTML = state.acciones.map(a => `
+    <div class="accion-item ${a.done?'done':''}" onclick="toggleAccion(${a.id})">
+      <div class="accion-check">${a.done ? '✓' : ''}</div>
+      <span class="accion-text">${a.texto}</span>
+      <span class="accion-date">${a.fecha}</span>
+    </div>`).join('');
+  const done = state.acciones.filter(a => a.done).length;
+  const total = state.acciones.length;
+  document.getElementById('acciones-pct').textContent = total ? Math.round(done/total*100) + '%' : '0%';
+  document.getElementById('acciones-pending').textContent = total - done;
+  document.getElementById('acciones-done').textContent = done;
+}
+
+// === ACCIONES ===
+function statusLabel(s){
+  const map = {nuevo:'Nuevo',contactado:'Contactado',presupuesto:'Presupuesto',cerrado:'Cerrado',recurrente:'Recurrente'};
+  return map[s]||s;
+}
+
+function statusOrder(){return['nuevo','contactado','presupuesto','cerrado','recurrente']}
+
+function advanceStatus(id){
+  const c = state.clients.find(x => x.id === id);
+  if(!c) return;
+  const order = statusOrder();
+  const idx = order.indexOf(c.estado);
+  if(idx < order.length - 1){
+    const prev = c.estado;
+    c.estado = order[idx + 1];
+    state.activity.unshift({icon:'⬆️',color:'ai-teal',texto:`${c.nombre} avanzó de ${statusLabel(prev)} a ${statusLabel(c.estado)}`,time:'Ahora'});
+    saveState(); render(); toast(`${c.nombre} → ${statusLabel(c.estado)}`);
+  }
+}
+
+function deleteClient(id){
+  const c = state.clients.find(x => x.id === id);
+  if(!c || !confirm(`¿Eliminar a ${c.nombre}?`)) return;
+  state.clients = state.clients.filter(x => x.id !== id);
+  saveState(); render(); toast('Cliente eliminado');
+}
+
+function filterClients(){ renderTable(); }
+
+function toggleAccion(id){
+  const a = state.acciones.find(x => x.id === id);
+  if(a){ a.done = !a.done; saveState(); renderAcciones(); }
+}
+
+function addAccion(){
+  const texto = prompt('Nueva acción:');
+  if(!texto) return;
+  const fecha = prompt('Fecha (ej: Mañana, Viernes):') || 'Esta semana';
+  state.acciones.push({id:Date.now(),texto,fecha,done:false});
+  saveState(); renderAcciones(); switchTab('acciones');
+}
+
+function quickEdit(id){
+  const c = state.clients.find(x => x.id === id);
+  if(!c) return;
+  const nuevo = prompt(`Estado de ${c.nombre}:\n1-nuevo 2-contactado 3-presupuesto 4-cerrado 5-recurrente\nActual: ${c.estado}`, c.estado);
+  const map = {'1':'nuevo','2':'contactado','3':'presupuesto','4':'cerrado','5':'recurrente'};
+  if(map[nuevo]){ c.estado = map[nuevo]; saveState(); render(); toast('Estado actualizado'); }
+}
+
+// === MODAL ===
+function openModal(){
+  document.getElementById('modal-overlay').classList.add('open');
+}
+function closeModal(){
+  document.getElementById('modal-overlay').classList.remove('open');
+  ['f-nombre','f-contacto','f-telefono','f-email','f-producto','f-valor','f-notas'].forEach(id => {
+    const el = document.getElementById(id);
+    if(el) el.value = '';
+  });
+}
+function closeModalOutside(e){
+  if(e.target === document.getElementById('modal-overlay')) closeModal();
+}
+function saveClient(){
+  const nombre = document.getElementById('f-nombre').value.trim();
+  if(!nombre){ toast('El nombre es obligatorio'); return; }
+  const client = {
+    id: Date.now(),
+    nombre,
+    contacto: document.getElementById('f-contacto').value,
+    telefono: document.getElementById('f-telefono').value,
+    email: document.getElementById('f-email').value,
+    tipo: document.getElementById('f-tipo').value,
+    estado: document.getElementById('f-estado').value,
+    producto: document.getElementById('f-producto').value,
+    valor: Number(document.getElementById('f-valor').value) || 0,
+    notas: document.getElementById('f-notas').value,
+    fecha: new Date().toISOString().split('T')[0]
+  };
+  state.clients.unshift(client);
+  state.activity.unshift({icon:'🆕',color:'ai-rose',texto:`Nuevo cliente añadido: ${nombre}`,time:'Ahora'});
+  saveState(); render(); closeModal(); toast('Cliente guardado ✓');
+}
+
+// === TABS ===
+function switchTab(name){
+  document.querySelectorAll('.tab').forEach((t,i) => {
+    const names = ['pipeline','clientes','diagnostico','acciones'];
+    t.classList.toggle('active', names[i] === name);
+  });
+  document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+  document.getElementById('tab-' + name)?.classList.add('active');
+}
+
+// === EXPORT ===
+function exportData(){
+  const csv = ['Nombre,Contacto,Tipo,Estado,Producto,Valor,Fecha',
+    ...state.clients.map(c => `"${c.nombre}","${c.contacto||''}","${c.tipo}","${c.estado}","${c.producto||''}","${c.valor||0}","${c.fecha||''}"`)
+  ].join('\n');
+  const a = document.createElement('a');
+  a.href = 'data:text/csv;charset=utf-8,' + encodeURIComponent(csv);
+  a.download = 'cdw_clientes.csv';
+  a.click();
+  toast('CSV exportado ✓');
+}
+
+// === TOAST ===
+function toast(msg){
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2800);
+}
+
+// INIT
+render();
+</script>
+</body>
+</html>

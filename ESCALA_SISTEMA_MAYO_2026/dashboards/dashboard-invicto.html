@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Invicto Barber Studio — Control Operativo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin=""/>
+<link href="https://fonts.googleapis.com/css2?family=UnifrakturMaguntia&family=Oswald:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --bg:#080808;--panel:#0f0f0f;--panel2:#141414;--panel3:#1a1a1a;
+  --red:#C0392B;--red2:#E74C3C;--red3:rgba(192,57,43,.15);
+  --white:#F5F5F5;--text:#B0B0B0;--muted:#666;
+  --line:rgba(255,255,255,.08);--line2:rgba(255,255,255,.05);
+  --gold:#D4AF37;--green:#25D366;
+  --font-gothic:'UnifrakturMaguntia',cursive;
+  --font-head:'Oswald',sans-serif;
+  --font-ui:'Inter',sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--white);font-family:var(--font-ui);min-height:100vh;overflow-x:hidden}
+body::before{content:"";position:fixed;inset:0;z-index:-1;
+  background:radial-gradient(circle at 20% 0%,rgba(192,57,43,.12),transparent 35%),
+  radial-gradient(circle at 80% 100%,rgba(192,57,43,.06),transparent 30%)}
+
+/* HEADER */
+.header{background:rgba(0,0,0,.95);border-bottom:2px solid var(--red);padding:0 24px;position:sticky;top:0;z-index:100;backdrop-filter:blur(12px)}
+.header-inner{max-width:1280px;margin:auto;height:72px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.brand{display:flex;align-items:center;gap:14px}
+.brand-logo{width:48px;height:48px;border-radius:50%;object-fit:cover;border:2px solid var(--red)}
+.brand-name{font-family:var(--font-gothic);font-size:26px;color:var(--white);line-height:1}
+.brand-sub{font-family:var(--font-head);font-size:10px;letter-spacing:.28em;color:var(--muted);text-transform:uppercase;margin-top:2px}
+.header-right{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.live-badge{display:flex;align-items:center;gap:7px;padding:7px 14px;border-radius:999px;background:rgba(37,211,102,.1);border:1px solid rgba(37,211,102,.25);font-size:11px;font-weight:900;color:var(--green);text-transform:uppercase;letter-spacing:.1em}
+.live-dot{width:7px;height:7px;border-radius:50%;background:var(--green);animation:blink 1.4s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+.header-date{font-size:12px;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.08em}
+
+/* LAYOUT */
+.main{max-width:1280px;margin:0 auto;padding:28px 24px}
+
+/* TOP METRICS */
+.top-metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:24px}
+.metric-card{background:var(--panel);border:1px solid var(--line);border-radius:20px;padding:22px 20px;position:relative;overflow:hidden;transition:.2s}
+.metric-card::before{content:"";position:absolute;top:0;left:0;right:0;height:2px}
+.metric-card.red::before{background:linear-gradient(90deg,var(--red),var(--red2))}
+.metric-card.green::before{background:linear-gradient(90deg,#1a7a3f,var(--green))}
+.metric-card.white::before{background:linear-gradient(90deg,#444,#888)}
+.metric-card.gold::before{background:linear-gradient(90deg,#7A5A13,var(--gold))}
+.metric-card:hover{border-color:rgba(255,255,255,.14);transform:translateY(-2px)}
+.metric-label{font-family:var(--font-head);font-size:10px;letter-spacing:.22em;color:var(--muted);text-transform:uppercase;margin-bottom:10px}
+.metric-val{font-family:var(--font-head);font-size:48px;font-weight:700;line-height:1;color:var(--white)}
+.metric-val.red{color:var(--red2)}
+.metric-val.green{color:var(--green)}
+.metric-val.gold{color:var(--gold)}
+.metric-sub{font-size:12px;color:var(--muted);margin-top:8px;font-weight:600}
+.metric-change{display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:800;padding:3px 8px;border-radius:999px;margin-top:8px}
+.metric-change.up{background:rgba(37,211,102,.12);color:var(--green)}
+.metric-change.down{background:rgba(192,57,43,.12);color:var(--red2)}
+
+/* GRID PRINCIPAL */
+.main-grid{display:grid;grid-template-columns:1.4fr 1fr;gap:18px;margin-bottom:18px}
+
+/* PANEL */
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:20px;overflow:hidden}
+.panel-head{padding:18px 22px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between}
+.panel-title{font-family:var(--font-head);font-size:13px;letter-spacing:.18em;text-transform:uppercase;color:var(--white);font-weight:600}
+.panel-badge{font-size:10px;font-weight:900;padding:4px 10px;border-radius:999px;text-transform:uppercase;letter-spacing:.1em}
+.badge-red{background:var(--red3);color:var(--red2);border:1px solid rgba(192,57,43,.3)}
+.badge-green{background:rgba(37,211,102,.1);color:var(--green);border:1px solid rgba(37,211,102,.25)}
+.badge-muted{background:rgba(255,255,255,.05);color:var(--muted);border:1px solid var(--line)}
+
+/* TABLA SERVICIOS */
+.table{width:100%;border-collapse:collapse}
+.table th{font-family:var(--font-head);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);padding:12px 16px;text-align:left;border-bottom:1px solid var(--line)}
+.table td{padding:13px 16px;border-bottom:1px solid var(--line2);font-size:13px;vertical-align:middle}
+.table tr:last-child td{border-bottom:none}
+.table tr:hover td{background:rgba(255,255,255,.025)}
+.barbero-tag{display:inline-flex;align-items:center;gap:6px;font-weight:700}
+.barbero-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.servicio-pill{display:inline-flex;padding:4px 10px;border-radius:999px;font-size:11px;font-weight:800;background:rgba(255,255,255,.06);border:1px solid var(--line);color:var(--text);text-transform:uppercase;letter-spacing:.06em}
+.propina{color:var(--green);font-weight:800}
+.metodo{font-size:11px;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.08em}
+.precio-cell{font-weight:800;font-size:14px}
+
+/* RANKING */
+.ranking-list{padding:8px 0}
+.ranking-item{display:flex;align-items:center;gap:14px;padding:14px 22px;border-bottom:1px solid var(--line2);transition:.15s}
+.ranking-item:last-child{border-bottom:none}
+.ranking-item:hover{background:rgba(255,255,255,.03)}
+.ranking-pos{font-family:var(--font-head);font-size:32px;font-weight:700;width:42px;flex-shrink:0;line-height:1}
+.pos-1{color:var(--gold)}
+.pos-2{color:#9B9B9B}
+.pos-3{color:#7A4A2A}
+.ranking-info{flex:1}
+.ranking-name{font-family:var(--font-head);font-size:18px;font-weight:600;letter-spacing:.06em;margin-bottom:4px}
+.ranking-stats{display:flex;gap:12px;flex-wrap:wrap}
+.ranking-stat{font-size:11px;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.08em}
+.ranking-amount{font-family:var(--font-head);font-size:28px;font-weight:700;color:var(--white)}
+.ranking-bar-wrap{padding:0 22px 14px;margin-top:-4px}
+.ranking-bar-bg{height:4px;background:rgba(255,255,255,.07);border-radius:999px;overflow:hidden}
+.ranking-bar-fill{height:100%;border-radius:999px;transition:width .8s ease}
+
+/* BOTTOM GRID */
+.bottom-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:18px}
+
+/* CIERRE DIARIO */
+.cierre-list{padding:8px 0}
+.cierre-row{display:flex;align-items:center;justify-content:space-between;padding:13px 22px;border-bottom:1px solid var(--line2)}
+.cierre-row:last-child{border-bottom:none}
+.cierre-row.total{background:rgba(192,57,43,.06);border-top:1px solid rgba(192,57,43,.2)}
+.cierre-label{font-size:13px;color:var(--text);font-weight:600}
+.cierre-val{font-family:var(--font-head);font-size:20px;font-weight:700}
+.cierre-val.highlight{color:var(--red2)}
+.cierre-val.green{color:var(--green)}
+.cierre-val.gold{color:var(--gold)}
+
+/* PRÓXIMAS CITAS */
+.citas-list{padding:8px 0}
+.cita-item{display:flex;align-items:center;gap:14px;padding:12px 22px;border-bottom:1px solid var(--line2)}
+.cita-item:last-child{border-bottom:none}
+.cita-time{font-family:var(--font-head);font-size:22px;font-weight:700;color:var(--red2);width:60px;flex-shrink:0;line-height:1}
+.cita-info{flex:1}
+.cita-name{font-size:14px;font-weight:800;margin-bottom:3px}
+.cita-service{font-size:12px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.06em}
+.cita-barbero{font-size:11px;font-weight:700;padding:3px 8px;border-radius:999px;border:1px solid var(--line);background:rgba(255,255,255,.04)}
+
+/* MÉTODOS DE PAGO */
+.pago-list{padding:16px 22px;display:flex;flex-direction:column;gap:14px}
+.pago-row{display:flex;align-items:center;gap:12px}
+.pago-icon{font-size:20px;width:36px;text-align:center;flex-shrink:0}
+.pago-info{flex:1}
+.pago-label{font-size:13px;font-weight:700;margin-bottom:4px}
+.pago-bar-bg{height:6px;background:rgba(255,255,255,.07);border-radius:999px;overflow:hidden}
+.pago-bar-fill{height:100%;border-radius:999px}
+.pago-amount{font-family:var(--font-head);font-size:16px;font-weight:700;white-space:nowrap}
+
+/* TABS */
+.tabs{display:flex;gap:8px;padding:16px 22px 0}
+.tab{font-family:var(--font-head);font-size:11px;letter-spacing:.14em;text-transform:uppercase;padding:8px 14px;border-radius:10px 10px 0 0;cursor:pointer;font-weight:600;border:1px solid transparent;border-bottom:none;transition:.15s;color:var(--muted)}
+.tab.active{background:var(--panel2);border-color:var(--line);color:var(--white)}
+
+/* ALERTAS */
+.alertas{display:flex;flex-direction:column;gap:10px;padding:16px 22px}
+.alerta{display:flex;align-items:flex-start;gap:12px;padding:12px 14px;border-radius:12px;font-size:13px}
+.alerta.warn{background:rgba(255,165,0,.07);border:1px solid rgba(255,165,0,.2);color:#FFA500}
+.alerta.ok{background:rgba(37,211,102,.07);border:1px solid rgba(37,211,102,.2);color:var(--green)}
+.alerta.info{background:rgba(255,255,255,.04);border:1px solid var(--line);color:var(--text)}
+.alerta-icon{font-size:16px;flex-shrink:0;margin-top:1px}
+.alerta-text b{display:block;font-weight:800;margin-bottom:2px}
+
+/* FOOTER */
+.footer{max-width:1280px;margin:0 auto;padding:20px 24px 32px;display:flex;align-items:center;justify-content:space-between;border-top:1px solid var(--line);flex-wrap:wrap;gap:12px}
+.footer-brand{display:flex;align-items:center;gap:10px}
+.footer-logo{width:28px;height:28px;border-radius:50%;object-fit:cover;border:1px solid var(--red)}
+.footer-text{font-size:11px;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.1em}
+.footer-escala{font-size:11px;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.1em}
+.footer-escala span{color:var(--red2)}
+
+/* RESPONSIVE */
+@media(max-width:1024px){
+  .main-grid{grid-template-columns:1fr}
+  .bottom-grid{grid-template-columns:1fr 1fr}
+  .top-metrics{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:640px){
+  .bottom-grid{grid-template-columns:1fr}
+  .top-metrics{grid-template-columns:1fr 1fr}
+  .main{padding:16px}
+  .header-inner{height:60px}
+  .brand-name{font-size:20px}
+  .metric-val{font-size:36px}
+}
+
+/* WATERMARK */
+.main::before {
+  content: "";
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 520px;
+  height: 520px;
+  background-image: url("data:image/svg+xml,%3Csvg width='520' height='520' viewBox='0 0 48 48' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='24' cy='24' r='23' fill='none' stroke='white' stroke-width='1'/%3E%3Ctext x='24' y='19' text-anchor='middle' font-family='serif' font-size='10' fill='white' letter-spacing='0.5'%3EInvicto%3C/text%3E%3Ctext x='24' y='29' text-anchor='middle' font-family='sans-serif' font-size='5.5' fill='white' letter-spacing='1.2' font-weight='700'%3EBARBER STUDIO%3C/text%3E%3Cline x1='10' y1='22' x2='38' y2='22' stroke='white' stroke-width='0.5'/%3E%3C/svg%3E");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  opacity: 0.03;
+  pointer-events: none;
+  z-index: 0;
+}
+.main > * { position: relative; z-index: 1; }
+
+/* NOISE TEXTURE */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  background-size: 180px 180px;
+}
+
+/* MEJORA HEADER — línea roja más potente */
+.header {
+  border-bottom: 2px solid var(--red);
+  box-shadow: 0 0 40px rgba(192,57,43,.15);
+}
+
+/* MEJORA METRIC CARDS — sombra roja sutil en hover */
+.metric-card.red:hover {
+  box-shadow: 0 8px 32px rgba(192,57,43,.2);
+}
+
+/* MEJORA PANEL — brillo sutil en borde superior */
+.panel {
+  box-shadow: 0 1px 0 rgba(255,255,255,.06) inset;
+}
+
+/* RANKING POS 1 — efecto dorado más pronunciado */
+.pos-1 {
+  text-shadow: 0 0 20px rgba(212,175,55,.4);
+}
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="header-inner">
+    <div class="brand">
+      <svg width="48" height="48" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+  <circle cx="24" cy="24" r="23" fill="#0a0a0a" stroke="#C0392B" stroke-width="1.5"/>
+  <circle cx="24" cy="24" r="20" fill="none" stroke="rgba(192,57,43,0.3)" stroke-width="0.5"/>
+  <text x="24" y="20" text-anchor="middle" font-family="UnifrakturMaguntia,serif" font-size="11" fill="white" letter-spacing="0.3">Invicto</text>
+  <line x1="10" y1="23" x2="38" y2="23" stroke="#C0392B" stroke-width="0.6" opacity="0.7"/>
+  <text x="24" y="30" text-anchor="middle" font-family="Oswald,sans-serif" font-size="5" fill="#C0392B" letter-spacing="1.4" font-weight="700">BARBER STUDIO</text>
+</svg>
+      <div>
+        <div class="brand-name">Invicto</div>
+        <div class="brand-sub">Control Operativo</div>
+      </div>
+    </div>
+    <div class="header-right">
+      <div class="live-badge"><span class="live-dot"></span> En vivo</div>
+      <div class="header-date" id="fecha-header">Lunes, 5 Mayo 2026</div>
+    </div>
+  </div>
+</header>
+
+<div class="main">
+
+  <!-- TOP METRICS -->
+  <div class="top-metrics">
+    <div class="metric-card red">
+      <div class="metric-label">Ingresos hoy</div>
+      <div class="metric-val red" id="ingresos-hoy">847€</div>
+      <div class="metric-change up">↑ +12% vs ayer</div>
+    </div>
+    <div class="metric-card green">
+      <div class="metric-label">Servicios realizados</div>
+      <div class="metric-val" id="servicios-hoy">23</div>
+      <div class="metric-sub">14 cortes · 6 barba · 3 completos</div>
+    </div>
+    <div class="metric-card gold">
+      <div class="metric-label">Propinas totales</div>
+      <div class="metric-val gold">94€</div>
+      <div class="metric-change up">↑ Media 4.1€/cliente</div>
+    </div>
+    <div class="metric-card white">
+      <div class="metric-label">Cancelaciones</div>
+      <div class="metric-val">0</div>
+      <div class="metric-change up">✓ Sistema activo</div>
+    </div>
+  </div>
+
+  <!-- MAIN GRID -->
+  <div class="main-grid">
+
+    <!-- REGISTRO DE SERVICIOS -->
+    <div class="panel">
+      <div class="panel-head">
+        <span class="panel-title">Registro de Servicios</span>
+        <span class="panel-badge badge-muted">Hoy · 23 servicios</span>
+      </div>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Hora</th>
+            <th>Cliente</th>
+            <th>Servicio</th>
+            <th>Barbero</th>
+            <th>Precio</th>
+            <th>Propina</th>
+            <th>Pago</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="color:var(--muted);font-weight:700">09:30</td>
+            <td style="font-weight:700">David M.</td>
+            <td><span class="servicio-pill">Corte + Barba</span></td>
+            <td><div class="barbero-tag"><div class="barbero-dot" style="background:#E74C3C"></div>Emilio</div></td>
+            <td class="precio-cell">22€</td>
+            <td class="propina">+5€</td>
+            <td class="metodo">Efectivo</td>
+          </tr>
+          <tr>
+            <td style="color:var(--muted);font-weight:700">10:00</td>
+            <td style="font-weight:700">Javier R.</td>
+            <td><span class="servicio-pill">Corte</span></td>
+            <td><div class="barbero-tag"><div class="barbero-dot" style="background:#3498DB"></div>Carlos</div></td>
+            <td class="precio-cell">15€</td>
+            <td class="propina">+2€</td>
+            <td class="metodo">Bizum</td>
+          </tr>
+          <tr>
+            <td style="color:var(--muted);font-weight:700">10:30</td>
+            <td style="font-weight:700">Miguel A.</td>
+            <td><span class="servicio-pill">Corte + Barba</span></td>
+            <td><div class="barbero-tag"><div class="barbero-dot" style="background:#E74C3C"></div>Emilio</div></td>
+            <td class="precio-cell">22€</td>
+            <td class="propina">+3€</td>
+            <td class="metodo">Tarjeta</td>
+          </tr>
+          <tr>
+            <td style="color:var(--muted);font-weight:700">11:00</td>
+            <td style="font-weight:700">Sergio P.</td>
+            <td><span class="servicio-pill">Afeitado</span></td>
+            <td><div class="barbero-tag"><div class="barbero-dot" style="background:#3498DB"></div>Carlos</div></td>
+            <td class="precio-cell">18€</td>
+            <td class="propina">+4€</td>
+            <td class="metodo">Efectivo</td>
+          </tr>
+          <tr>
+            <td style="color:var(--muted);font-weight:700">11:30</td>
+            <td style="font-weight:700">Álvaro C.</td>
+            <td><span class="servicio-pill">Corte</span></td>
+            <td><div class="barbero-tag"><div class="barbero-dot" style="background:#E74C3C"></div>Emilio</div></td>
+            <td class="precio-cell">15€</td>
+            <td class="propina">+5€</td>
+            <td class="metodo">Bizum</td>
+          </tr>
+          <tr>
+            <td style="color:var(--muted);font-weight:700">12:00</td>
+            <td style="font-weight:700">Pablo T.</td>
+            <td><span class="servicio-pill">Corte + Barba</span></td>
+            <td><div class="barbero-tag"><div class="barbero-dot" style="background:#3498DB"></div>Carlos</div></td>
+            <td class="precio-cell">22€</td>
+            <td class="propina">+3€</td>
+            <td class="metodo">Tarjeta</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- RANKING SEMANAL -->
+    <div class="panel">
+      <div class="panel-head">
+        <span class="panel-title">Ranking Semanal</span>
+        <span class="panel-badge badge-red">Semana 18</span>
+      </div>
+      <div class="ranking-list">
+        <div class="ranking-item">
+          <div class="ranking-pos pos-1">01</div>
+          <div class="ranking-info">
+            <div class="ranking-name">EMILIO</div>
+            <div class="ranking-stats">
+              <span class="ranking-stat">54 servicios</span>
+              <span class="ranking-stat">Corte + Barba</span>
+            </div>
+          </div>
+          <div class="ranking-amount" style="color:var(--gold)">1.286€</div>
+        </div>
+        <div class="ranking-bar-wrap">
+          <div class="ranking-bar-bg"><div class="ranking-bar-fill" style="width:100%;background:linear-gradient(90deg,#7A5A13,var(--gold))"></div></div>
+        </div>
+        <div class="ranking-item">
+          <div class="ranking-pos pos-2">02</div>
+          <div class="ranking-info">
+            <div class="ranking-name">CARLOS</div>
+            <div class="ranking-stats">
+              <span class="ranking-stat">48 servicios</span>
+              <span class="ranking-stat">Corte</span>
+            </div>
+          </div>
+          <div class="ranking-amount" style="color:#9B9B9B">974€</div>
+        </div>
+        <div class="ranking-bar-wrap">
+          <div class="ranking-bar-bg"><div class="ranking-bar-fill" style="width:76%;background:linear-gradient(90deg,#444,#888)"></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BOTTOM GRID -->
+  <div class="bottom-grid">
+
+    <!-- CIERRE DIARIO -->
+    <div class="panel">
+      <div class="panel-head">
+        <span class="panel-title">Cierre del Día</span>
+        <span class="panel-badge badge-muted">Auto · 20:00h</span>
+      </div>
+      <div class="cierre-list">
+        <div class="cierre-row">
+          <span class="cierre-label">Efectivo</span>
+          <span class="cierre-val">312€</span>
+        </div>
+        <div class="cierre-row">
+          <span class="cierre-label">Bizum</span>
+          <span class="cierre-val">284€</span>
+        </div>
+        <div class="cierre-row">
+          <span class="cierre-label">Tarjeta</span>
+          <span class="cierre-val">251€</span>
+        </div>
+        <div class="cierre-row">
+          <span class="cierre-label">Propinas</span>
+          <span class="cierre-val green">+94€</span>
+        </div>
+        <div class="cierre-row total">
+          <span class="cierre-label" style="font-weight:900;color:var(--white)">TOTAL BRUTO</span>
+          <span class="cierre-val highlight">941€</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- PRÓXIMAS CITAS -->
+    <div class="panel">
+      <div class="panel-head">
+        <span class="panel-title">Próximas Citas</span>
+        <span class="panel-badge badge-green">4 pendientes</span>
+      </div>
+      <div class="citas-list">
+        <div class="cita-item">
+          <div class="cita-time">16:00</div>
+          <div class="cita-info">
+            <div class="cita-name">Rubén García</div>
+            <div class="cita-service">Corte + Barba</div>
+          </div>
+          <div class="cita-barbero">Emilio</div>
+        </div>
+        <div class="cita-item">
+          <div class="cita-time">16:30</div>
+          <div class="cita-info">
+            <div class="cita-name">Antonio M.</div>
+            <div class="cita-service">Corte</div>
+          </div>
+          <div class="cita-barbero">Carlos</div>
+        </div>
+        <div class="cita-item">
+          <div class="cita-time">17:00</div>
+          <div class="cita-info">
+            <div class="cita-name">Luis F.</div>
+            <div class="cita-service">Afeitado clásico</div>
+          </div>
+          <div class="cita-barbero">Emilio</div>
+        </div>
+        <div class="cita-item">
+          <div class="cita-time">17:30</div>
+          <div class="cita-info">
+            <div class="cita-name">David S.</div>
+            <div class="cita-service">Corte + Barba</div>
+          </div>
+          <div class="cita-barbero">Carlos</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MÉTODOS DE PAGO + ALERTAS -->
+    <div style="display:flex;flex-direction:column;gap:18px">
+      <div class="panel">
+        <div class="panel-head">
+          <span class="panel-title">Métodos de Pago</span>
+          <span class="panel-badge badge-muted">Hoy</span>
+        </div>
+        <div class="pago-list">
+          <div class="pago-row">
+            <div class="pago-icon">💵</div>
+            <div class="pago-info">
+              <div class="pago-label">Efectivo</div>
+              <div class="pago-bar-bg"><div class="pago-bar-fill" style="width:37%;background:var(--red2)"></div></div>
+            </div>
+            <div class="pago-amount">312€</div>
+          </div>
+          <div class="pago-row">
+            <div class="pago-icon">📱</div>
+            <div class="pago-info">
+              <div class="pago-label">Bizum</div>
+              <div class="pago-bar-bg"><div class="pago-bar-fill" style="width:33%;background:#3498DB"></div></div>
+            </div>
+            <div class="pago-amount">284€</div>
+          </div>
+          <div class="pago-row">
+            <div class="pago-icon">💳</div>
+            <div class="pago-info">
+              <div class="pago-label">Tarjeta</div>
+              <div class="pago-bar-bg"><div class="pago-bar-fill" style="width:30%;background:#8E44AD"></div></div>
+            </div>
+            <div class="pago-amount">251€</div>
+          </div>
+        </div>
+      </div>
+      <div class="panel">
+        <div class="panel-head">
+          <span class="panel-title">Sistema</span>
+          <span class="panel-badge badge-green">Todo OK</span>
+        </div>
+        <div class="alertas">
+          <div class="alerta ok">
+            <div class="alerta-icon">✓</div>
+            <div class="alerta-text"><b>Recordatorios activos</b>4 enviados hoy · 0 cancelaciones</div>
+          </div>
+          <div class="alerta ok">
+            <div class="alerta-icon">✓</div>
+            <div class="alerta-text"><b>Fresha sincronizado</b>Última sync hace 2 minutos</div>
+          </div>
+          <div class="alerta warn">
+            <div class="alerta-icon">⚠</div>
+            <div class="alerta-text"><b>Hueco libre mañana 11:00</b>Considera publicar en Instagram</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="footer-brand">
+    <svg width="28" height="28" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+  <circle cx="24" cy="24" r="23" fill="#000" stroke="#C0392B" stroke-width="1.5"/>
+  <text x="24" y="19" text-anchor="middle" font-family="UnifrakturMaguntia,serif" font-size="10" fill="white" letter-spacing="0.5">Invicto</text>
+  <text x="24" y="29" text-anchor="middle" font-family="Oswald,sans-serif" font-size="5.5" fill="#C0392B" letter-spacing="1.2" font-weight="700">BARBER STUDIO</text>
+  <line x1="10" y1="22" x2="38" y2="22" stroke="#C0392B" stroke-width="0.5" opacity="0.5"/>
+</svg>
+    <span class="footer-text">Invicto Barber Studio · Control Operativo</span>
+  </div>
+  <span class="footer-escala">Sistema por <span>ESCALA</span> · agencyescala0@gmail.com</span>
+</footer>
+
+<script>
+// Fecha dinámica
+const dias = ['Domingo','Lunes','Martes','Miércoles','Jueves','Viernes','Sábado'];
+const meses = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
+const now = new Date();
+document.getElementById('fecha-header').textContent = 
+  dias[now.getDay()] + ', ' + now.getDate() + ' ' + meses[now.getMonth()] + ' ' + now.getFullYear();
+
+// Animación barras al cargar
+window.addEventListener('load', () => {
+  document.querySelectorAll('.ranking-bar-fill, .pago-bar-fill').forEach(el => {
+    const w = el.style.width;
+    el.style.width = '0';
+    setTimeout(() => { el.style.width = w; }, 200);
+  });
+});
+</script>
+
+</body>
+</html>
