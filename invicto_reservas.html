@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+<title>Reservar Cita · INVICTO Barber Studio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:    #0A0908;
+  --s1:    #100E0C;
+  --s2:    #161310;
+  --s3:    #1D1915;
+  --bn:    rgba(242,236,224,0.07);
+  --bn2:   rgba(242,236,224,0.12);
+  --ink:   #F2ECE0;
+  --ink2:  #C4BAA8;
+  --ink3:  #8C8070;
+  --ink4:  #524A3E;
+  --gold:  #C9A96E;
+  --gold2: #E8C98A;
+  --golda: rgba(201,169,110,0.09);
+  --goldb: rgba(201,169,110,0.18);
+  --ok:    #7AAE8A;
+  --oka:   rgba(122,174,138,0.10);
+  --r:     8px;
+}
+
+*,*::before,*::after { margin:0; padding:0; box-sizing:border-box; }
+html { background:var(--bg); min-height:100vh; }
+body {
+  font-family:'DM Sans',ui-sans-serif,system-ui,sans-serif;
+  font-size:14px; line-height:1.5; letter-spacing:-0.01em;
+  color:var(--ink); background:var(--bg);
+  -webkit-font-smoothing:antialiased;
+}
+
+/* Grain */
+body::before {
+  content:''; position:fixed; inset:0; pointer-events:none; z-index:999;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  opacity:0.022; mix-blend-mode:overlay;
+}
+
+/* Glow fondo */
+body::after {
+  content:''; position:fixed; top:-200px; left:50%; transform:translateX(-50%);
+  width:800px; height:600px; pointer-events:none;
+  background:radial-gradient(ellipse,rgba(201,169,110,0.06) 0%,transparent 60%);
+}
+
+/* HEADER */
+.header {
+  position:sticky; top:0; z-index:50;
+  background:rgba(10,9,8,0.95); backdrop-filter:blur(16px);
+  border-bottom:1px solid var(--bn); padding:14px 24px;
+  display:flex; align-items:center; justify-content:space-between;
+}
+.header::after {
+  content:''; position:absolute; bottom:-1px; left:0; width:240px; height:1px;
+  background:linear-gradient(90deg,var(--gold),transparent); opacity:.4;
+}
+.hdr-brand { display:flex; align-items:center; gap:10px; }
+.hdr-logo {
+  width:36px; height:36px; background:var(--golda); border:1px solid var(--goldb);
+  display:flex; align-items:center; justify-content:center;
+}
+.hdr-logo-txt {
+  font-family:'Cormorant Garamond',serif; font-style:italic;
+  font-size:18px; color:var(--gold);
+}
+.hdr-name {
+  font-family:'Cormorant Garamond',serif; font-size:17px; font-weight:500;
+  letter-spacing:.14em; text-transform:uppercase; color:var(--ink);
+}
+.hdr-sub {
+  font-family:'DM Mono',monospace; font-size:9px; letter-spacing:.22em;
+  text-transform:uppercase; color:var(--ink4);
+}
+.hdr-right {
+  font-family:'DM Mono',monospace; font-size:10px; color:var(--ink4); text-align:right;
+}
+.hdr-wa { color:var(--ok); font-size:10px; margin-top:2px; }
+
+/* MAIN */
+.main {
+  max-width:520px; margin:0 auto; padding:32px 20px 60px;
+  display:flex; flex-direction:column; gap:0;
+}
+
+/* PROGRESS */
+.progress {
+  display:flex; align-items:center; gap:0; margin-bottom:32px;
+}
+.prog-step {
+  display:flex; flex-direction:column; align-items:center; gap:4px; flex:1;
+  position:relative;
+}
+.prog-step:not(:last-child)::after {
+  content:''; position:absolute; top:14px; left:50%; width:100%; height:1px;
+  background:var(--bn2); z-index:0;
+}
+.prog-dot {
+  width:28px; height:28px; border-radius:50%;
+  background:var(--s2); border:1px solid var(--bn2);
+  display:flex; align-items:center; justify-content:center;
+  font-family:'DM Mono',monospace; font-size:11px; color:var(--ink4);
+  position:relative; z-index:1; transition:.2s;
+}
+.prog-step.done .prog-dot { background:var(--golda); border-color:var(--goldb); color:var(--gold); }
+.prog-step.active .prog-dot { background:var(--gold); color:#000; border-color:var(--gold); box-shadow:0 0 16px rgba(201,169,110,.3); }
+.prog-lbl {
+  font-family:'DM Mono',monospace; font-size:8px; letter-spacing:.14em;
+  text-transform:uppercase; color:var(--ink4); text-align:center;
+}
+.prog-step.active .prog-lbl { color:var(--gold); }
+.prog-step.done .prog-lbl { color:var(--ink3); }
+
+/* STEP PANEL */
+.step {
+  display:none; animation:fadeUp .35s cubic-bezier(.16,1,.3,1) both;
+}
+.step.active { display:block; }
+
+.step-title {
+  font-family:'Cormorant Garamond',serif; font-size:26px; font-weight:400;
+  color:var(--ink); margin-bottom:4px;
+}
+.step-title em { font-style:italic; color:var(--gold); }
+.step-sub {
+  font-size:13px; color:var(--ink3); margin-bottom:24px;
+}
+
+/* SERVICIO CARDS */
+.serv-grid { display:flex; flex-direction:column; gap:8px; }
+.serv-card {
+  background:var(--s1); border:1px solid var(--bn2);
+  border-radius:var(--r); padding:16px 18px;
+  cursor:pointer; transition:all .15s;
+  display:flex; align-items:center; gap:14px;
+  position:relative; overflow:hidden;
+}
+.serv-card::before {
+  content:''; position:absolute; left:0; top:0; bottom:0; width:2px;
+  background:var(--gold); opacity:0; transition:.15s;
+}
+.serv-card:hover { border-color:var(--goldb); background:var(--s2); }
+.serv-card:hover::before { opacity:1; }
+.serv-card.sel { border-color:var(--gold); background:var(--golda); }
+.serv-card.sel::before { opacity:1; }
+.serv-icon {
+  width:40px; height:40px; background:var(--s3); border:1px solid var(--bn2);
+  border-radius:6px; display:flex; align-items:center; justify-content:center;
+  font-size:18px; flex-shrink:0; transition:.15s;
+}
+.serv-card.sel .serv-icon { background:var(--golda); border-color:var(--goldb); }
+.serv-body { flex:1; }
+.serv-name { font-size:14px; font-weight:600; color:var(--ink); }
+.serv-dur { font-size:11px; color:var(--ink4); margin-top:2px; font-family:'DM Mono',monospace; }
+.serv-precio {
+  font-family:'Cormorant Garamond',serif; font-size:22px; font-weight:500;
+  color:var(--ink3); flex-shrink:0; transition:.15s;
+}
+.serv-card.sel .serv-precio { color:var(--gold); }
+
+/* BARBERO CARDS */
+.barb-grid { display:flex; flex-direction:column; gap:8px; }
+.barb-card {
+  background:var(--s1); border:1px solid var(--bn2);
+  border-radius:var(--r); padding:16px 18px;
+  cursor:pointer; transition:all .15s;
+  display:flex; align-items:center; gap:14px;
+}
+.barb-card:hover { border-color:var(--goldb); background:var(--s2); }
+.barb-card.sel { border-color:var(--gold); background:var(--golda); }
+.barb-av {
+  width:44px; height:44px; border-radius:50%;
+  background:var(--s3); border:1px solid var(--bn2);
+  display:flex; align-items:center; justify-content:center;
+  font-family:'Cormorant Garamond',serif; font-style:italic; font-size:20px; color:var(--ink2);
+  flex-shrink:0; transition:.15s;
+}
+.barb-card.sel .barb-av { background:var(--golda); border-color:var(--goldb); color:var(--gold); }
+.barb-name { font-size:14px; font-weight:600; color:var(--ink); }
+.barb-rol { font-size:11px; color:var(--ink4); margin-top:2px; }
+.barb-check {
+  margin-left:auto; width:20px; height:20px; border-radius:50%;
+  background:transparent; border:1px solid var(--bn2); flex-shrink:0; transition:.15s;
+  display:flex; align-items:center; justify-content:center;
+}
+.barb-card.sel .barb-check { background:var(--gold); border-color:var(--gold); color:#000; font-size:11px; }
+
+/* FECHA */
+.fecha-grid {
+  display:grid; grid-template-columns:repeat(7,1fr); gap:4px; margin-bottom:20px;
+}
+.fecha-lbl {
+  text-align:center; font-family:'DM Mono',monospace;
+  font-size:9px; letter-spacing:.1em; text-transform:uppercase; color:var(--ink4);
+  padding:6px 0;
+}
+.fecha-day {
+  aspect-ratio:1; display:flex; align-items:center; justify-content:center;
+  border-radius:6px; cursor:pointer; font-size:13px; font-weight:500;
+  color:var(--ink3); transition:.12s; border:1px solid transparent;
+}
+.fecha-day:hover { background:var(--s2); color:var(--ink); border-color:var(--bn2); }
+.fecha-day.sel { background:var(--gold); color:#000; }
+.fecha-day.disabled { color:var(--ink4); cursor:default; opacity:.4; }
+.fecha-day.today { border-color:var(--goldb); color:var(--ink); }
+
+.horas-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:6px; }
+.hora-btn {
+  padding:9px 6px; text-align:center;
+  background:var(--s2); border:1px solid var(--bn2); border-radius:6px;
+  font-family:'DM Mono',monospace; font-size:12px; color:var(--ink3);
+  cursor:pointer; transition:.12s;
+}
+.hora-btn:hover { border-color:var(--goldb); color:var(--gold); }
+.hora-btn.sel { background:var(--gold); color:#000; border-color:var(--gold); }
+.hora-btn.occupied { color:var(--ink4); cursor:default; opacity:.35; }
+
+/* FORM */
+.fg { display:flex; flex-direction:column; gap:6px; margin-bottom:16px; }
+.fl {
+  font-family:'DM Mono',monospace; font-size:10px; letter-spacing:.14em;
+  text-transform:uppercase; color:var(--ink4);
+}
+.fi {
+  background:var(--s2); border:1px solid var(--bn2); border-radius:var(--r);
+  color:var(--ink2); font-family:'DM Sans',sans-serif;
+  font-size:14px; padding:12px 14px; outline:none; width:100%; transition:.15s;
+}
+.fi:focus { border-color:var(--goldb); box-shadow:0 0 0 2px var(--golda); }
+.fi::placeholder { color:var(--ink4); }
+
+/* POLÍTICA */
+.pol-box {
+  background:var(--golda); border:1px solid var(--goldb);
+  border-radius:var(--r); padding:16px; margin-bottom:20px;
+}
+.pol-title {
+  font-family:'DM Mono',monospace; font-size:10px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--gold); margin-bottom:10px;
+  display:flex; align-items:center; gap:6px;
+}
+.pol-txt { font-size:13px; color:var(--ink2); line-height:1.65; }
+
+.chk-row {
+  display:flex; align-items:flex-start; gap:10px; margin-bottom:24px; cursor:pointer;
+}
+.chk-row input { margin-top:3px; accent-color:var(--gold); flex-shrink:0; width:16px; height:16px; }
+.chk-lbl { font-size:13px; color:var(--ink2); line-height:1.55; }
+
+/* RESUMEN */
+.resumen {
+  background:var(--s1); border:1px solid var(--bn2);
+  border-radius:var(--r); margin-bottom:20px; overflow:hidden;
+}
+.res-row {
+  display:flex; justify-content:space-between; align-items:center;
+  padding:11px 16px; border-bottom:1px solid rgba(255,255,255,.04);
+}
+.res-row:last-child { border-bottom:none; }
+.res-l { font-size:12px; color:var(--ink3); }
+.res-v { font-size:13px; font-weight:500; color:var(--ink); }
+.res-precio {
+  font-family:'Cormorant Garamond',serif; font-size:24px; font-weight:500; color:var(--gold);
+}
+
+/* BOTONES */
+.btn-cont {
+  width:100%; padding:14px; background:var(--gold); color:#000; border:none;
+  border-radius:var(--r); font-family:'DM Sans',sans-serif; font-size:14px;
+  font-weight:700; cursor:pointer; transition:.15s; letter-spacing:.02em;
+}
+.btn-cont:hover { background:var(--gold2); }
+.btn-cont:disabled { opacity:.35; cursor:not-allowed; }
+.btn-back {
+  width:100%; padding:12px; background:transparent; color:var(--ink3);
+  border:1px solid var(--bn2); border-radius:var(--r);
+  font-family:'DM Sans',sans-serif; font-size:13px;
+  cursor:pointer; transition:.15s; margin-top:8px;
+}
+.btn-back:hover { border-color:var(--bn); color:var(--ink2); }
+
+/* CONFIRMACIÓN */
+.confirm-box {
+  text-align:center; padding:40px 20px;
+  background:var(--s1); border:1px solid var(--goldb);
+  border-radius:var(--r); position:relative; overflow:hidden;
+}
+.confirm-box::before {
+  content:''; display:block; height:1px;
+  background:linear-gradient(90deg,transparent,var(--gold),transparent);
+  position:absolute; top:0; left:0; right:0;
+}
+.confirm-icon {
+  font-size:48px; margin-bottom:16px;
+}
+.confirm-title {
+  font-family:'Cormorant Garamond',serif; font-size:28px; font-weight:400;
+  color:var(--ink); margin-bottom:8px;
+}
+.confirm-title em { font-style:italic; color:var(--gold); }
+.confirm-sub { font-size:13px; color:var(--ink3); line-height:1.65; margin-bottom:24px; }
+.confirm-detail {
+  background:var(--s2); border:1px solid var(--bn); border-radius:6px;
+  padding:16px; text-align:left; margin-bottom:20px;
+}
+.confirm-wa {
+  display:inline-flex; align-items:center; gap:8px;
+  padding:10px 20px; background:var(--oka); border:1px solid rgba(122,174,138,.2);
+  border-radius:var(--r); font-size:13px; color:var(--ok); font-weight:500;
+}
+
+/* FOOTER */
+.footer {
+  margin-top:48px; padding:20px; border-top:1px solid var(--bn);
+  text-align:center;
+  font-family:'DM Mono',monospace; font-size:9px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ink4);
+}
+.footer strong { color:var(--gold); font-weight:500; }
+
+@keyframes fadeUp { from{opacity:0;transform:translateY(10px)} to{opacity:1;transform:translateY(0)} }
+@keyframes scale { from{opacity:0;transform:scale(.8)} to{opacity:1;transform:scale(1)} }
+
+@media(max-width:400px){
+  .horas-grid { grid-template-columns:repeat(3,1fr); }
+  .fecha-grid { gap:2px; }
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="header">
+  <div class="hdr-brand">
+    <div class="hdr-logo">
+      <span class="hdr-logo-txt">I</span>
+    </div>
+    <div>
+      <div class="hdr-name">INVICTO</div>
+      <div class="hdr-sub">Barber Studio · Alicante</div>
+    </div>
+  </div>
+  <div class="hdr-right">
+    <div>Sistema propio de reservas</div>
+    <div class="hdr-wa">📱 +34 621 32 96 56</div>
+  </div>
+</header>
+
+<main class="main">
+
+  <!-- PROGRESS -->
+  <div class="progress" id="progress">
+    <div class="prog-step active" id="ps1">
+      <div class="prog-dot">1</div>
+      <div class="prog-lbl">Servicio</div>
+    </div>
+    <div class="prog-step" id="ps2">
+      <div class="prog-dot">2</div>
+      <div class="prog-lbl">Barbero</div>
+    </div>
+    <div class="prog-step" id="ps3">
+      <div class="prog-dot">3</div>
+      <div class="prog-lbl">Fecha</div>
+    </div>
+    <div class="prog-step" id="ps4">
+      <div class="prog-dot">4</div>
+      <div class="prog-lbl">Datos</div>
+    </div>
+    <div class="prog-step" id="ps5">
+      <div class="prog-dot">5</div>
+      <div class="prog-lbl">Confirmar</div>
+    </div>
+  </div>
+
+  <!-- PASO 1 — SERVICIO -->
+  <div class="step active" id="step1">
+    <div class="step-title">Elige tu <em>servicio</em></div>
+    <div class="step-sub">Todos los precios incluyen lavado y acabado profesional.</div>
+    <div class="serv-grid" id="serv-grid"></div>
+  </div>
+
+  <!-- PASO 2 — BARBERO -->
+  <div class="step" id="step2">
+    <div class="step-title">Elige tu <em>barbero</em></div>
+    <div class="step-sub">Puedes reservar con cualquier miembro del equipo.</div>
+    <div class="barb-grid" id="barb-grid"></div>
+    <button class="btn-back" onclick="goStep(1)">← Volver</button>
+  </div>
+
+  <!-- PASO 3 — FECHA Y HORA -->
+  <div class="step" id="step3">
+    <div class="step-title">Elige <em>fecha</em> y hora</div>
+    <div class="step-sub">Selecciona el día y la franja que mejor te venga.</div>
+
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;">
+      <span style="font-family:'Cormorant Garamond',serif;font-size:16px;font-weight:500;" id="mes-lbl"></span>
+    </div>
+
+    <div class="fecha-grid" id="fecha-grid"></div>
+
+    <div style="font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink4);margin-bottom:10px;margin-top:16px;">Horas disponibles</div>
+    <div class="horas-grid" id="horas-grid"></div>
+
+    <button class="btn-cont" id="btn-fecha-cont" disabled onclick="goStep(4)" style="margin-top:20px;">Continuar →</button>
+    <button class="btn-back" onclick="goStep(2)">← Volver</button>
+  </div>
+
+  <!-- PASO 4 — DATOS -->
+  <div class="step" id="step4">
+    <div class="step-title">Tus <em>datos</em></div>
+    <div class="step-sub">Solo nombre y teléfono. Nada más.</div>
+
+    <div class="fg">
+      <div class="fl">Nombre</div>
+      <input class="fi" id="inp-nombre" type="text" placeholder="Tu nombre" oninput="validDatos()">
+    </div>
+    <div class="fg">
+      <div class="fl">Teléfono</div>
+      <input class="fi" id="inp-tel" type="tel" placeholder="6XX XXX XXX" oninput="validDatos()">
+    </div>
+
+    <button class="btn-cont" id="btn-datos-cont" disabled onclick="goStep(5)">Ver resumen y política →</button>
+    <button class="btn-back" onclick="goStep(3)">← Volver</button>
+  </div>
+
+  <!-- PASO 5 — POLÍTICA + CONFIRMACIÓN -->
+  <div class="step" id="step5">
+    <div class="step-title">Confirma tu <em>reserva</em></div>
+    <div class="step-sub">Revisa los datos y acepta la política de reservas para confirmar.</div>
+
+    <div class="resumen" id="resumen-box"></div>
+
+    <div class="pol-box">
+      <div class="pol-title">
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="currentColor"><path d="M6 1L1 10h10L6 1z" opacity=".9"/></svg>
+        Política de reservas · 24h
+      </div>
+      <div class="pol-txt">Las cancelaciones deben realizarse con al menos <strong style="color:var(--ink)">24 horas de antelación</strong>. En caso de no asistir o cancelar fuera de plazo, Invicto Barber Studio podrá aplicar la política de cobro correspondiente al servicio reservado.</div>
+    </div>
+
+    <label class="chk-row" for="chk-pol">
+      <input type="checkbox" id="chk-pol" onchange="validPolitica()">
+      <span class="chk-lbl">He leído y acepto la política de reservas. Entiendo que una cancelación tardía puede suponer el cobro del servicio.</span>
+    </label>
+
+    <button class="btn-cont" id="btn-confirmar" disabled onclick="confirmar()">Confirmar mi cita →</button>
+    <button class="btn-back" onclick="goStep(4)">← Editar datos</button>
+  </div>
+
+  <!-- CONFIRMADO -->
+  <div class="step" id="step6">
+    <div class="confirm-box">
+      <div class="confirm-icon">✓</div>
+      <div class="confirm-title">Cita <em>confirmada</em></div>
+      <div class="confirm-sub">Tu reserva ha quedado registrada en el sistema de Invicto. Recibirás un recordatorio por WhatsApp 24h antes de tu cita.</div>
+      <div class="confirm-detail" id="confirm-detail"></div>
+      <div class="confirm-wa">
+        <span>📱</span>
+        <span>Recordatorio WhatsApp · 24h antes</span>
+      </div>
+    </div>
+    <div style="text-align:center;margin-top:20px;">
+      <button class="btn-back" onclick="reiniciar()" style="width:auto;padding:10px 24px;">Hacer otra reserva</button>
+    </div>
+  </div>
+
+</main>
+
+<!-- FOOTER -->
+<footer class="footer">
+  INVICTO Barber Studio · C. María Guerrero, 44 · 03008 Alicante ·
+  <strong>ESCALA</strong> · Sistema propio de reservas
+</footer>
+
+<script>
+/* ── DATOS ──────────────────────────────────── */
+const SERVICIOS = [
+  {n:"Corte",p:14,dur:"30 min",ico:"✂️"},
+  {n:"Corte + Barba",p:20,dur:"45 min",ico:"💈"},
+  {n:"Afeitado Clásico",p:15,dur:"30 min",ico:"🪒"},
+  {n:"Arreglo Barba",p:8,dur:"20 min",ico:"✨"},
+  {n:"Servicio Completo",p:25,dur:"60 min",ico:"👑"},
+];
+
+const BARBEROS = [
+  {n:"Emilio",i:"E",rol:"Propietario · Barbero Senior"},
+  {n:"Andrés",i:"A",rol:"Barbero"},
+  {n:"Montilla",i:"M",rol:"Barbero"},
+];
+
+const HORAS = ["09:00","09:30","10:00","10:30","11:00","11:30","12:00","12:30","16:00","16:30","17:00","17:30","18:00","18:30"];
+const OCUPADAS = ["10:00","12:00","16:30"]; // demo
+
+/* ── ESTADO ─────────────────────────────────── */
+let SEL = { serv:null, barb:null, fecha:null, hora:null, nombre:"", tel:"" };
+let STEP = 1;
+
+/* ── HELPERS ─────────────────────────────────── */
+const $ = id => document.getElementById(id);
+const meses = ["enero","febrero","marzo","abril","mayo","junio","julio","agosto","septiembre","octubre","noviembre","diciembre"];
+const dias  = ["Do","Lu","Ma","Mi","Ju","Vi","Sá"];
+
+/* ── INIT ───────────────────────────────────── */
+function init(){
+  // Servicios
+  $("serv-grid").innerHTML = SERVICIOS.map((s,i)=>`
+    <div class="serv-card" id="sc${i}" onclick="selServ(${i})">
+      <div class="serv-icon">${s.ico}</div>
+      <div class="serv-body">
+        <div class="serv-name">${s.n}</div>
+        <div class="serv-dur">${s.dur}</div>
+      </div>
+      <div class="serv-precio">${s.p}€</div>
+    </div>`).join("");
+
+  // Barberos
+  $("barb-grid").innerHTML = BARBEROS.map((b,i)=>`
+    <div class="barb-card" id="bc${i}" onclick="selBarb(${i})">
+      <div class="barb-av">${b.i}</div>
+      <div>
+        <div class="barb-name">${b.n}</div>
+        <div class="barb-rol">${b.rol}</div>
+      </div>
+      <div class="barb-check" id="bchk${i}"></div>
+    </div>`).join("");
+
+  // Fecha — mostrar próximas 3 semanas
+  renderCalendario();
+}
+
+function renderCalendario(){
+  const hoy = new Date();
+  const año = hoy.getFullYear();
+  const mes = hoy.getMonth();
+  $("mes-lbl").textContent = meses[mes].charAt(0).toUpperCase()+meses[mes].slice(1)+" "+año;
+
+  // Cabecera días
+  let html = dias.map(d=>`<div class="fecha-lbl">${d}</div>`).join("");
+
+  // Primer día del mes
+  const primerDia = new Date(año,mes,1).getDay();
+  for(let i=0;i<primerDia;i++) html+=`<div></div>`;
+
+  const diasMes = new Date(año,mes+1,0).getDate();
+  for(let d=1;d<=diasMes;d++){
+    const fecha = new Date(año,mes,d);
+    const pasado = fecha < new Date(hoy.getFullYear(),hoy.getMonth(),hoy.getDate());
+    const esDom = fecha.getDay()===0;
+    const fechaStr = `${año}-${String(mes+1).padStart(2,"0")}-${String(d).padStart(2,"0")}`;
+    const esHoy = fechaStr===hoy.toISOString().split("T")[0];
+    const dis = pasado||esDom;
+    html+=`<div class="fecha-day${dis?" disabled":esHoy?" today":""}${SEL.fecha===fechaStr?" sel":""}"
+      onclick="${dis?"":"selFecha('"+fechaStr+"')"}">${d}</div>`;
+  }
+  $("fecha-grid").innerHTML=html;
+
+  // Horas
+  $("horas-grid").innerHTML = HORAS.map(h=>`
+    <div class="hora-btn${OCUPADAS.includes(h)?" occupied":SEL.hora===h?" sel":""}"
+      onclick="${OCUPADAS.includes(h)?"":"selHora('"+h+"')"}">${h}</div>`).join("");
+}
+
+/* ── SELECTORES ─────────────────────────────── */
+function selServ(i){
+  SEL.serv=i;
+  document.querySelectorAll(".serv-card").forEach((el,j)=>el.classList.toggle("sel",i===j));
+  setTimeout(()=>goStep(2),250);
+}
+
+function selBarb(i){
+  SEL.barb=i;
+  document.querySelectorAll(".barb-card").forEach((el,j)=>el.classList.toggle("sel",i===j));
+  document.querySelectorAll(".barb-check").forEach((el,j)=>{el.textContent=i===j?"✓":"";});
+  setTimeout(()=>goStep(3),250);
+}
+
+function selFecha(f){
+  SEL.fecha=f; SEL.hora=null;
+  renderCalendario();
+  validFecha();
+}
+
+function selHora(h){
+  SEL.hora=h;
+  renderCalendario();
+  validFecha();
+}
+
+function validFecha(){
+  $("btn-fecha-cont").disabled=!(SEL.fecha&&SEL.hora);
+}
+
+function validDatos(){
+  const ok=$("inp-nombre").value.trim().length>1&&$("inp-tel").value.trim().length>8;
+  $("btn-datos-cont").disabled=!ok;
+  if(ok){ SEL.nombre=$("inp-nombre").value.trim(); SEL.tel=$("inp-tel").value.trim(); }
+}
+
+function validPolitica(){
+  $("btn-confirmar").disabled=!$("chk-pol").checked;
+}
+
+/* ── NAVEGACIÓN ─────────────────────────────── */
+function goStep(n){
+  STEP=n;
+  document.querySelectorAll(".step").forEach((el,i)=>el.classList.toggle("active",i+1===n));
+  // Progress
+  for(let i=1;i<=5;i++){
+    const ps=$("ps"+i);
+    if(!ps) continue;
+    ps.classList.remove("active","done");
+    if(i<n) ps.classList.add("done");
+    else if(i===n) ps.classList.add("active");
+  }
+  // Resumen paso 5
+  if(n===5) renderResumen();
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+
+function renderResumen(){
+  const s=SEL;
+  const serv=SERVICIOS[s.serv];
+  const barb=BARBEROS[s.barb];
+  const [año,mes,dia]=s.fecha.split("-");
+  $("resumen-box").innerHTML=`
+    <div class="res-row"><span class="res-l">Servicio</span><span class="res-v">${serv.n}</span></div>
+    <div class="res-row"><span class="res-l">Barbero</span><span class="res-v">${barb.n}</span></div>
+    <div class="res-row"><span class="res-l">Fecha</span><span class="res-v">${parseInt(dia)} de ${meses[parseInt(mes)-1]} de ${año}</span></div>
+    <div class="res-row"><span class="res-l">Hora</span><span class="res-v">${s.hora}</span></div>
+    <div class="res-row"><span class="res-l">Nombre</span><span class="res-v">${s.nombre}</span></div>
+    <div class="res-row"><span class="res-l">Teléfono</span><span class="res-v">${s.tel}</span></div>
+    <div class="res-row"><span class="res-l">Importe</span><span class="res-precio">${serv.p}€</span></div>`;
+}
+
+function confirmar(){
+  const s=SEL;
+  const serv=SERVICIOS[s.serv];
+  const barb=BARBEROS[s.barb];
+  const [año,mes,dia]=s.fecha.split("-");
+  $("confirm-detail").innerHTML=`
+    <div class="res-row" style="border:none;padding:6px 0;"><span style="font-size:12px;color:var(--ink3);">Servicio</span><span style="font-size:13px;font-weight:500;">${serv.n}</span></div>
+    <div class="res-row" style="border:none;padding:6px 0;"><span style="font-size:12px;color:var(--ink3);">Con</span><span style="font-size:13px;font-weight:500;">${barb.n}</span></div>
+    <div class="res-row" style="border:none;padding:6px 0;"><span style="font-size:12px;color:var(--ink3);">Cuándo</span><span style="font-size:13px;font-weight:500;">${parseInt(dia)} de ${meses[parseInt(mes)-1]} · ${s.hora}</span></div>
+    <div class="res-row" style="border:none;padding:6px 0;border-top:1px solid var(--bn);margin-top:4px;padding-top:10px;"><span style="font-size:12px;color:var(--ink3);">Total</span><span style="font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--gold);">${serv.p}€</span></div>`;
+
+  // Ocultar progress
+  $("progress").style.display="none";
+  // Mostrar paso 6
+  document.querySelectorAll(".step").forEach(el=>el.classList.remove("active"));
+  $("step6").classList.add("active");
+}
+
+function reiniciar(){
+  SEL={serv:null,barb:null,fecha:null,hora:null,nombre:"",tel:""};
+  $("progress").style.display="flex";
+  $("chk-pol").checked=false;
+  goStep(1);
+}
+
+init();
+</script>
+</body>
+</html>
